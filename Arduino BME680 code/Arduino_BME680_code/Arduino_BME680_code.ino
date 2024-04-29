@@ -1,3 +1,9 @@
+//This Arduino code utilizes the Adafruit BME680 sensor to measure temperature, humidity, and pressure.
+// It sets up the sensor with specific oversampling and filter settings for accurate readings.
+// The main loop continuously listens for input data via serial communication, delimited by "@" and "#". 
+// Once data is received, it is parsed and processed accordingly. If the incoming message indicates a request 
+// for sensor readings ("g"), the code performs a sensor reading and outputs the temperature, humidity, and pressure values in CSV format. 
+// The code ensures robust communication and accurate sensor readings for various applications.
 #include <Wire.h>
 #include <SPI.h>
 #include <Adafruit_Sensor.h>
