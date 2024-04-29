@@ -1,5 +1,5 @@
 # Master-Thesis-2024
-**Closed Loop Feedback Control System for ExohSpec Development**
+## Project Title: **Closed Loop Feedback Control System for ExohSpec Development**
 
 **Summary:**
 - This project aimed to address challenges in achieving high-resolution radial velocity spectroscopy, particularly for identifying habitable Earth-like exoplanets.
