@@ -1,51 +1,51 @@
 # Closed-Loop Feedback Control System for EXOhSPEC
 
-**MSc Astrophysics Thesis · University of Hertfordshire · 2024**  
+<p align="center">
+  <img src="figures/exohspec_feedback_architecture.svg" alt="EXOhSPEC closed-loop stability architecture" width="100%">
+</p>
+
+**MSc Astrophysics Thesis and Selected Instrumentation Development**  
+University of Hertfordshire · 2024
+
 **Author:** Biswajit Jana  
 **Supervisors:** Prof Hugh R. A. Jones and Prof Bill Martin
 
-## Overview
+## Research question
 
-EXOhSPEC is a high-resolution spectrograph development platform for precision radial-velocity applications. This thesis examined how environmental conditions influence optical path length and detector-plane stability, and developed a closed-loop approach for reducing image drift through environmental monitoring and thermal control.
+EXOhSPEC is a high-resolution spectrograph development platform for precision radial-velocity work. This project investigated how temperature, pressure and humidity affect optical path length (OPL) and detector-plane motion, and whether feedback control can reduce spectral-image drift.
 
-## Thesis focus
+The experimental workflow combines environmental telemetry, IDS3010 interferometry, MaxIm DL centroid measurement, thermal control through a Meerstetter TEC controller, and bounded active-optics correction.
 
-The work combined measurements of temperature, pressure and humidity with optical-path-length and guider information to study spectrograph stability. The project investigated:
+## Feedback architecture
 
-- environmental monitoring within and around the spectrograph enclosure;
-- refractive-index and optical-path-length behaviour;
-- thermal control using a Meerstetter TEC controller;
-- detector-plane drift measured through MaxIm DL guider data;
-- Python-based acquisition, logging and analysis;
-- feedback strategies for stabilising the spectral image.
+<p align="center">
+  <a href="figures/hybrid_feedback_algorithm.svg"><img src="figures/hybrid_feedback_algorithm.svg" alt="Hybrid feedback algorithm" width="88%"></a>
+</p>
 
-## Experimental instrumentation
+The control hierarchy is TEC-primary: thermal correction is used for coarse and slow drift, while active optics is used only for small residual image motion. Cumulative AO travel is monitored so that the thermal loop can absorb an offset before the fine actuator reaches its range limit.
 
-| Component | Role |
-|---|---|
-| EXOhSPEC | High-resolution spectrograph platform |
-| Meerstetter TEC controller | Thermal setpoint control |
-| BME680 and environmental sensors | Temperature, pressure and humidity monitoring |
-| IDS3010 interferometer | Optical-path-length measurement |
-| MaxIm DL guider | Detector-plane drift measurement |
-| Python and Jupyter notebooks | Data acquisition, control and analysis |
+## Selected results
 
-## Research context
+<p align="center">
+  <a href="results/"><img src="figures/selected_experimental_results.svg" alt="Selected experimental results" width="100%"></a>
+</p>
 
-Precision radial-velocity spectroscopy is sensitive to changes in optical alignment and optical path length. The thesis considered a practical control route based on measured environmental behaviour rather than relying solely on vacuum isolation. The resulting work established the measurement and analysis framework used in later EXOhSPEC stability experiments.
+Selected experiments measured OPL sensitivity to environmental change, millikelvin-level TEC stability during a 44.5 h run, active-optics centroid response, and a hybrid-control comparison in which `dY` RMS decreased from 2.72 px to 0.69 px. See [`results/README.md`](results/README.md).
 
-## Repository scope
+## Code
 
-This repository is a concise public record of the MSc project. It will contain selected thesis material and approved presentation outputs. Detailed laboratory configurations, raw experimental data, internal controller development, and working research records are maintained separately.
+- [`hybrid_feedback_model.py`](code/hybrid_feedback_model.py) - hardware-independent TEC-primary / AO-fine-trim decision logic.
+- [`drift_metrics.py`](code/drift_metrics.py) - RMS, mean-absolute-error and threshold-fraction summaries for reference-relative centroid drift.
 
-## Contact
+The public code exposes the method and its calibration inputs. Device ports, credentials, raw telemetry and laboratory configuration are not included.
 
-**Biswajit Jana**  
-MSc Astrophysics, University of Hertfordshire
-
-## Seminar presentations
+## Presentations
 
 - [State of Art: Radial Velocity Spectrograph](Poster%20Presentation%20and%20Seminar/Seminar1-State%20of%20Art_%20Radial%20Velocity%20Spectrograph.pdf)
 - [Advancements in Precision: LASER Interferometer Control System](Poster%20Presentation%20and%20Seminar/Seminar%202%20-%20Advancements%20in%20Precision_LASER%20Interferometer%20Control%20Systempdf.pdf)
 - [Optimising Path Length Stability in Laser Interferometers using Air Refractive Index](Poster%20Presentation%20and%20Seminar/Seminar%203%20-%20Optimizing%20Path%20Length%20Stability%20in%20Laser%20Interferometers%20using%20Air%20Refractive%20Index.pdf)
 - [High-Resolution RV Spectrographs: ANDES and PID Loop Implementation in EXOhSPEC](Poster%20Presentation%20and%20Seminar/Seminar%204%20-High-Resolution%20RV%20Spectrographs_ANDES%20and%20PID%20Loop%20Implementation%20in%20EXOhSPEC%20.pdf)
+
+## Scope
+
+This public repository contains selected methods, figures, code and MSc presentation material. The full working archive, raw data, laboratory configuration, detailed controller variants and unsubmitted material are kept separately.
