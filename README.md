@@ -34,6 +34,7 @@ Selected experiments measured OPL sensitivity to environmental change, millikelv
 
 ## Code
 
+- [`tec_temperature_monitor.py`](code/tec_temperature_monitor.py) - portable Meerstetter TEC temperature logger, adapted from the thesis development notebook.
 - [`hybrid_feedback_model.py`](code/hybrid_feedback_model.py) - hardware-independent TEC-primary / AO-fine-trim decision logic.
 - [`drift_metrics.py`](code/drift_metrics.py) - RMS, mean-absolute-error and threshold-fraction summaries for reference-relative centroid drift.
 
