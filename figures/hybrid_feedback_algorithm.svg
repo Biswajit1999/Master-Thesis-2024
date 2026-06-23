@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="930" viewBox="0 0 1300 930" role="img" aria-labelledby="title desc">
+  <title id="title">TEC-primary and active-optics fine-trim algorithm</title>
+  <desc id="desc">Flowchart for EXOhSPEC hybrid feedback: acquire telemetry, quality check, apply TEC correction for coarse drift, apply active optics for small residuals, check travel limit, log and repeat.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f8fbfd"/><stop offset="1" stop-color="#eef4f8"/></linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%"><feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#1e293b" flood-opacity="0.14"/></filter>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#315f88"/></marker>
+    <marker id="arrG" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#167a5b"/></marker>
+  </defs>
+  <rect width="1300" height="930" rx="24" fill="url(#bg)"/>
+  <text x="55" y="70" font-family="Arial" font-size="33" font-weight="700" fill="#132f4c">Hybrid feedback algorithm</text>
+  <text x="55" y="105" font-family="Arial" font-size="18" fill="#596f80">TEC handles coarse / slow drift; active optics corrects only small residual centroid error.</text>
+  <g filter="url(#shadow)"><rect x="470" y="145" width="360" height="64" rx="16" fill="#e2eef8" stroke="#6b91b8" stroke-width="2"/><text x="650" y="184" text-anchor="middle" font-family="Arial" font-size="19" font-weight="700" fill="#153d65">Acquire T, P, RH, ΔOPL, dX and dY</text></g>
+  <path d="M650 209 V252" fill="none" stroke="#315f88" stroke-width="4" marker-end="url(#arr)"/>
+  <g filter="url(#shadow)"><rect x="470" y="260" width="360" height="64" rx="16" fill="#ffffff" stroke="#8aa7bf" stroke-width="2"/><text x="650" y="299" text-anchor="middle" font-family="Arial" font-size="18" font-weight="700" fill="#204968">Telemetry valid and time-aligned?</text></g>
+  <path d="M650 324 V361" fill="none" stroke="#315f88" stroke-width="4" marker-end="url(#arr)"/><text x="668" y="352" font-family="Arial" font-size="15" fill="#315f88">yes</text>
+  <path d="M470 292 H260 V742 H470" fill="none" stroke="#9c5b2d" stroke-width="3.5" marker-end="url(#arr)"/><text x="275" y="278" font-family="Arial" font-size="15" fill="#9c5b2d">no: flag and wait for next sample</text>
+  <polygon points="650,365 820,445 650,525 480,445" fill="#fff5df" stroke="#c99740" stroke-width="2.5" filter="url(#shadow)"/><text x="650" y="438" text-anchor="middle" font-family="Arial" font-size="18" font-weight="700" fill="#704900">|dY| above coarse band</text><text x="650" y="462" text-anchor="middle" font-family="Arial" font-size="15" fill="#704900">or AO travel near limit?</text>
+  <path d="M820 445 H980 V403" fill="none" stroke="#315f88" stroke-width="4" marker-end="url(#arr)"/><text x="835" y="430" font-family="Arial" font-size="15" fill="#315f88">yes</text>
+  <g filter="url(#shadow)"><rect x="980" y="340" width="250" height="126" rx="16" fill="#e1f4ea" stroke="#68a784" stroke-width="2.5"/><text x="1105" y="380" text-anchor="middle" font-family="Arial" font-size="18" font-weight="700" fill="#17674c">TEC primary action</text><text x="1105" y="410" text-anchor="middle" font-family="Arial" font-size="15" fill="#295443">Calibrated setpoint step</text><text x="1105" y="434" text-anchor="middle" font-family="Arial" font-size="15" fill="#295443">with clamp and settling delay</text></g>
+  <path d="M1105 466 V742 H830" fill="none" stroke="#167a5b" stroke-width="4" marker-end="url(#arrG)"/>
+  <path d="M650 525 V570" fill="none" stroke="#315f88" stroke-width="4" marker-end="url(#arr)"/><text x="668" y="557" font-family="Arial" font-size="15" fill="#315f88">no</text>
+  <polygon points="650,574 820,654 650,734 480,654" fill="#edf7fb" stroke="#5a94b6" stroke-width="2.5" filter="url(#shadow)"/><text x="650" y="647" text-anchor="middle" font-family="Arial" font-size="18" font-weight="700" fill="#1c5878">Residual outside fine deadband?</text><text x="650" y="671" text-anchor="middle" font-family="Arial" font-size="15" fill="#1c5878">and within AO fine-trim range</text>
+  <path d="M820 654 H980 V620" fill="none" stroke="#315f88" stroke-width="4" marker-end="url(#arr)"/><text x="835" y="639" font-family="Arial" font-size="15" fill="#315f88">yes</text>
+  <g filter="url(#shadow)"><rect x="980" y="555" width="250" height="126" rx="16" fill="#e1f4ea" stroke="#68a784" stroke-width="2.5"/><text x="1105" y="595" text-anchor="middle" font-family="Arial" font-size="18" font-weight="700" fill="#17674c">AO fine trim</text><text x="1105" y="625" text-anchor="middle" font-family="Arial" font-size="15" fill="#295443">Bounded step correction</text><text x="1105" y="649" text-anchor="middle" font-family="Arial" font-size="15" fill="#295443">Track cumulative travel</text></g>
+  <path d="M1105 681 V742 H830" fill="none" stroke="#167a5b" stroke-width="4" marker-end="url(#arrG)"/>
+  <path d="M650 734 V775" fill="none" stroke="#315f88" stroke-width="4" marker-end="url(#arr)"/><text x="668" y="763" font-family="Arial" font-size="15" fill="#315f88">no</text>
+  <g filter="url(#shadow)"><rect x="470" y="785" width="360" height="66" rx="16" fill="#ffffff" stroke="#8aa7bf" stroke-width="2"/><text x="650" y="814" text-anchor="middle" font-family="Arial" font-size="18" font-weight="700" fill="#204968">Log telemetry, action and quality flags</text><text x="650" y="837" text-anchor="middle" font-family="Arial" font-size="14" fill="#526978">Wait for the next sampling interval</text></g>
+  <path d="M470 818 H360 V175 H460" fill="none" stroke="#315f88" stroke-width="4" marker-end="url(#arr)"/>
+  <text x="80" y="890" font-family="Arial" font-size="15" fill="#617889">All gains, thresholds and sign conventions are experiment-specific calibration inputs; the public code exposes them as parameters.</text>
+</svg>
