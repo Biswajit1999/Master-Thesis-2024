@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="760" viewBox="0 0 1500 760" role="img" aria-labelledby="title desc">
+<title id="title">Stage-2 RMS dY comparison across controller runs</title>
+<desc id="desc">Bar chart of RMS dY in pixels from six Stage-2 runs: 23 March, April v6, 15 April, 20 April, 22-24 April and V4 June. Lower is better.</desc>
+<defs><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#fbfdff"/><stop offset="1" stop-color="#edf4f8"/></linearGradient><filter id="sh" x="-10%" y="-10%" width="120%" height="120%"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#1f2937" flood-opacity="0.14"/></filter></defs>
+<rect width="1500" height="760" rx="26" fill="url(#bg)"/>
+<text x="70" y="76" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#132f4c">Stage-2 centroid-stability comparison</text>
+<text x="70" y="112" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#5c7180">RMS dY across representative controller runs. Lower is better; full-run metrics include disturbed intervals and therefore do not by themselves define local recovery performance.</text>
+<g filter="url(#sh)"><rect x="80" y="150" width="1340" height="540" rx="20" fill="#ffffff" stroke="#93aac0" stroke-width="2"/>
+<line x1="220" y1="610" x2="1330" y2="610" stroke="#4e687b" stroke-width="2"/><line x1="220" y1="190" x2="220" y2="610" stroke="#4e687b" stroke-width="2"/>
+<g font-family="Arial" font-size="15" fill="#5d7485"><line x1="220" y1="610" x2="1330" y2="610" stroke="#d9e4eb"/><text x="200" y="615" text-anchor="end">0</text><line x1="220" y1="530" x2="1330" y2="530" stroke="#d9e4eb"/><text x="200" y="535" text-anchor="end">1</text><line x1="220" y1="450" x2="1330" y2="450" stroke="#d9e4eb"/><text x="200" y="455" text-anchor="end">2</text><line x1="220" y1="370" x2="1330" y2="370" stroke="#d9e4eb"/><text x="200" y="375" text-anchor="end">3</text><line x1="220" y1="290" x2="1330" y2="290" stroke="#d9e4eb"/><text x="200" y="295" text-anchor="end">4</text><line x1="220" y1="210" x2="1330" y2="210" stroke="#d9e4eb"/><text x="200" y="215" text-anchor="end">5</text></g>
+<text x="104" y="405" transform="rotate(-90 104,405)" font-family="Arial" font-size="17" fill="#42596a">RMS dY (px)</text>
+<g font-family="Arial" text-anchor="middle"><rect x="290" y="580.3" width="105" height="29.7" rx="8" fill="#1f6f9d"/><text x="342" y="568" font-size="16" font-weight="700" fill="#1f4868">0.371</text><text x="342" y="642" font-size="15" fill="#42596a">A · 23 Mar</text>
+<rect x="465" y="471.5" width="105" height="138.5" rx="8" fill="#5e8bb2"/><text x="517" y="459" font-size="16" font-weight="700" fill="#1f4868">1.731</text><text x="517" y="642" font-size="15" fill="#42596a">B · Apr v6</text>
+<rect x="640" y="211.4" width="105" height="398.6" rx="8" fill="#c77e47"/><text x="692" y="199" font-size="16" font-weight="700" fill="#8c4e20">4.982</text><text x="692" y="642" font-size="15" fill="#42596a">C · 15 Apr</text>
+<rect x="815" y="139.9" width="105" height="470.1" rx="8" fill="#b65c3f"/><text x="867" y="128" font-size="16" font-weight="700" fill="#8c3f23">5.876</text><text x="867" y="642" font-size="15" fill="#42596a">D · 20 Apr</text>
+<rect x="990" y="513.8" width="105" height="96.2" rx="8" fill="#3f8a6d"/><text x="1042" y="501" font-size="16" font-weight="700" fill="#17674c">1.202</text><text x="1042" y="642" font-size="15" fill="#42596a">E · 22–24 Apr</text>
+<rect x="1165" y="570.2" width="105" height="39.8" rx="8" fill="#17674c"/><text x="1217" y="558" font-size="16" font-weight="700" fill="#17674c">0.498</text><text x="1217" y="642" font-size="15" fill="#42596a">V4 · Jun</text></g>
+<text x="280" y="680" font-family="Arial" font-size="15" fill="#617989">V4 June improved RMS dY relative to the April 22–24 full-run metric, but retained a −0.584 px mean dY bias and achieved 0% of frames within |dY| ≤ 0.10 px.</text>
+</g></svg>
