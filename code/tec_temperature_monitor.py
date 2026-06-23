@@ -22,7 +22,7 @@ from pathlib import Path
 from mecom import MeComSerial
 
 TARGET_PARAMETER = "Target Object Temperature"
-ACTUAL_PARAMETER = "Actual Object Temperature"
+MEASURED_PARAMETER = "Object Temperature"
 
 
 def parse_args() -> argparse.Namespace:
@@ -45,7 +45,9 @@ def main() -> None:
 
     with MeComSerial(serialport=args.port) as tec, args.csv.open("w", newline="", encoding="utf-8") as handle:
         address = tec.identify()
-        tec.set_parameter(value=args.setpoint_c, parameter_name=TARGET_PARAMETER, address=address)
+        success = tec.set_parameter(value=args.setpoint_c, parameter_name=TARGET_PARAMETER, address=address)
+        if not success:
+            raise RuntimeError("TEC controller did not accept the requested setpoint")
 
         writer = csv.DictWriter(
             handle,
@@ -54,7 +56,7 @@ def main() -> None:
         writer.writeheader()
 
         while time.monotonic() < end_time:
-            measured_c = tec.get_parameter(parameter_name=ACTUAL_PARAMETER, address=address)
+            measured_c = tec.get_parameter(parameter_name=MEASURED_PARAMETER, address=address)
             row = {
                 "timestamp_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
                 "setpoint_c": args.setpoint_c,
