@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
+  <title id="title">Exp-H long-run temperature-only OPL and pixel benchmark</title>
+  <desc id="desc">Summary of Exp-H: approximately eight-hour temperature-only OPL and pixel feedback benchmark under a 5.14 hPa pressure span. Pixel drift remained bounded, but OPL residuals showed the limit of temperature-only correction.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f9fbfd"/><stop offset="1" stop-color="#eef4f8"/></linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%"><feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#1e293b" flood-opacity="0.14"/></filter>
+  </defs>
+  <rect width="1400" height="760" rx="26" fill="url(#bg)"/>
+  <text x="68" y="76" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#132f4c">Exp-H - long-run OPL + pixel feedback benchmark</text>
+  <text x="68" y="112" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#5c7180">A temperature-only control benchmark under a strong environmental pressure disturbance.</text>
+  <g filter="url(#shadow)">
+    <rect x="70" y="170" width="290" height="190" rx="20" fill="#ffffff" stroke="#88a9c3" stroke-width="2"/>
+    <rect x="70" y="170" width="290" height="40" rx="20" fill="#e6f0f8"/>
+    <text x="96" y="198" font-family="Arial" font-size="18" font-weight="700" fill="#173e63">Run envelope</text>
+    <text x="100" y="264" font-family="Arial" font-size="44" font-weight="700" fill="#22547e">~8 h</text>
+    <text x="100" y="299" font-family="Arial" font-size="16" fill="#445e70">long-run feedback period</text>
+    <text x="100" y="336" font-family="Arial" font-size="24" font-weight="700" fill="#22547e">ΔP ≈ 5.14 hPa</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="405" y="170" width="430" height="190" rx="20" fill="#ffffff" stroke="#88a9c3" stroke-width="2"/>
+    <rect x="405" y="170" width="430" height="40" rx="20" fill="#e6f0f8"/>
+    <text x="431" y="198" font-family="Arial" font-size="18" font-weight="700" fill="#173e63">Image-plane behaviour</text>
+    <text x="435" y="267" font-family="Arial" font-size="27" font-weight="700" fill="#22547e">RMS ΔY: 0.79 px → 0.83 px</text>
+    <text x="435" y="307" font-family="Arial" font-size="27" font-weight="700" fill="#22547e">Feedback RMS ΔX: 0.16 px</text>
+    <text x="435" y="340" font-family="Arial" font-size="15" fill="#5f7381">Pixel motion stayed bounded despite the disturbed pressure envelope.</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="880" y="170" width="450" height="190" rx="20" fill="#ffffff" stroke="#c69446" stroke-width="2"/>
+    <rect x="880" y="170" width="450" height="40" rx="20" fill="#fff0d4"/>
+    <text x="906" y="198" font-family="Arial" font-size="18" font-weight="700" fill="#795112">OPL residual boundary</text>
+    <text x="910" y="267" font-family="Arial" font-size="27" font-weight="700" fill="#9b6511">RMS OPL residual: 0.77 → 6.47 µm</text>
+    <text x="910" y="307" font-family="Arial" font-size="17" fill="#6d542c">Temperature control cannot independently cancel</text>
+    <text x="910" y="332" font-family="Arial" font-size="17" fill="#6d542c">all pressure- and humidity-driven refractivity terms.</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="70" y="440" width="1260" height="210" rx="20" fill="#ffffff" stroke="#6da287" stroke-width="2.5"/>
+    <rect x="70" y="440" width="1260" height="42" rx="20" fill="#e1f4ea"/>
+    <text x="96" y="468" font-family="Arial" font-size="19" font-weight="700" fill="#17674c">Research interpretation</text>
+    <line x1="150" y1="540" x2="1240" y2="540" stroke="#99b9cc" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="260" cy="540" r="22" fill="#22547e"/><text x="260" y="547" text-anchor="middle" font-family="Arial" font-size="18" font-weight="700" fill="#fff">1</text>
+    <circle cx="640" cy="540" r="22" fill="#22547e"/><text x="640" y="547" text-anchor="middle" font-family="Arial" font-size="18" font-weight="700" fill="#fff">2</text>
+    <circle cx="1030" cy="540" r="22" fill="#17674c"/><text x="1030" y="547" text-anchor="middle" font-family="Arial" font-size="18" font-weight="700" fill="#fff">3</text>
+    <text x="260" y="588" text-anchor="middle" font-family="Arial" font-size="17" font-weight="700" fill="#29485f">Measure environmental forcing</text>
+    <text x="260" y="614" text-anchor="middle" font-family="Arial" font-size="15" fill="#5f7381">OPL, pressure and pixel telemetry</text>
+    <text x="640" y="588" text-anchor="middle" font-family="Arial" font-size="17" font-weight="700" fill="#29485f">Apply thermal feedback</text>
+    <text x="640" y="614" text-anchor="middle" font-family="Arial" font-size="15" fill="#5f7381">Temperature maintains first-order stability</text>
+    <text x="1030" y="588" text-anchor="middle" font-family="Arial" font-size="17" font-weight="700" fill="#17674c">Identify the residual limit</text>
+    <text x="1030" y="614" text-anchor="middle" font-family="Arial" font-size="15" fill="#5f7381">Motivates a fine correction layer</text>
+  </g>
+  <text x="70" y="710" font-family="Arial" font-size="14" fill="#617989">Warm-up and feedback metrics are reported separately. This figure is a benchmark summary, not a raw-telemetry release.</text>
+</svg>

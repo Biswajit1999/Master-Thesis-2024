@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
+  <title id="title">March hybrid TEC and AO recovery experiment</title>
+  <desc id="desc">Summary of the 9 March 2026 hybrid control run: 44.36 hours, final radial centroid error 0.0845 pixels, with full-run metrics dominated by large environmental excursions.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbfcfe"/><stop offset="1" stop-color="#edf4f8"/></linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%"><feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#1e293b" flood-opacity="0.14"/></filter>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#315f88"/></marker>
+  </defs>
+  <rect width="1400" height="760" rx="26" fill="url(#bg)"/>
+  <text x="68" y="76" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#132f4c">March hybrid TEC-AO recovery run</text>
+  <text x="68" y="112" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#5c7180">9 March 2026: a disturbed 44.36-hour experiment that demonstrates recovery, not continuous sub-pixel hold.</text>
+  <g filter="url(#shadow)">
+    <rect x="70" y="170" width="290" height="190" rx="20" fill="#ffffff" stroke="#88a9c3" stroke-width="2"/>
+    <rect x="70" y="170" width="290" height="40" rx="20" fill="#e6f0f8"/>
+    <text x="96" y="198" font-family="Arial" font-size="18" font-weight="700" fill="#173e63">Run duration</text>
+    <text x="100" y="274" font-family="Arial" font-size="52" font-weight="700" fill="#22547e">44.36 h</text>
+    <text x="100" y="316" font-family="Arial" font-size="16" fill="#526978">warm-up plus hybrid feedback</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="405" y="170" width="430" height="190" rx="20" fill="#ffffff" stroke="#6da287" stroke-width="2"/>
+    <rect x="405" y="170" width="430" height="40" rx="20" fill="#e1f4ea"/>
+    <text x="431" y="198" font-family="Arial" font-size="18" font-weight="700" fill="#17674c">Recovered final state</text>
+    <text x="435" y="262" font-family="Arial" font-size="29" font-weight="700" fill="#17674c">dX = -0.0835 px</text>
+    <text x="435" y="300" font-family="Arial" font-size="29" font-weight="700" fill="#17674c">dY = -0.0132 px</text>
+    <text x="435" y="337" font-family="Arial" font-size="20" fill="#3d6655">radial error = 0.0845 px</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="880" y="170" width="450" height="190" rx="20" fill="#ffffff" stroke="#c69446" stroke-width="2"/>
+    <rect x="880" y="170" width="450" height="40" rx="20" fill="#fff0d4"/>
+    <text x="906" y="198" font-family="Arial" font-size="18" font-weight="700" fill="#795112">Full-run limitation</text>
+    <text x="910" y="262" font-family="Arial" font-size="29" font-weight="700" fill="#9b6511">radial RMS = 3.8663 px</text>
+    <text x="910" y="300" font-family="Arial" font-size="22" fill="#6d542c">within 0.10 px: 5.13% (2.20 h)</text>
+    <text x="910" y="333" font-family="Arial" font-size="16" fill="#6d542c">Large excursions dominate the full-run distribution.</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="70" y="440" width="1260" height="210" rx="20" fill="#ffffff" stroke="#8aa7bf" stroke-width="2.5"/>
+    <rect x="70" y="440" width="1260" height="42" rx="20" fill="#e6f0f8"/>
+    <text x="96" y="468" font-family="Arial" font-size="19" font-weight="700" fill="#173e63">What the run establishes</text>
+    <path d="M195 545 H1165" fill="none" stroke="#9ab6ca" stroke-width="8" stroke-linecap="round"/>
+    <path d="M195 545 H1090" fill="none" stroke="#315f88" stroke-width="8" stroke-linecap="round" marker-end="url(#arr)"/>
+    <circle cx="270" cy="545" r="22" fill="#315f88"/><text x="270" y="552" text-anchor="middle" font-family="Arial" font-size="18" font-weight="700" fill="#fff">1</text>
+    <circle cx="650" cy="545" r="22" fill="#315f88"/><text x="650" y="552" text-anchor="middle" font-family="Arial" font-size="18" font-weight="700" fill="#fff">2</text>
+    <circle cx="1030" cy="545" r="22" fill="#17674c"/><text x="1030" y="552" text-anchor="middle" font-family="Arial" font-size="18" font-weight="700" fill="#fff">3</text>
+    <text x="270" y="593" text-anchor="middle" font-family="Arial" font-size="17" font-weight="700" fill="#29485f">Thermal drift grows</text>
+    <text x="270" y="618" text-anchor="middle" font-family="Arial" font-size="15" fill="#5f7381">TEC response is slow by design</text>
+    <text x="650" y="593" text-anchor="middle" font-family="Arial" font-size="17" font-weight="700" fill="#29485f">AO pulls back residual error</text>
+    <text x="650" y="618" text-anchor="middle" font-family="Arial" font-size="15" fill="#5f7381">fast local centroid correction</text>
+    <text x="1030" y="593" text-anchor="middle" font-family="Arial" font-size="17" font-weight="700" fill="#17674c">Sub-pixel recovery reached</text>
+    <text x="1030" y="618" text-anchor="middle" font-family="Arial" font-size="15" fill="#5f7381">not a claim of continuous lock</text>
+  </g>
+  <text x="70" y="710" font-family="Arial" font-size="14" fill="#617989">The final centroid confirms recovery capability; full-run RMS and time-within-band metrics preserve the disturbed-run context.</text>
+</svg>

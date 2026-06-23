@@ -24,6 +24,8 @@ The experimental workflow combines environmental telemetry, IDS3010 interferomet
 
 The control hierarchy is TEC-primary: thermal correction is used for coarse and slow drift, while active optics is used only for small residual image motion. Cumulative AO travel is monitored so that the thermal loop can absorb an offset before the fine actuator reaches its range limit.
 
+The code-derived model, including the rolling OLS predictor, OPL feed-forward term, PI fallback, AO matrix inversion and reference-management rule, is documented in [`methods/V6B_HYBRID_CONTROLLER.md`](methods/V6B_HYBRID_CONTROLLER.md).
+
 ## Selected results
 
 <p align="center">
