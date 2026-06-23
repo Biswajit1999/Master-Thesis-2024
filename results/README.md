@@ -1,8 +1,17 @@
 # Selected experimental results
 
-This page records a small set of representative outcomes from the EXOhSPEC measurement and feedback programme. It is a results summary, not a raw-data release.
-
 ![Selected experimental results](../figures/selected_experimental_results.svg)
+
+This folder contains compact result records with their comparison windows and interpretation stated explicitly. It is not a raw-data release.
+
+## Experiment records
+
+| Record | What it contributes |
+|---|---|
+| [Exp-H long-run OPL + pixel benchmark](exp_h_long_run_benchmark.md) | Temperature-only feedback under a strong pressure disturbance; establishes the residual limit that motivated a fine correction layer. |
+| [March hybrid TEC-AO recovery experiment](march_hybrid_recovery.md) | 44.36-hour disturbed run; documents sub-pixel final recovery together with the full-run limitation. |
+
+## Cross-experiment indicators
 
 | Area | Reported result | Interpretation |
 |---|---:|---|
@@ -12,4 +21,4 @@ This page records a small set of representative outcomes from the EXOhSPEC measu
 | Fine correction test | mean residual 0.443 px to 0.153 px across 8 automated corrections | AO reduced small residual centroid offsets after calibration. |
 | Hybrid control comparison | dY RMS 2.72 px to 0.69 px | The selected comparison interval showed a 74.5% reduction when thermal control was combined with AO fine trim. |
 
-The associated raw telemetry, laboratory configuration and detailed controller versions are not published here. The public material provides the measured scale of the problem, the control architecture and a hardware-independent decision model.
+Raw telemetry, laboratory configuration and detailed controller versions are not published here. The public record provides the measured scale of the problem, the control architecture and a hardware-independent decision model.
