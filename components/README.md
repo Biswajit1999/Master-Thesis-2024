@@ -6,8 +6,9 @@ This section records **why each major module was used**, the experiment that est
 
 It is deliberately an overview rather than a laboratory build manual. The repository does **not** publish exact optical geometry, electrical wiring, device addresses, COM ports, calibration matrices, PID gains, trigger thresholds, camera coordinates, raw telemetry, full automation code or operational safety configuration.
 
-| Component | What the report covers | Characterisation question |
+| Component or study | What the report covers | Characterisation question |
 |---|---|---|
+| [Experimental characterisation programme](experimental_characterisation_program.md) | How the individual studies form one controlled-development sequence | Which experiment reduced which uncertainty before hybrid control? |
 | [IDS3010 interferometer and glass-slip perturbation](interferometer_and_glass_slip.md) | Optical-path monitoring, interference sensitivity and discontinuity diagnosis | Does a controlled optical-path perturbation produce a measurable and recoverable response? |
 | [BME680 environmental monitoring](bme680_environmental_monitoring.md) | Local temperature, pressure and humidity context | Which environmental trends co-vary with OPL and centroid drift? |
 | [PT104 four-region thermal mapping](pt104_four_region_thermal_mapping.md) | Spatial temperature gradients and thermal health | Is one temperature sensor representative of the whole enclosure? |
