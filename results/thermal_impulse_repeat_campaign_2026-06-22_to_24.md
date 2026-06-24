@@ -88,7 +88,7 @@ Only two science frames occurred within the 70-second pulse itself. These trials
 
 The baseline must be evaluated before interpreting a response. A large pre-pulse scatter or slope means that a later apparent response may contain both heating and pre-existing drift.
 
-| Location | Baseline $\Delta Y$ slope (px min$^{-1}$) | Baseline $\sigma_{\Delta Y}$ (px) | Baseline assessment |
+| Location | Baseline ΔY slope (px min⁻¹) | Baseline σΔY (px) | Baseline assessment |
 |---|---:|---:|---|
 | Grating A | -0.0499 | 0.1208 | Centroid baseline was already drifting/noisy; large response requires confirmation by repeat. |
 | Grating B | +0.0136 | 0.0103 | Cleanest centroid baseline. |
@@ -101,7 +101,7 @@ The baseline analysis is why the report refers to **observed response candidates
 
 ## 4. Measured response to the common 154 J impulse
 
-| Location | Peak $|\Delta Y|$ (px) | Time to $|\Delta Y|$ peak (min) | Peak radial response (px) | Peak $|\Delta\mathrm{OPL}|$ ($\mu$m) | Final recorded $\Delta Y$ (px) | Final recorded $\Delta\mathrm{OPL}$ ($\mu$m) |
+| Location | Peak abs(ΔY) (px) | Time to abs(ΔY) peak (min) | Peak radial response (px) | Peak abs(ΔOPL) (µm) | Final ΔY (px) | Final ΔOPL (µm) |
 |---|---:|---:|---:|---:|---:|---:|
 | Grating A | **0.888** | 11.43 | **1.047** | 0.142 | +0.888 | +0.134 |
 | Grating B | 0.200 | 31.39 | 0.283 | 0.054 | +0.200 | -0.041 |
@@ -142,7 +142,7 @@ This is about sixteen times the Grating-A OPL amplitude in the same analysis. It
 
 The table below gives the post-pulse span of each contextual channel relative to its own baseline. These values describe the environmental envelope during the response; they are not local heated-surface temperatures.
 
-| Location | TEC span (C) | ECU $\Delta T$ span (C) | BME $\Delta T$ span (C) | ECU/BME $\Delta P$ span (hPa) | ECU/BME $\Delta$RH span (%) |
+| Location | TEC span (°C) | ECU ΔT span (°C) | BME ΔT span (°C) | ECU/BME ΔP span (hPa) | ECU/BME ΔRH span (%) |
 |---|---:|---:|---:|---:|---:|
 | Grating A | 0.013 | 0.035 | 0.060 | 0.12 / 0.07 | 0.93 / 2.51 |
 | Grating B | 0.011 | 0.121 | 0.460 | 0.66 / 0.55 | 3.91 / 7.00 |
@@ -160,9 +160,9 @@ The table below gives the post-pulse span of each contextual channel relative to
 
 ## 6. Descriptive post-pulse correlation diagnostics
 
-The following are **zero-lag Pearson correlations** between detrended $\Delta Y$ and the indicated post-pulse variable. They are included because they help identify co-evolution, not because they prove mechanism.
+The following are **zero-lag Pearson correlations** between detrended ΔY and the indicated post-pulse variable. They are included because they help identify co-evolution, not because they prove mechanism.
 
-| Location | $r(\Delta Y,\Delta\mathrm{OPL})$ | $r(\Delta Y,\Delta T_{\mathrm{BME}})$ | $r(\Delta Y,\Delta P_{\mathrm{BME}})$ | $r(\Delta Y,\Delta\mathrm{RH}_{\mathrm{BME}})$ |
+| Location | Pearson r: ΔY vs ΔOPL | Pearson r: ΔY vs BME ΔT | Pearson r: ΔY vs BME ΔP | Pearson r: ΔY vs BME ΔRH |
 |---|---:|---:|---:|---:|
 | Grating A | +0.980 | -0.888 | +0.897 | +0.187 |
 | Grating B | -0.512 | +0.830 | -0.739 | +0.432 |
@@ -173,9 +173,9 @@ The following are **zero-lag Pearson correlations** between detrended $\Delta Y$
 
 These coefficients should **not** be used as sensitivity coefficients in a model yet. Each series is short, several variables evolve monotonically with time, and thermal/optical response lags may differ by minutes. The most reliable use of this table is to identify which repeats require lag-aware modelling:
 
-- Grating A has strong positive $ΔY$-OPL co-evolution, but its baseline must first be improved.
+- Grating A has strong positive ΔY-OPL co-evolution, but its baseline must first be improved.
 - Camera mount B has strong negative zero-lag associations, but the trial is short and incomplete.
-- Camera mount A's large OPL rise is not explained by a simple zero-lag $ΔY$-OPL relation; it likely contains delayed or multi-path behaviour.
+- Camera mount A's large OPL rise is not explained by a simple zero-lag ΔY-OPL relation; it likely contains delayed or multi-path behaviour.
 - Grating B remains useful for comparing a smaller-amplitude response under a more variable environmental envelope.
 
 ---
