@@ -26,6 +26,14 @@ The control hierarchy is TEC-primary: thermal correction is used for coarse and 
 
 The code-derived model, including the rolling OLS predictor, OPL feed-forward term, PI fallback, AO matrix inversion and reference-management rule, is documented in [`methods/V6B_HYBRID_CONTROLLER.md`](methods/V6B_HYBRID_CONTROLLER.md).
 
+## Component studies
+
+<p align="center">
+  <a href="components/"><img src="figures/component_characterisation_map.svg" alt="EXOhSPEC component characterisation map" width="100%"></a>
+</p>
+
+The [`components/`](components/) reports explain how the interferometer, BME680, PT104 four-region thermal mapping, TEC, active optics, MaxIm DL and Python workflow were characterised before or alongside hybrid feedback development. Each report includes the relevant experiment, compact equations and a public-safe boundary that keeps operational build details private.
+
 ## Selected results
 
 <p align="center">
