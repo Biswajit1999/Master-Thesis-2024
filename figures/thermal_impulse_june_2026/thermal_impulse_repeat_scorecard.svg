@@ -1,79 +1,65 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="930" viewBox="0 0 1500 930" role="img" aria-labelledby="title desc">
-<title id="title">June 2026 local thermal impulse repeat scorecard</title>
-<desc id="desc">Data-derived summary of four 154 joule thermal impulse trials at Grating A, Grating B, Camera mount A and Camera mount B. It distinguishes centroid response, optical-path response and environmental confounding.</desc>
-<defs>
-  <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#fbfdff"/><stop offset="1" stop-color="#edf4f8"/></linearGradient>
-  <filter id="sh" x="-10%" y="-10%" width="120%" height="120%"><feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#1f2937" flood-opacity="0.14"/></filter>
-</defs>
-<rect width="1500" height="930" rx="28" fill="url(#bg)"/>
-<text x="70" y="74" font-family="Arial, Helvetica, sans-serif" font-size="35" font-weight="700" fill="#132f4c">Local thermal-impulse repeat campaign: component-sensitivity scorecard</text>
-<text x="70" y="112" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#5c7180">22-24 June 2026 campaign. Four nominally identical 154 J local thermal impulses; amplitudes are baseline-detrended and should be interpreted with environmental context.</text>
-
-<g filter="url(#sh)">
-<rect x="70" y="160" width="1360" height="550" rx="22" fill="#ffffff" stroke="#91a9bc" stroke-width="2"/>
-<rect x="70" y="160" width="1360" height="48" rx="22" fill="#e7f0f8"/>
-<text x="98" y="192" font-family="Arial" font-size="19" font-weight="700" fill="#173e63">Measured response summary</text>
-
-<text x="106" y="250" font-family="Arial" font-size="16" font-weight="700" fill="#304e66">Location</text>
-<text x="400" y="250" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#304e66">Peak |ΔY|</text>
-<text x="610" y="250" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#304e66">Peak |ΔOPL|</text>
-<text x="815" y="250" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#304e66">Time to |ΔY| peak</text>
-<text x="1055" y="250" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#304e66">Environmental context</text>
-<text x="1280" y="250" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#304e66">Current conclusion</text>
-
-<line x1="95" y1="272" x2="1400" y2="272" stroke="#cbd8e2" stroke-width="2"/>
-
-<text x="106" y="335" font-family="Arial" font-size="20" font-weight="700" fill="#1f4d70">Grating A</text>
-<rect x="270" y="305" width="207" height="32" rx="8" fill="#2a7ba9"/>
-<text x="492" y="329" font-family="Arial" font-size="18" font-weight="700" fill="#1f4d70">0.888 px</text>
-<rect x="540" y="315" width="70" height="22" rx="7" fill="#2a7ba9"/>
-<text x="625" y="329" font-family="Arial" font-size="18" font-weight="700" fill="#1f4d70">0.142 µm</text>
-<text x="790" y="329" text-anchor="middle" font-family="Arial" font-size="18" fill="#29485f">11.43 min</text>
-<text x="1055" y="318" text-anchor="middle" font-family="Arial" font-size="15" fill="#29485f">Low post-pulse T/P spans</text>
-<text x="1055" y="342" text-anchor="middle" font-family="Arial" font-size="15" fill="#29485f">BME RH span: 2.51%</text>
-<text x="1280" y="318" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#17674c">Priority centroid</text>
-<text x="1280" y="342" text-anchor="middle" font-family="Arial" font-size="15" fill="#315d4a">repeat candidate</text>
-
-<line x1="95" y1="383" x2="1400" y2="383" stroke="#dbe4eb" stroke-width="1.5"/>
-<text x="106" y="446" font-family="Arial" font-size="20" font-weight="700" fill="#1f4d70">Grating B</text>
-<rect x="270" y="416" width="47" height="32" rx="8" fill="#6b9bbc"/>
-<text x="332" y="440" font-family="Arial" font-size="18" font-weight="700" fill="#1f4d70">0.200 px</text>
-<rect x="540" y="426" width="27" height="22" rx="7" fill="#6b9bbc"/>
-<text x="582" y="440" font-family="Arial" font-size="18" font-weight="700" fill="#1f4d70">0.054 µm</text>
-<text x="790" y="440" text-anchor="middle" font-family="Arial" font-size="18" fill="#29485f">31.39 min</text>
-<text x="1055" y="429" text-anchor="middle" font-family="Arial" font-size="15" fill="#29485f">Pressure and RH evolved</text>
-<text x="1055" y="453" text-anchor="middle" font-family="Arial" font-size="15" fill="#29485f">during relaxation</text>
-<text x="1280" y="429" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#795112">Low-amplitude</text>
-<text x="1280" y="453" text-anchor="middle" font-family="Arial" font-size="15" fill="#6d542c">comparison site</text>
-
-<line x1="95" y1="494" x2="1400" y2="494" stroke="#dbe4eb" stroke-width="1.5"/>
-<text x="106" y="557" font-family="Arial" font-size="20" font-weight="700" fill="#1f4d70">Camera mount A</text>
-<rect x="270" y="527" width="166" height="32" rx="8" fill="#b56b3d"/>
-<text x="451" y="551" font-family="Arial" font-size="18" font-weight="700" fill="#8c4e20">0.713 px</text>
-<rect x="540" y="527" width="340" height="22" rx="7" fill="#b56b3d"/>
-<text x="895" y="546" font-family="Arial" font-size="18" font-weight="700" fill="#8c4e20">2.273 µm</text>
-<text x="790" y="572" text-anchor="middle" font-family="Arial" font-size="18" fill="#29485f">20.42 min</text>
-<text x="1055" y="540" text-anchor="middle" font-family="Arial" font-size="15" fill="#29485f">BME ΔT: 1.06 C</text>
-<text x="1055" y="564" text-anchor="middle" font-family="Arial" font-size="15" fill="#29485f">BME ΔRH: 20.96%</text>
-<text x="1280" y="540" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#17674c">Priority OPL</text>
-<text x="1280" y="564" text-anchor="middle" font-family="Arial" font-size="15" fill="#315d4a">repeat candidate</text>
-
-<line x1="95" y1="605" x2="1400" y2="605" stroke="#dbe4eb" stroke-width="1.5"/>
-<text x="106" y="668" font-family="Arial" font-size="20" font-weight="700" fill="#1f4d70">Camera mount B</text>
-<rect x="270" y="638" width="148" height="32" rx="8" fill="#c48643"/>
-<text x="433" y="662" font-family="Arial" font-size="18" font-weight="700" fill="#8b5b18">0.634 px</text>
-<rect x="540" y="648" width="44" height="22" rx="7" fill="#c48643"/>
-<text x="599" y="662" font-family="Arial" font-size="18" font-weight="700" fill="#8b5b18">0.116 µm</text>
-<text x="790" y="662" text-anchor="middle" font-family="Arial" font-size="18" fill="#29485f">8.38 min</text>
-<text x="1055" y="651" text-anchor="middle" font-family="Arial" font-size="15" fill="#29485f">BME ΔRH: 8.01%</text>
-<text x="1055" y="675" text-anchor="middle" font-family="Arial" font-size="15" fill="#29485f">relaxation incomplete</text>
-<text x="1280" y="651" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#795112">Fast response</text>
-<text x="1280" y="675" text-anchor="middle" font-family="Arial" font-size="15" fill="#6d542c">repeat required</text>
-</g>
-
-<g filter="url(#sh)"><rect x="70" y="750" width="1360" height="105" rx="18" fill="#fffaf0" stroke="#c89a52" stroke-width="2"/>
-<text x="98" y="786" font-family="Arial" font-size="18" font-weight="700" fill="#795112">Research conclusion</text>
-<text x="98" y="816" font-family="Arial" font-size="17" fill="#5d4c2a">The camera region is an investigation priority, not a proven sole culprit. Grating A gave the largest image-plane response, while Camera mount A gave the largest OPL response. A controlled replicate with complete relaxation and local temperature verification is required before assigning component-specific sensitivity coefficients.</text>
-</g>
-<text x="70" y="892" font-family="Arial" font-size="14" fill="#617989">Pulse protocol: nominal 2.20 W for 70 s (154 J). Metrics are baseline-detrended logger results; no raw-FITS centroid remeasurement is included in this report.</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="920" viewBox="0 0 1500 920" role="img">
+<rect width="1500" height="920" rx="24" fill="#f7fbff"/>
+<style>text{font-family:Arial,Helvetica,sans-serif}.h{font-weight:700;fill:#12263a}.s{fill:#40576b}.small{font-size:15px}.num{font-weight:700;fill:#16324a}.card{fill:white;stroke:#c9d8e3;stroke-width:2}.warn{fill:#8a5a10}.ok{fill:#0f6b50}.bad{fill:#9a4a21}</style>
+<text x="70" y="70" font-size="34" class="h">Thermal-impulse repeat campaign: updated scorecard with FITS validation</text>
+<text x="70" y="110" font-size="18" class="s">Four 154 J local thermal impulses. Detector motion is now cross-checked with seed-centred FITS registration.</text>
+<rect x="70" y="155" width="1360" height="575" rx="20" class="card"/>
+<text x="105" y="215" font-size="17" font-weight="700" fill="#24445d" text-anchor="middle">Location</text>
+<text x="365" y="215" font-size="17" font-weight="700" fill="#24445d" text-anchor="middle">Logger peak |ΔY|</text>
+<text x="585" y="215" font-size="17" font-weight="700" fill="#24445d" text-anchor="middle">Peak |ΔOPL|</text>
+<text x="800" y="215" font-size="17" font-weight="700" fill="#24445d" text-anchor="middle">FITS validation RMSE</text>
+<text x="1050" y="215" font-size="17" font-weight="700" fill="#24445d" text-anchor="middle">Median mismatch</text>
+<text x="1275" y="215" font-size="17" font-weight="700" fill="#24445d" text-anchor="middle">Conclusion</text>
+<line x1="95" y1="235" x2="1405" y2="235" stroke="#d3e0ea" stroke-width="2"/>
+<text x="105" y="270" font-size="21" font-weight="700" fill="#16324a">Grating A</text>
+<rect x="270" y="245" width="220.0" height="28" rx="7" fill="#2878a5"/>
+<text x="500.0" y="265" font-size="17" class="num">0.888 px</text>
+<rect x="495" y="245" width="13.7" height="28" rx="7" fill="#a46a32"/>
+<text x="518.7" y="265" font-size="17" class="num">0.142 µm</text>
+<rect x="720" y="245" width="100.6" height="28" rx="7" fill="#d08a21"/>
+<text x="830.6" y="265" font-size="17" class="num">0.183 px</text>
+<rect x="955" y="245" width="100.1" height="28" rx="7" fill="#d08a21"/>
+<text x="1065.1" y="265" font-size="17" class="num">0.182 px</text>
+<text x="1195" y="258" font-size="17" font-weight="700" class="warn">Trend validated; amplitude caution</text>
+<text x="1195" y="285" font-size="14" class="s">Early mismatch: 0.205 px</text>
+<line x1="95" y1="310" x2="1405" y2="310" stroke="#e5edf4"/>
+<text x="105" y="390" font-size="21" font-weight="700" fill="#16324a">Grating B</text>
+<rect x="270" y="365" width="49.5" height="28" rx="7" fill="#2878a5"/>
+<text x="329.5" y="385" font-size="17" class="num">0.200 px</text>
+<rect x="495" y="365" width="5.2" height="28" rx="7" fill="#a46a32"/>
+<text x="510.2" y="385" font-size="17" class="num">0.054 µm</text>
+<rect x="720" y="365" width="53.9" height="28" rx="7" fill="#1f8a65"/>
+<text x="783.9" y="385" font-size="17" class="num">0.098 px</text>
+<rect x="955" y="365" width="44.5" height="28" rx="7" fill="#1f8a65"/>
+<text x="1009.5" y="385" font-size="17" class="num">0.081 px</text>
+<text x="1195" y="378" font-size="17" font-weight="700" class="ok">Strong FITS validation</text>
+<text x="1195" y="405" font-size="14" class="s">Early mismatch: 0.098 px</text>
+<line x1="95" y1="430" x2="1405" y2="430" stroke="#e5edf4"/>
+<text x="105" y="510" font-size="21" font-weight="700" fill="#16324a">Camera mount A</text>
+<rect x="270" y="485" width="176.6" height="28" rx="7" fill="#2878a5"/>
+<text x="456.6" y="505" font-size="17" class="num">0.713 px</text>
+<rect x="495" y="485" width="220.0" height="28" rx="7" fill="#a46a32"/>
+<text x="725.0" y="505" font-size="17" class="num">2.273 µm</text>
+<rect x="720" y="485" width="213.9" height="28" rx="7" fill="#b04b2f"/>
+<text x="944.0" y="505" font-size="17" class="num">0.389 px</text>
+<rect x="955" y="485" width="183.2" height="28" rx="7" fill="#b04b2f"/>
+<text x="1148.2" y="505" font-size="17" class="num">0.333 px</text>
+<text x="1195" y="498" font-size="17" font-weight="700" class="bad">OPL strong; centroid caution</text>
+<text x="1195" y="525" font-size="14" class="s">Early mismatch: 0.217 px</text>
+<line x1="95" y1="550" x2="1405" y2="550" stroke="#e5edf4"/>
+<text x="105" y="630" font-size="21" font-weight="700" fill="#16324a">Camera mount B</text>
+<rect x="270" y="605" width="157.1" height="28" rx="7" fill="#2878a5"/>
+<text x="437.1" y="625" font-size="17" class="num">0.634 px</text>
+<rect x="495" y="605" width="11.2" height="28" rx="7" fill="#a46a32"/>
+<text x="516.2" y="625" font-size="17" class="num">0.116 µm</text>
+<rect x="720" y="605" width="41.2" height="28" rx="7" fill="#1f8a65"/>
+<text x="771.2" y="625" font-size="17" class="num">0.075 px</text>
+<rect x="955" y="605" width="36.9" height="28" rx="7" fill="#1f8a65"/>
+<text x="1001.9" y="625" font-size="17" class="num">0.067 px</text>
+<text x="1195" y="618" font-size="17" font-weight="700" class="ok">Strongest FITS validation</text>
+<text x="1195" y="645" font-size="14" class="s">Early mismatch: 0.049 px</text>
+<rect x="70" y="765" width="1360" height="90" rx="18" fill="#fff8e9" stroke="#d2a650" stroke-width="2"/>
+<text x="100" y="802" font-size="19" font-weight="700" fill="#7a520f">Updated interpretation</text>
+<text x="100" y="832" font-size="17" fill="#4f3e1d">Camera mount A is the strongest OPL candidate, but Camera mount B and Grating B provide the cleanest independently validated rigid image motion. Grating A remains the largest MaxIm centroid-response candidate but needs repeat calibration.</text>
+<text x="70" y="895" font-size="14" fill="#607789">Public-safe derived metrics only; raw FITS, telemetry, geometry and operational details are omitted.</text>
 </svg>
