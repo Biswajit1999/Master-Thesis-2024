@@ -16,42 +16,42 @@ The architecture is shown in [`../figures/exohspec_feedback_architecture.svg`](.
 
 ## 1. Measurement state
 
-At sample index \(k\), the controller forms a synchronised measurement vector
+At sample index $k$, the controller forms a synchronised measurement vector:
 
-\[
-\mathbf z_k =
+$$
+\mathbf{z}_k =
 \begin{bmatrix}
-\Delta x_k & \Delta y_k & L_k & T_{\rm in,k} & H_{\rm in,k} & P_{\rm in,k} & T_{\rm out,k} & H_{\rm out,k} & P_{\rm out,k}
-\end{bmatrix}^{\mathsf T},
-\]
+\Delta x_k & \Delta y_k & L_k & T_{\mathrm{in},k} & H_{\mathrm{in},k} & P_{\mathrm{in},k} & T_{\mathrm{out},k} & H_{\mathrm{out},k} & P_{\mathrm{out},k}
+\end{bmatrix}^{\mathsf{T}}.
+$$
 
-where \(\Delta x\) and \(\Delta y\) are centroid offsets from the current reference, and \(L\) is optical path length (OPL).
+Here, $\Delta x$ and $\Delta y$ are centroid offsets from the current reference, and $L$ is optical path length (OPL).
 
-The radial image-plane error used for reporting is
+The radial image-plane error used for reporting is:
 
-\[
+$$
 r_k = \sqrt{\Delta x_k^2 + \Delta y_k^2}.
-\]
+$$
 
-The controller also evaluates short-window rates
+The controller also evaluates short-window rates:
 
-\[
-\dot T_{\rm in,k} \approx \frac{T_{\rm in,k}-T_{\rm in,k-m}}{t_k-t_{k-m}},
+$$
+\dot{T}_{\mathrm{in},k} \approx \frac{T_{\mathrm{in},k}-T_{\mathrm{in},k-m}}{t_k-t_{k-m}},
 \qquad
-\dot T_{\rm out,k} \approx \frac{T_{\rm out,k}-T_{\rm out,k-m}}{t_k-t_{k-m}},
+\dot{T}_{\mathrm{out},k} \approx \frac{T_{\mathrm{out},k}-T_{\mathrm{out},k-m}}{t_k-t_{k-m}},
 \qquad
-\dot L_k \approx \frac{L_k-L_{k-m}}{t_k-t_{k-m}}.
-\]
+\dot{L}_k \approx \frac{L_k-L_{k-m}}{t_k-t_{k-m}}.
+$$
 
 ### Operational refractive-index proxy
 
-The V6b controller calculates a temperature, pressure and humidity dependent refractive-index proxy,
+The V6b controller calculates a temperature-, pressure- and humidity-dependent refractive-index proxy:
 
-\[
-n_{\rm proxy}(T,P,H;\lambda) = 1 + \frac{\alpha(\lambda)P}{RT} - \frac{\beta e(T,H)}{RT},
-\]
+$$
+n_{\mathrm{proxy}}(T,P,H;\lambda) = 1 + \frac{\alpha(\lambda)P}{RT} - \frac{\beta e(T,H)}{RT}.
+$$
 
-where \(e(T,H)\) is the water-vapour partial pressure estimated from temperature and relative humidity. This quantity is used as an environmental predictor and trend indicator. It is not presented here as a substitute for a metrology-standard air-index calculation; the publication analysis should state the exact adopted refractivity formulation and its valid pressure, temperature and wavelength range.
+Here, $e(T,H)$ is the water-vapour partial pressure estimated from temperature and relative humidity. This quantity is used as an environmental predictor and trend indicator. It is not presented here as a substitute for a metrology-standard air-index calculation; the publication analysis should state the exact adopted refractivity formulation and its valid pressure, temperature and wavelength range.
 
 ---
 
@@ -61,28 +61,28 @@ The controller begins with an open-loop warm-up period. Its purpose is to establ
 
 The key principle is that the environmental response is **identified per run**, rather than assumed to be constant across all experiments. A fixed coefficient may be inaccurate when the thermal state, HVAC conditions, optical alignment or actuator history differ from the calibration run.
 
-For a feedback run, the empirical thermal OPL gain is written as
+For a feedback run, the empirical thermal OPL gain is:
 
-\[
-g_T = \frac{\partial L}{\partial T_{\rm set}},
-\]
+$$
+g_T = \frac{\partial L}{\partial T_{\mathrm{set}}}.
+$$
 
-and the active-optics image-plane calibration is represented by
+The active-optics image-plane calibration is represented by:
 
-\[
+$$
 \begin{bmatrix}
-\Delta x\\
+\Delta x \\
 \Delta y
 \end{bmatrix}
 =
-\mathbf M_{\rm AO}
+\mathbf{M}_{\mathrm{AO}}
 \begin{bmatrix}
-s_x\\
+s_x \\
 s_y
-\end{bmatrix},
-\]
+\end{bmatrix}.
+$$
 
-where \(s_x\) and \(s_y\) are commanded AO steps and \(\mathbf M_{\rm AO}\) is measured from a dedicated calibration sequence.
+Here, $s_x$ and $s_y$ are commanded AO steps and $\mathbf{M}_{\mathrm{AO}}$ is measured from a dedicated calibration sequence.
 
 ---
 
@@ -90,47 +90,47 @@ where \(s_x\) and \(s_y\) are commanded AO steps and \(\mathbf M_{\rm AO}\) is m
 
 The V6b design fits a rolling ordinary-least-squares model using the recent control history:
 
-\[
-\widehat{\Delta T}_{\rm OLS,k} = b_0 + b_L\Delta L_k + b_n\left(10^6\Delta n_{\rm proxy,k}\right)
-+ b_H\Delta H_k + b_P\Delta P_k + b_{\dot T}\dot T_{\rm in,k}.
-\]
+$$
+\widehat{\Delta T}_{\mathrm{OLS},k} = b_0 + b_L\Delta L_k + b_n\left(10^6\Delta n_{\mathrm{proxy},k}\right)
++ b_H\Delta H_k + b_P\Delta P_k + b_{\dot{T}}\dot{T}_{\mathrm{in},k}.
+$$
 
 Only a model that reaches a pre-defined minimum sample count and goodness-of-fit threshold is used. Otherwise, the controller falls back to centroid-error feedback.
 
-A physically motivated OPL feed-forward term is
+A physically motivated OPL feed-forward term is:
 
-\[
-\Delta T_{\rm ff,k} = -\frac{\Delta L_k}{g_T}.
-\]
+$$
+\Delta T_{\mathrm{ff},k} = -\frac{\Delta L_k}{g_T}.
+$$
 
 The model and feed-forward estimates are blended and bounded:
 
-\[
-\Delta T_{\rm cmd,k} = \operatorname{sat}_{\pm\Delta T_{\max}}
-\left[(1-w)\widehat{\Delta T}_{\rm OLS,k} + w\Delta T_{\rm ff,k}\right].
-\]
+$$
+\Delta T_{\mathrm{cmd},k} = \operatorname{sat}_{\pm\Delta T_{\max}}
+\left[(1-w)\widehat{\Delta T}_{\mathrm{OLS},k} + w\Delta T_{\mathrm{ff},k}\right].
+$$
 
-When the rolling model is unavailable or rejected, the fallback PI law is
+When the rolling model is unavailable or rejected, the fallback PI law is:
 
-\[
+$$
 I_k = \operatorname{clip}(I_{k-1}+\Delta y_k, -I_{\max}, I_{\max}),
-\]
+$$
 
-\[
-\Delta T_{\rm PI,k} = -\left(K_P\Delta y_k + K_I I_k\right),
-\]
+$$
+\Delta T_{\mathrm{PI},k} = -\left(K_P\Delta y_k + K_I I_k\right),
+$$
 
 followed by the same thermal-step saturation.
 
 ### Cadence and HVAC gate
 
-The TEC update interval is shortened when \(|\dot L|\) or \(|\dot T_{\rm in}|\) is elevated, and lengthened in a quiet state. A pre-emptive trigger estimates whether OPL motion is likely to move the image outside the coarse-control region before the next scheduled thermal update:
+The TEC update interval is shortened when $|\dot{L}|$ or $|\dot{T}_{\mathrm{in}}|$ is elevated, and lengthened in a quiet state. A pre-emptive trigger estimates whether OPL motion is likely to move the image outside the coarse-control region before the next scheduled thermal update:
 
-\[
-\widehat{|\Delta y|}_{k+1} = |\Delta y_k| + |\dot L_k|\,\Delta t\,S_{L\rightarrow y},
-\]
+$$
+\widehat{|\Delta y|}_{k+1} = |\Delta y_k| + |\dot{L}_k|\,\Delta t\,S_{L\rightarrow y},
+$$
 
-where \(S_{L\rightarrow y}\) is the empirical OPL-to-pixel sensitivity.
+where $S_{L\rightarrow y}$ is the empirical OPL-to-pixel sensitivity.
 
 Rapid external-temperature motion is treated as an HVAC transient. The controller can defer a non-urgent thermal command during such a transient to avoid reacting to a disturbance that may reverse on the next sample.
 
@@ -138,32 +138,32 @@ Rapid external-temperature motion is treated as an HVAC transient. The controlle
 
 ## 4. Active-optics fine trim
 
-Let
+Let:
 
-\[
-\mathbf e_k =
+$$
+\mathbf{e}_k =
 \begin{bmatrix}
-\Delta x_k\\
+\Delta x_k \\
 \Delta y_k
 \end{bmatrix}.
-\]
+$$
 
 The requested AO move is obtained from the calibrated inverse response:
 
-\[
-\mathbf s_k^{\ast} = -\mathbf M_{\rm AO}^{-1}\mathbf e_k.
-\]
+$$
+\mathbf{s}_k^{\ast} = -\mathbf{M}_{\mathrm{AO}}^{-1}\mathbf{e}_k.
+$$
 
 The actual command is rounded, bounded per update, and bounded again by cumulative actuator travel:
 
-\[
-\mathbf s_k = \operatorname{clip}\left(\operatorname{round}(\mathbf s_k^{\ast}),\,\mathbf s_{\rm step,max}\right),
-\]
+$$
+\mathbf{s}_k = \operatorname{clip}\left(\operatorname{round}(\mathbf{s}_k^{\ast}),\,\mathbf{s}_{\mathrm{step,max}}\right),
+$$
 
-\[
-\mathbf s_{\rm cum,k+1} = \operatorname{clip}
-\left(\mathbf s_{\rm cum,k}+\mathbf s_k,\,-\mathbf s_{\rm travel,max},\mathbf s_{\rm travel,max}\right).
-\]
+$$
+\mathbf{s}_{\mathrm{cum},k+1} = \operatorname{clip}
+\left(\mathbf{s}_{\mathrm{cum},k}+\mathbf{s}_k,\,-\mathbf{s}_{\mathrm{travel,max}},\mathbf{s}_{\mathrm{travel,max}}\right).
+$$
 
 The V6b logic applies AO only when all of the following are satisfied:
 
@@ -195,13 +195,13 @@ The transition to the tight phase is conditional on a recent-window stability cr
 
 ## 6. Reference management
 
-A reference tracker can absorb a small persistent DC centroid bias only after the image is quiet, internally consistent and not undergoing rapid OPL motion. Its update is
+A reference tracker can absorb a small persistent DC centroid bias only after the image is quiet, internally consistent and not undergoing rapid OPL motion. Its update is:
 
-\[
-\mathbf r_{k+1}=\mathbf r_k+\gamma\,\overline{\mathbf e}_k,
-\]
+$$
+\mathbf{r}_{k+1}=\mathbf{r}_k+\gamma\,\overline{\mathbf{e}}_k,
+$$
 
-where \(\gamma\) is a fractional update and \(\overline{\mathbf e}_k\) is the stable-window mean error.
+where $\gamma$ is a fractional update and $\overline{\mathbf{e}}_k$ is the stable-window mean error.
 
 This is baseline management, not a physical actuator correction. Any performance analysis must log each reference nudge and report stability metrics both with and without reference updates where the distinction is material.
 
@@ -212,11 +212,11 @@ This is baseline management, not a physical actuator correction. Any performance
 A scientific evaluation of the controller should report:
 
 1. the warm-up window and reference definition;
-2. the run-specific \(g_T\) and AO calibration procedure;
+2. the run-specific $g_T$ and AO calibration procedure;
 3. the number and size of TEC commands and AO corrections;
 4. cumulative AO travel and unload events;
-5. RMS, standard deviation, mean absolute error and fractions within \(\pm0.10\), \(\pm0.20\) and \(\pm0.50\) px;
-6. the environmental range \((\Delta T,\Delta P,\Delta H)\) during the comparison window;
+5. RMS, standard deviation, mean absolute error and fractions within $\pm0.10$, $\pm0.20$ and $\pm0.50$ px;
+6. the environmental range $(\Delta T,\Delta P,\Delta H)$ during the comparison window;
 7. model-fit quality, out-of-sample validation and command-to-response lag;
 8. results with explicit phase boundaries and data-quality exclusions.
 
