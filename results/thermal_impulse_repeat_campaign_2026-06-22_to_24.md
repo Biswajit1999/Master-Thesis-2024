@@ -7,7 +7,7 @@
 
 ![Thermal-impulse repeat scorecard](../figures/thermal_impulse_june_2026/thermal_impulse_repeat_scorecard.svg)
 
-## Supervisor summary
+## Summary
 
 This is a **four-location local-thermal impulse comparison**, not a claim of a final root cause.
 
