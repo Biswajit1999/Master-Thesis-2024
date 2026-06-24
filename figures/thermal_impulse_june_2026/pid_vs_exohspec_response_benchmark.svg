@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="920" viewBox="0 0 1600 920" role="img">
+  <style>
+    text{font-family:Arial,Helvetica,sans-serif;fill:#102a43}.title{font-size:34px;font-weight:700}.sub{font-size:17px;fill:#486581}.panel{fill:#ffffff;stroke:#bcccdc;stroke-width:2}.axis{stroke:#486581;stroke-width:2}.grid{stroke:#d9e2ec;stroke-width:1}.ideal{stroke:#1f78b4;stroke-width:5;fill:none}.zero{stroke:#1f9d55;stroke-width:3;stroke-dasharray:10 8}.dist{stroke:#b85c1e;stroke-width:5;fill:none}.thin{stroke:#9b1c1c;stroke-width:2;stroke-dasharray:8 6}.small{font-size:14px;fill:#334e68}.lbl{font-size:18px;font-weight:700}.note{font-size:15px;fill:#52606d}.orange{fill:#fff4e5;stroke:#f0b429}.blue{fill:#e6f6ff;stroke:#4098d7}.greenText{fill:#0f6b50}.redText{fill:#9b1c1c}
+  </style>
+  <rect width="1600" height="920" fill="#f8fbff"/>
+  <text x="70" y="62" class="title">PID step-response expectation versus EXOhSPEC disturbance rejection</text>
+  <text x="70" y="98" class="sub">The upper panel is the textbook expectation. The lower panel is the relevant EXOhSPEC interpretation: delayed multi-channel disturbance rejection around a narrow error band.</text>
+
+  <rect x="80" y="135" width="1440" height="300" rx="22" class="panel"/>
+  <rect x="80" y="135" width="1440" height="45" rx="22" class="blue"/>
+  <text x="115" y="164" class="lbl">A. Idealised textbook step response</text>
+  <line x1="160" y1="365" x2="1460" y2="365" class="axis"/>
+  <line x1="160" y1="205" x2="160" y2="385" class="axis"/>
+  <line x1="160" y1="280" x2="1460" y2="280" class="zero"/>
+  <text x="118" y="283" class="small">target</text>
+  <text x="125" y="210" class="small">+error</text>
+  <text x="128" y="368" class="small">0</text>
+  <text x="128" y="388" class="small">-error</text>
+  <path class="ideal" d="M160 280 C230 280 260 202 330 205 C420 210 420 330 505 325 C590 320 590 265 675 266 C750 268 750 285 850 285 C1020 285 1230 282 1460 280"/>
+  <text x="250" y="225" class="small">single clean step</text>
+  <text x="610" y="245" class="small">finite overshoot</text>
+  <text x="1020" y="310" class="small">settles to one target value</text>
+  <text x="1045" y="220" class="note">Assumes one dominant actuator, one output, fixed plant and short delay.</text>
+
+  <rect x="80" y="500" width="1440" height="320" rx="22" class="panel"/>
+  <rect x="80" y="500" width="1440" height="45" rx="22" class="orange"/>
+  <text x="115" y="529" class="lbl">B. EXOhSPEC detector error under distributed thermal disturbance</text>
+  <line x1="160" y1="735" x2="1460" y2="735" class="axis"/>
+  <line x1="160" y1="575" x2="160" y2="770" class="axis"/>
+  <line x1="160" y1="665" x2="1460" y2="665" class="zero"/>
+  <text x="125" y="580" class="small">+ΔY</text>
+  <text x="135" y="668" class="small">0</text>
+  <text x="124" y="758" class="small">-ΔY</text>
+  <path class="dist" d="M160 665 C245 590 330 590 420 665 C480 712 545 710 610 665 C700 595 795 600 875 650 C940 690 1010 690 1075 600 C1125 555 1195 665 1165 735 C1150 770 1255 760 1315 700 C1365 650 1415 670 1460 665"/>
+  <line x1="320" y1="580" x2="320" y2="665" class="thin"/>
+  <text x="260" y="572" class="small">HVAC / local thermal wave</text>
+  <line x1="720" y1="580" x2="720" y2="665" class="thin"/>
+  <text x="660" y="572" class="small">pressure / humidity drift</text>
+  <line x1="1080" y1="580" x2="1080" y2="665" class="thin"/>
+  <text x="1010" y="572" class="small">delayed TEC response</text>
+  <line x1="1165" y1="735" x2="1165" y2="786" stroke="#1f9d55" stroke-width="3"/>
+  <text x="1185" y="785" class="small greenText">AO fine correction</text>
+  <rect x="1030" y="600" width="380" height="95" rx="16" fill="#fffaf0" stroke="#d69e2e" stroke-width="2"/>
+  <text x="1052" y="628" class="small" font-weight="700">Why a flat trace is difficult</text>
+  <text x="1052" y="653" class="small">• multiple inputs with different lags</text>
+  <text x="1052" y="675" class="small">• temperature is not uniform in the enclosure</text>
+  <text x="1052" y="697" class="small">• plant sensitivity changes with run state</text>
+  <text x="250" y="798" class="note">Objective: keep ΔX, ΔY and OPL inside a narrow operating band, not force an ideal single-step curve.</text>
+  <text x="80" y="875" class="note">Conceptual figure only; measured performance is reported using RMS error, within-band residence time, FITS validation and OPL response metrics.</text>
+</svg>
