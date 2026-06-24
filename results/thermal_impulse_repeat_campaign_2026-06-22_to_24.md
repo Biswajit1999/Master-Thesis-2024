@@ -3,7 +3,7 @@
 > **Status:** updated analysis with independent FITS validation and measured IDS optical-path geometry.  
 > **Purpose:** compare four accessible thermal-perturbation locations, identify where the optical path and detector image are most sensitive, and relate the results to hardware and feedback-control limitations.
 
-## Executive summary
+## Summary
 
 This campaign used four nominally identical local thermal pulses. It does not prove that one component is the sole source of instability.
 
