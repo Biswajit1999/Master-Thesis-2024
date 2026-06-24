@@ -34,6 +34,16 @@ The code-derived model, including the rolling OLS predictor, OPL feed-forward te
 
 Selected experiments measured OPL sensitivity to environmental change, millikelvin-level TEC stability during a 44.5 h run, active-optics centroid response, and a hybrid-control comparison in which `dY` RMS decreased from 2.72 px to 0.69 px. See [`results/README.md`](results/README.md).
 
+## Control interpretation
+
+A perfectly flat `dX = dY = 0` trace is not the appropriate baseline expectation for a delayed, continuously disturbed spectrograph. The current engineering question is how much time the system can remain inside a defined sub-pixel band while rejecting temperature, pressure, humidity and HVAC disturbances without exhausting AO range.
+
+<p align="center">
+  <a href="results/why_zero_pixel_regulation_not_yet_achieved.md"><img src="figures/ideal_vs_disturbed_regulation.svg" alt="Ideal and disturbed regulation comparison" width="100%"></a>
+</p>
+
+The full report, including the Stage-2 performance comparison and a quantitative explanation of the remaining control limitations, is available in [`results/why_zero_pixel_regulation_not_yet_achieved.md`](results/why_zero_pixel_regulation_not_yet_achieved.md).
+
 ## Code
 
 - [`tec_temperature_monitor.py`](code/tec_temperature_monitor.py) - portable Meerstetter TEC temperature logger, adapted from the thesis development notebook.

@@ -10,6 +10,7 @@ This folder contains compact result records with their comparison windows and in
 |---|---|
 | [Exp-H long-run OPL + pixel benchmark](exp_h_long_run_benchmark.md) | Temperature-only feedback under a strong pressure disturbance; establishes the residual limit that motivated a fine correction layer. |
 | [March hybrid TEC-AO recovery experiment](march_hybrid_recovery.md) | 44.36-hour disturbed run; documents sub-pixel final recovery together with the full-run limitation. |
+| [Why perfect zero-pixel regulation was not yet achieved](why_zero_pixel_regulation_not_yet_achieved.md) | Control-report explanation of why the system differs from a textbook step-response problem, supported by Stage-2 metrics and a limitations map. |
 
 ## Cross-experiment indicators
 
