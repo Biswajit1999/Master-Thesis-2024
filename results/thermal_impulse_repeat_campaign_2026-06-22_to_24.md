@@ -1,23 +1,30 @@
 # Local thermal-impulse repeat campaign: 22-24 June 2026
 
-> **Status:** preliminary component-sensitivity study.  
+> **Status:** updated component-sensitivity and FITS-validation report.  
 > **Trials acquired:** 22-23 June 2026.  
-> **Analysis and repeat-campaign consolidation:** 24 June 2026.  
+> **Initial consolidation:** 24 June 2026.  
+> **FITS cross-correlation validation added:** 24 June 2026.  
 > **Purpose:** identify accessible regions whose local thermal perturbation produces a reproducible optical-path-length (OPL) or detector-centroid response before assigning component-specific coefficients to a stability model.
 
 ![Thermal-impulse repeat scorecard](../figures/thermal_impulse_june_2026/thermal_impulse_repeat_scorecard.svg)
 
+![Seed-centred FITS validation scorecard](../figures/thermal_impulse_june_2026/thermal_impulse_fits_validation_scorecard.svg)
+
+![MaxIm versus FITS response comparison](../figures/thermal_impulse_june_2026/thermal_impulse_maxim_fits_response_comparison.svg)
+
 ## Summary
 
-This is a **four-location local-thermal impulse comparison**, not a claim of a final root cause.
+This is a **four-location local-thermal impulse comparison**, not a final root-cause claim.
 
 - Every trial received the same nominal electrical pulse: **2.20 W for 70 s = 154 J**.
-- The largest observed detector-plane jump occurred at **Grating A**: $|\Delta Y|_{\max}=0.888\ \mathrm{px}$.
-- The largest observed OPL change occurred at **Camera mount A**: $|\Delta\mathrm{OPL}|_{\max}=2.273\ \mu\mathrm{m}$.
-- Camera mount A is therefore a strong OPL-sensitivity candidate, but it was also the most environmentally disturbed trial.
-- None of the four trials provides a valid settling-time measurement because no record demonstrated a complete return to the defined post-pulse stability band.
+- The largest logger-recorded detector-plane response remained **Grating A**, with a baseline-detrended post-pulse peak of **|ΔY| = 0.888 px**.
+- The largest logger-recorded OPL response remained **Camera mount A**, with **|ΔOPL| = 2.273 µm**.
+- A new independent FITS-frame replay now separates **validated rigid image translation** from cases where the tracked image feature changes brightness or shape.
+- The strongest MaxIm-to-FITS agreement is found for **Camera mount B** and **Grating B**.
+- **Grating A** is supported as a real drift trend, but its fitted amplitude differs between MaxIm and seed-centred FITS replay.
+- **Camera mount A** is a strong OPL-sensitivity candidate, but its later large centroid excursion is not fully validated as a rigid detector translation.
 
-**Decision:** the next controlled repeats should prioritise **Grating A** for detector-centroid sensitivity and **Camera mount A** for OPL sensitivity. The present data do **not** prove that the camera is the unique or dominant instability source.
+**Decision:** the campaign now identifies three distinct outcomes: **Camera mount A** as the strongest OPL-response candidate, **Grating A** as the largest observed MaxIm centroid-response candidate, and **Camera mount B / Grating B** as the cleanest independently validated rigid-image-motion cases. It does **not** yet prove a unique unstable component.
 
 ---
 
@@ -47,11 +54,11 @@ $$
 \Delta\mathrm{OPL}(t)=\mathrm{OPL}(t)-\mathrm{OPL}_{\mathrm{baseline}}(t).
 $$
 
-For centroid and OPL response amplitudes, a linear pre-pulse trend was removed before calculating peaks. This prevents a pre-existing drift from being counted as a thermal response.
+For centroid and OPL response amplitudes, a linear pre-pulse trend was removed before calculating peaks. This prevents pre-existing drift from being counted as heater response.
 
 ---
 
-## 2. Pulse protocol and what was actually supplied
+## 2. Pulse protocol and supplied energy
 
 Each trial used the same nominal electrical heating impulse:
 
@@ -80,7 +87,7 @@ The experiment controlled **electrical energy**, not the surface temperature of 
 | Camera mount A | `CAMERA_MOUNT_RIGHT_A_R01_20260623_123149` | 23 June | 23 | 47 | 46.26 |
 | Camera mount B | `CAMERA_MOUNT_B_LEFT_R01_20260623_140332` | 23 June | 23 | 11 | 23.29 |
 
-Only two science frames occurred within the 70-second pulse itself. These trials therefore constrain the **delayed thermal response**, not the sub-minute heating transient.
+Only two science frames occurred during the 70-second pulse itself. These trials therefore constrain the **delayed thermal response**, not the sub-minute heating transient.
 
 ---
 
@@ -90,16 +97,16 @@ The baseline must be evaluated before interpreting a response. A large pre-pulse
 
 | Location | Baseline ΔY slope (px min⁻¹) | Baseline σΔY (px) | Baseline assessment |
 |---|---:|---:|---|
-| Grating A | -0.0499 | 0.1208 | Centroid baseline was already drifting/noisy; large response requires confirmation by repeat. |
+| Grating A | -0.0499 | 0.1208 | Centroid baseline was already drifting/noisy; large response requires FITS validation and repeat confirmation. |
 | Grating B | +0.0136 | 0.0103 | Cleanest centroid baseline. |
 | Camera mount A | +0.0185 | 0.0196 | Good centroid baseline before the later environmental evolution. |
 | Camera mount B | -0.0166 | 0.0584 | Moderate baseline scatter; short run prevents a full recovery assessment. |
 
-The baseline analysis is why the report refers to **observed response candidates**, rather than asserting a final component transfer function from one pulse.
-
 ---
 
-## 4. Measured response to the common 154 J impulse
+## 4. Logger-measured response to the common 154 J impulse
+
+The table below gives the baseline-detrended logger result before independent FITS validation.
 
 | Location | Peak abs(ΔY) (px) | Time to abs(ΔY) peak (min) | Peak radial response (px) | Peak abs(ΔOPL) (µm) | Final ΔY (px) | Final ΔOPL (µm) |
 |---|---:|---:|---:|---:|---:|---:|
@@ -108,9 +115,9 @@ The baseline analysis is why the report refers to **observed response candidates
 | Camera mount A | 0.713 | 20.42 | 0.941 | **2.273** | +0.233 | +2.273 |
 | Camera mount B | 0.634 | **8.38** | 0.652 | 0.116 | +0.634 | -0.116 |
 
-### Direct answer: which location gave the largest pixel jump?
+### Direct answer: largest logger-recorded pixel jump
 
-The largest measured detector-plane deviation was **Grating A**:
+The largest logger-recorded detector-plane deviation was **Grating A**:
 
 $$
 |\Delta Y|_{\max}=0.888\ \mathrm{px},
@@ -118,15 +125,13 @@ $$
 r_{\max}=1.047\ \mathrm{px}.
 $$
 
-The camera mounts also produced large responses, but they do not exceed Grating A in observed pixel displacement:
+Ranked by logger-recorded peak |ΔY|:
 
 $$
-\text{Grating A} > \text{Camera mount A} > \text{Camera mount B} > \text{Grating B}
+\text{Grating A} > \text{Camera mount A} > \text{Camera mount B} > \text{Grating B}.
 $$
 
-when ranked by peak $|\Delta Y|$.
-
-### Direct answer: which location gave the largest OPL response?
+### Direct answer: largest OPL response
 
 Camera mount A gave the largest observed OPL excursion:
 
@@ -134,11 +139,59 @@ $$
 |\Delta\mathrm{OPL}|_{\max}=2.273\ \mu\mathrm{m}.
 $$
 
-This is about sixteen times the Grating-A OPL amplitude in the same analysis. It makes Camera mount A a high-priority OPL-sensitivity candidate, but not a proven sole cause of image drift because the environmental state also changed strongly during that trial.
+This makes Camera mount A a high-priority OPL-sensitivity candidate. It should not be used alone as proof of the largest rigid image translation because its FITS validation is weaker than for Camera mount B and Grating B.
 
 ---
 
-## 5. Temperature, pressure and humidity context
+## 5. Independent FITS-frame validation of centroid motion
+
+The saved FITS frames were replayed independently to test whether the MaxIm centroid record corresponded to a real image translation.
+
+The validated replay used:
+
+- the exact MaxIm seed coordinate for each test;
+- a 160 × 160 px seed-centred FITS crop;
+- a median reference from the first five baseline FITS frames;
+- baseline-relative shifts after the same pre-pulse reference convention;
+- `normalization=None` in the final all-frame replay;
+- a Fourier synthetic self-test for registration sign and scale.
+
+All available science FITS frames were processed and no FITS frame was missing.
+
+| Location | FITS frames validated | MaxIm seed (x, y) px | Self-test | All-post RMSE (px) | All-post median mismatch (px) | Early median mismatch (px) | Validation status |
+|---|---:|---:|---|---:|---:|---:|---|
+| Grating A | 41 | (3959.233, 2982.609) | pass | 0.183 | 0.182 | 0.205 | Real drift trend supported; amplitude differs. |
+| Grating B | 72 | (3959.552, 2983.570) | pass | 0.098 | 0.081 | 0.098 | Strong validation. |
+| Camera mount A | 72 | (3963.637, 2981.505) | pass | 0.389 | 0.333 | 0.217 | Caution: later feature-shape/intensity effects likely. |
+| Camera mount B | 36 | (3960.598, 2983.785) | pass | 0.075 | 0.067 | 0.049 | Strongest validation. |
+
+### Validation interpretation
+
+The FITS replay changes the scientific reading:
+
+- **Camera mount B:** the MaxIm centroid trend is strongly corroborated by the saved images. This is the cleanest rigid-translation validation.
+- **Grating B:** the centroid response is also strongly corroborated, although it remains a smaller-amplitude logger response than Grating A.
+- **Grating A:** the time evolution and direction are supported by FITS replay, but the amplitude differs; it is a real drift candidate, not yet a calibrated component coefficient.
+- **Camera mount A:** the OPL response is real and large, but the late centroid excursion is not cleanly reproduced as a rigid translation. The tracked feature likely changed brightness or shape during the later part of the record.
+
+---
+
+## 6. Early heater response versus later relaxation
+
+The early-response window is defined as the 70-second heater pulse plus the first five minutes after heater-off. This separates the direct local thermal impulse from later environmental or relaxation drift.
+
+| Location | MaxIm early peak abs(ΔY) (px) | FITS early peak abs(ΔY) (px) | MaxIm post peak abs(ΔY) (px) | FITS post peak abs(ΔY) (px) | Reading |
+|---|---:|---:|---:|---:|---|
+| Grating A | 0.460 | 0.717 | 0.888 | 1.170 | FITS confirms a substantial grating-region image response; amplitude is method-dependent. |
+| Grating B | 0.097 | 0.180 | 0.200 | 0.531 | Smaller MaxIm response but strong independent FITS trend. |
+| Camera mount A | 0.073 | 0.106 | 0.713 | 0.596 | Early response is small; later behaviour is dominated by non-rigid or environmental evolution. |
+| Camera mount B | 0.495 | 0.375 | 0.634 | 0.512 | Clean, fast, independently validated image response. |
+
+This table is now the safest basis for the report. It prevents the later Camera mount A excursion from being misinterpreted as a clean immediate heater response.
+
+---
+
+## 7. Temperature, pressure and humidity context
 
 The table below gives the post-pulse span of each contextual channel relative to its own baseline. These values describe the environmental envelope during the response; they are not local heated-surface temperatures.
 
@@ -154,11 +207,11 @@ The table below gives the post-pulse span of each contextual channel relative to
 - **Grating A:** the recorded TEC, ECU and BME temperature spans were small, which makes its large pixel response interesting; however, its centroid baseline was not clean and it must be repeated.
 - **Camera mount A:** the largest OPL response appeared together with the largest BME temperature and humidity evolution. This is a sensitivity signal, not a clean local-causality measurement.
 - **Camera mount B:** rapid centroid motion occurred while humidity also changed substantially; its record ended too early for recovery.
-- **Grating B:** small response but non-negligible environmental change during relaxation; retain as a comparison site rather than a null result.
+- **Grating B:** the MaxIm response was smaller, but the FITS replay validates that the saved images contained real motion.
 
 ---
 
-## 6. Descriptive post-pulse correlation diagnostics
+## 8. Descriptive post-pulse correlation diagnostics
 
 The following are **zero-lag Pearson correlations** between detrended ΔY and the indicated post-pulse variable. They are included because they help identify co-evolution, not because they prove mechanism.
 
@@ -169,69 +222,68 @@ The following are **zero-lag Pearson correlations** between detrended ΔY and th
 | Camera mount A | -0.288 | -0.364 | +0.264 | -0.488 |
 | Camera mount B | -0.852 | -0.887 | -0.979 | -0.981 |
 
-### Correlation interpretation
-
-These coefficients should **not** be used as sensitivity coefficients in a model yet. Each series is short, several variables evolve monotonically with time, and thermal/optical response lags may differ by minutes. The most reliable use of this table is to identify which repeats require lag-aware modelling:
-
-- Grating A has strong positive ΔY-OPL co-evolution, but its baseline must first be improved.
-- Camera mount B has strong negative zero-lag associations, but the trial is short and incomplete.
-- Camera mount A's large OPL rise is not explained by a simple zero-lag ΔY-OPL relation; it likely contains delayed or multi-path behaviour.
-- Grating B remains useful for comparing a smaller-amplitude response under a more variable environmental envelope.
+These coefficients should **not** be used as sensitivity coefficients in a model yet. Each series is short, several variables evolve monotonically with time, and thermal/optical response lags may differ by minutes.
 
 ---
 
-## 7. Quality limits before using these data in a controller model
+## 9. Quality limits before using these data in a controller model
 
-### 7.1 No complete recovery or settling-time result
+### 9.1 No complete recovery or settling-time result
 
 No trial demonstrated a complete return to the strict post-pulse stability band in the recorded interval. Therefore:
 
-- the quoted peak values are lower bounds for records still evolving at the end;
+- quoted peak values are lower bounds for records still evolving at the end;
 - no physical thermal time constant should be fitted from these four runs alone;
-- neither Camera mount B nor Grating A can be described as recovered.
+- neither Camera mount B nor Grating A can be described as fully recovered.
 
-### 7.2 Independent image-registration validation remains outstanding
+### 9.2 FITS validation is now available, but not uniform
 
-The logged phase-correlation signal did not consistently agree with the centroid channel. Median centroid-to-phase-correlation disagreement was approximately $0.96\ \mathrm{px}$ for Camera mount A, $0.40\ \mathrm{px}$ for Grating B and $0.24\ \mathrm{px}$ for Camera mount B. Grating-A phase-correlation statistics were unavailable in the export.
+The independent image validation confirms that saved FITS frames can recover real image motion. However, agreement is location-dependent:
 
-Raw FITS-frame validation is required before interpreting each MaxIm DL centroid excursion as a rigid spectrum translation.
+- Camera mount B and Grating B are strongly validated.
+- Grating A is trend-validated but amplitude-limited.
+- Camera mount A is OPL-important but centroid-cautionary.
 
-### 7.3 The camera is an investigation priority, not yet a verdict
+### 9.3 The camera is an investigation priority, not yet a verdict
 
-Camera mount A is important because it produced the largest OPL excursion. However, the strongest pixel jump was at Grating A. The correct present conclusion is therefore:
+Camera mount A is important because it produced the largest OPL excursion. However, the strongest logger-recorded pixel jump was at Grating A, while the cleanest independently validated centroid motion occurred for Camera mount B and Grating B. The correct present conclusion is therefore:
 
-> The campaign identifies a **camera-mount OPL-sensitivity candidate** and a **grating centroid-sensitivity candidate**. It does not yet isolate a unique culprit.
+> The campaign identifies a **camera-mount OPL-sensitivity candidate**, a **grating centroid-response candidate**, and two **strongly FITS-validated image-motion cases**. It does not yet isolate a unique culprit.
 
 ---
 
-## 8. Controlled repeat plan
+## 10. Controlled repeat plan
 
 The next experiment should distinguish a local thermal effect from ambient environmental drift.
 
-1. Repeat **Grating A** and **Camera mount A** at least twice each, alternating locations.
+1. Repeat **Grating A**, **Grating B**, **Camera mount A** and **Camera mount B** with the same seed-centred FITS validation from the start.
 2. Preserve the 154 J pulse initially so amplitudes remain comparable.
 3. Extend relaxation until the response stays inside a declared band for at least three accepted frames.
-4. Add a temperature sensor physically representative of the heated region; ambient BME/ECU channels are not a substitute for a local surface or mount temperature.
+4. Add a temperature sensor physically representative of the heated region; ambient BME/ECU channels are not a substitute for local surface or mount temperature.
 5. Include a matched unheated control sequence under comparable room conditions.
-6. Recompute centroid motion independently from saved FITS frames and compare it to MaxIm DL and phase correlation.
-7. For each replicate, report baseline slope/scatter, peak amplitude, time-to-peak, recovery time, OPL response, environmental spans and uncertainty.
+6. Report early response separately from late relaxation/environmental drift.
+7. Use the all-frame seed-centred FITS replay as a mandatory validation layer before converting MaxIm centroid values into component-specific coefficients.
 
 ---
 
-## 9. Engineering conclusion
+## 11. Engineering conclusion
 
 The 22-24 June campaign provides a useful first **component-sensitivity map**:
 
 $$
-\text{Grating A} \rightarrow \text{largest observed pixel jump},
+\text{Grating A} \rightarrow \text{largest logger-recorded pixel jump},
 $$
 
 $$
-\text{Camera mount A} \rightarrow \text{largest observed OPL response}.
+\text{Camera mount A} \rightarrow \text{largest OPL response},
 $$
 
-The next scientific step is not to declare the camera as the cause. It is to repeat these two locations under tighter environmental control, complete the relaxation window and validate the image motion from raw FITS data. Only then can a reproducible component-specific sensitivity coefficient be considered for the hybrid feedback model.
+$$
+\text{Camera mount B and Grating B} \rightarrow \text{cleanest FITS-validated image motion}.
+$$
+
+The next scientific step is not to declare one component as the cause. It is to repeat the high-priority sites under tighter environmental control, complete the relaxation window, and keep seed-centred FITS replay as the independent validation standard. Only then can reproducible component-specific sensitivity coefficients be considered for the hybrid feedback model.
 
 ## Public boundary
 
-This public report contains the protocol, baseline assessment, response amplitudes, environmental spans, descriptive correlation diagnostics and engineering interpretation. It intentionally omits raw telemetry, FITS files, component geometry, sensor positions, optical alignment, hardware communications, calibration matrices, heater placement details and operational controller settings.
+This public report contains the protocol, baseline assessment, response amplitudes, environmental spans, FITS-validation summary, descriptive correlation diagnostics and engineering interpretation. It intentionally omits raw telemetry, FITS files, component geometry, sensor positions, optical alignment, hardware communications, calibration matrices, heater placement details and operational controller settings.
