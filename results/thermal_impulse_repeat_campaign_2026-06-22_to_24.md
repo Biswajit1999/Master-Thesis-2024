@@ -71,8 +71,6 @@ The analysis uses only the logger CSV channels. FITS-frame centroid remeasuremen
 
 ### 3.1 Four-location comparison
 
-[Open the four-location comparison figure (PDF)](../figures/thermal_impulse_june_2026/thermal_impulse_four_location_comparison.pdf)
-
 | Location | Peak $|\Delta Y|$ (px) | Time to $|\Delta Y|$ peak (min) | Peak radial response (px) | Peak $|\Delta\mathrm{OPL}|$ ($\mu$m) | Interpretation |
 |---|---:|---:|---:|---:|---|
 | Grating A | 0.888 | 11.43 | 1.047 | 0.142 | Largest observed image-plane response; response still rising at run end. |
@@ -80,7 +78,7 @@ The analysis uses only the logger CSV channels. FITS-frame centroid remeasuremen
 | Camera mount A | 0.713 | 20.42 | 0.941 | **2.273** | Largest OPL response; environmental evolution was also substantial. |
 | Camera mount B | 0.634 | 8.38 | 0.652 | 0.116 | Fast centroid response; run ended before recovery could be measured. |
 
-The two dashed vertical lines in the plots mark heater-on and the nominal end of the 70-second pulse. The short pulse was sampled by only two science frames, so these data constrain the delayed thermal response rather than the sub-minute onset dynamics.
+The two dashed protocol markers in the analysis figures identify heater-on and the nominal end of the 70-second pulse. The short pulse was sampled by only two science frames, so these data constrain the delayed thermal response rather than the sub-minute onset dynamics.
 
 ### 3.2 Environmental context
 
@@ -97,29 +95,21 @@ The environmental context is essential. A local-heating result cannot be attribu
 
 #### Grating A - high-priority centroid-sensitivity candidate
 
-[Open the Grating A environmental-response figure (PDF)](../figures/thermal_impulse_june_2026/grating_a_environment_response.pdf)
-
-Grating A produced the largest observed $\Delta Y$ response and a coherent rise in OPL after the heating interval. Its recorded post-pulse TEC, ECU temperature, BME temperature and pressure spans were comparatively small. The full-trace centroid-OPL diagnostic was strongly positive, but this should be treated as co-evolution over time rather than a causal transfer coefficient.
+Grating A produced the largest observed $\Delta Y$ response and a coherent rise in OPL after the heating interval. Its recorded post-pulse TEC, ECU temperature, BME temperature and pressure spans were comparatively small. The centroid-OPL diagnostic was strongly positive across the analysed trace, but this should be treated as co-evolution over time rather than a causal transfer coefficient.
 
 This is the strongest current candidate for a **repeat under a longer relaxation window**, because its image-plane response is large while the recorded environmental background was less variable than in the camera-mount-A trial. The run cannot yet provide a thermal time constant because its response was still increasing when logging stopped.
 
 #### Grating B - low-sensitivity comparator
 
-[Open the Grating B environmental-response figure (PDF)](../figures/thermal_impulse_june_2026/grating_b_environment_response.pdf)
-
 Grating B showed the smallest centroid and OPL response. However, its later relaxation interval coincided with appreciable pressure, humidity and BME-temperature evolution. It should therefore be retained as a **comparison location**, not declared thermally insensitive on the basis of one run.
 
 #### Camera mount A - high-priority OPL-sensitivity candidate
-
-[Open the Camera mount A environmental-response figure (PDF)](../figures/thermal_impulse_june_2026/camera_mount_a_environment_response.pdf)
 
 Camera mount A generated the largest observed OPL response, rising to $2.273\ \mu\mathrm{m}$, with a substantial detector-plane response. This makes the camera-mount region a high-priority candidate for further study.
 
 However, this trial also had the largest environmental spans: BME temperature changed by $1.06\ ^\circ\mathrm{C}$, BME relative humidity by $20.96\%$, and pressure changed by several tenths of a hPa. The response cannot therefore be assigned uniquely to the local heater or to the camera mount itself. The correct conclusion is that this region is **strongly sensitive during the tested thermal/environmental state**, not that it has been proven to be the unique cause of drift.
 
 #### Camera mount B - rapid but incomplete candidate
-
-[Open the Camera mount B environmental-response figure (PDF)](../figures/thermal_impulse_june_2026/camera_mount_b_environment_response.pdf)
 
 Camera mount B produced a rapid positive $\Delta Y$ rise, reaching $0.634\ \mathrm{px}$ 8.38 min after heater-on, while OPL moved negatively by approximately $0.116\ \mu\mathrm{m}$. This opposite-sign behaviour is informative but not yet interpretable as a stable local transfer function because the run ended after only 23.29 min and the environmental humidity trajectory was substantial.
 
@@ -181,10 +171,6 @@ $$
 
 The next scientific step is a controlled replicate campaign designed around these two locations, with complete relaxation, local temperature verification and raw-image validation. That is the level required before using a component-specific sensitivity coefficient in the hybrid feedback model.
 
-## Figures
+## Figure availability
 
-- [Four-location comparison](../figures/thermal_impulse_june_2026/thermal_impulse_four_location_comparison.pdf)
-- [Grating A environmental response](../figures/thermal_impulse_june_2026/grating_a_environment_response.pdf)
-- [Grating B environmental response](../figures/thermal_impulse_june_2026/grating_b_environment_response.pdf)
-- [Camera mount A environmental response](../figures/thermal_impulse_june_2026/camera_mount_a_environment_response.pdf)
-- [Camera mount B environmental response](../figures/thermal_impulse_june_2026/camera_mount_b_environment_response.pdf)
+The embedded scorecard is a public data-derived summary. The detailed time-series figures were generated directly from the campaign CSV analysis and are retained with the private experiment archive while the raw-FITS validation and controlled repeats are completed.
