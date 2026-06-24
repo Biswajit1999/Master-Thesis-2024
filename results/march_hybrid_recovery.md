@@ -6,11 +6,11 @@
 
 This 44.36-hour experiment tested a hybrid strategy in which the TEC addresses slow thermal drift and active optics (AO) provides a faster local correction when the centroid has moved away from the reference position.
 
-The stability target was
+The stability target was:
 
-\[
+$$
 r = \sqrt{dX^2 + dY^2} \leq 0.10\ \mathrm{px}.
-\]
+$$
 
 ## Full-run summary
 
