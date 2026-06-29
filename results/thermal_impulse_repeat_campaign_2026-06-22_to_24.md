@@ -1,257 +1,171 @@
-# Local thermal-impulse component-sensitivity campaign: 22-24 June 2026
+# Local thermal-impulse campaign and V8.3 closed-loop follow-up
 
-> **Status:** corrected location interpretation and added explicit location naming.  
-> **Purpose:** compare four accessible thermal-perturbation locations, identify where the optical path and detector image are most sensitive, and relate the results to hardware and feedback-control limitations.
+**Thermal-impulse dates:** 22–24 June 2026  
+**Closed-loop run:** 25–26 June 2026  
+**Scope:** local thermal sensitivity, then a phase-resolved forensic assessment of V8.3 feedback behaviour.
 
-## Summary
-
-This campaign used four nominally identical local thermal pulses. The conclusion should not be read as **Camera B** or **Grating B** being the main hardware culprits. Those two locations are useful comparison/validation runs. The main sensitivity locations are:
-
-- **Grating A (G2):** largest measured detector-plane response.
-- **Camera mount A / camera right mount:** largest optical-path-length (OPL) response.
-- **Camera mount B and Grating B:** smaller response locations; they also provide cleaner FITS-vs-logger agreement, which validates the measurement pathway rather than making them the largest-response locations.
-
-Every location received a nominal **2.20 W for 70 s** electrical pulse, equivalent to **154 J**. The combined result is therefore:
-
-> **Grating A is the priority detector-motion sensitivity location. Camera mount A is the priority OPL-sensitivity location. Camera mount B and Grating B are not the main culprits in this campaign.**
-
-**Status key used below:** 🟢 strong/validated, 🟠 caution/needs careful interpretation, 🔴 high sensitivity or highest-risk response.
+> **Read this report as evidence, not a success claim.** The thermal-impulse campaign identifies likely disturbance pathways. V8.3 demonstrates an initially bounded feedback interval, but it does not demonstrate robust long-duration centroid stabilisation.
 
 ---
 
-## 1. Location naming correction
+## 1. Thermal-impulse result: what is sensitive?
 
-The earlier wording was confusing because the report separated **response amplitude** from **FITS-validation cleanliness**.
+Each accessible location received the same nominal thermal input:
 
-| Report label | Trial identifier | Physical description used here | Role in interpretation |
-|---|---|---|---|
-| **Grating A (G2)** | `GRATING_A_R01_20260622_133547` | Grating-side heater position shown in the G2 photograph | Largest detector-plane response |
-| **Camera mount A / camera right mount** | `CAMERA_MOUNT_RIGHT_A_R01_20260623_123149` | Camera-right mount heater position shown in the photograph | Largest OPL response |
-| Camera mount B | `CAMERA_MOUNT_B_LEFT_R01_20260623_140332` | Camera-left / second camera mount test | Smaller response; strong validation |
-| Grating B | `GRATING_B_R01_20260622_144720` | Second grating-side test | Smaller logger response; strong validation |
+\[
+P=2.20\ \mathrm{W},\qquad \Delta t=70\ \mathrm{s},\qquad E=154\ \mathrm{J}.
+\]
 
-The statement that **Camera mount B** and **Grating B** have the strongest FITS agreement means that their logged image shifts are reproduced most cleanly as rigid image translations. It does **not** mean they produced the largest physical response.
+| Location | Peak \(|\Delta Y|\) | Peak radial image response | Peak \(|\Delta\mathrm{OPL}|\) | Interpretation |
+|---|---:|---:|---:|---|
+| **Grating A (G2)** | **0.888 px** | **1.047 px** | 0.142 µm | Largest detector-plane response |
+| Grating B | 0.200 px | 0.283 px | 0.054 µm | Smaller, clean comparison location |
+| **Camera mount A / right mount** | 0.713 px | 0.941 px | **2.273 µm** | Largest OPL response |
+| Camera mount B | 0.634 px | 0.652 px | 0.116 µm | Fast image response; strongest rigid-shift validation |
 
----
+**Working hardware interpretation:** Grating A is the priority image-motion sensitivity location; Camera mount A is the priority OPL-sensitivity location. These are different observables and do not establish a single hardware culprit.
 
-## 2. Photographic location reference
+### Independent FITS check
 
-The two priority locations supplied for the report are:
+| Location | FITS frames | Full-record MaxIm–FITS discrepancy RMS | Interpretation |
+|---|---:|---:|---|
+| Grating A | 41 | 0.183 px | Trend supported; amplitude remains method-dependent |
+| Grating B | 72 | 0.098 px | Strong image-motion validation |
+| Camera mount A | 72 | 0.389 px | Strong OPL result; later centroid behaviour needs caution |
+| Camera mount B | 36 | **0.075 px** | Strongest rigid-shift validation |
 
-1. **Grating A (G2)** — the grating-side heater location.
-2. **Camera mount A / camera right mount** — the camera-right heater location.
-
-The photographs should be used only as location-reference images. They are not raw measurement data and should not be used to infer detailed optical geometry, exact path length, or sensor placement.
-
----
-
-## 3. Experimental question
-
-> When the same short thermal input is applied at different accessible regions, which location produces the largest and cleanest optical-path-length response and detector-image response?
-
-The baseline-referenced image coordinates are
-
-$$
-\Delta X(t)=X(t)-X_{\mathrm{ref}},
-\qquad
-\Delta Y(t)=Y(t)-Y_{\mathrm{ref}},
-$$
-
-with radial image displacement
-
-$$
-r(t)=\sqrt{\Delta X(t)^2+\Delta Y(t)^2}.
-$$
-
-The optical-path response is
-
-$$
-\Delta\mathrm{OPL}(t)=\mathrm{OPL}(t)-\mathrm{OPL}_{\mathrm{baseline}}(t).
-$$
-
-Before calculating response peaks, the linear pre-heater trend was removed. This avoids counting pre-existing drift as a heater response.
+**Caution:** environmental telemetry gives context, not local component temperature. It cannot by itself identify detector-mount, grating-substrate, or camera-cooling gradients.
 
 ---
 
-## 4. Applied thermal pulse and data coverage
+## 2. Why V8.3 follows the thermal-impulse campaign
 
-The electrical input was held constant between locations:
+The two experiments answer complementary questions:
 
-$$
-P=8.80\ \mathrm{V}\times0.25\ \mathrm{A}=2.20\ \mathrm{W},
-$$
+| Thermal-impulse campaign | V8.3 feedback run |
+|---|---|
+| Which accessible location creates image/OPL sensitivity? | Can the controller maintain image stability while the instrument evolves naturally? |
+| Local pulse and passive relaxation | Long-duration closed-loop operation |
+| Identifies disturbance pathways | Tests controller authority, model validity, and actuator response |
 
-$$
-E=P\Delta t=(2.20\ \mathrm{W})(70\ \mathrm{s})=154\ \mathrm{J}.
-$$
-
-Each run contained a pre-heater baseline, a 70 s pulse, and a passive post-heater observation period.
-
-| Location | Trial identifier | Accepted baseline frames | Accepted relaxation frames | Accepted-record span (min) |
-|---|---|---:|---:|---:|
-| Grating A | `GRATING_A_R01_20260622_133547` | 23 | 16 | 26.35 |
-| Grating B | `GRATING_B_R01_20260622_144720` | 23 | 47 | 46.30 |
-| Camera mount A | `CAMERA_MOUNT_RIGHT_A_R01_20260623_123149` | 23 | 47 | 46.26 |
-| Camera mount B | `CAMERA_MOUNT_B_LEFT_R01_20260623_140332` | 23 | 11 | 23.29 |
-
-**Definitions.** Accepted baseline frames are valid science frames before heater-on. Accepted relaxation frames are valid science frames after heater-off; the two frames acquired during the 70 s pulse are excluded from this count. Accepted-record span is the elapsed time from the first accepted baseline frame to the last accepted science frame. It is not a settling time.
-
-Only two science frames occurred during the pulse. The experiment therefore constrains delayed response over minutes more reliably than sub-minute transient behaviour.
+The V8.3 analysis therefore uses the impulse campaign to motivate **local-temperature sensing and model re-identification**, not to claim that a single global TEC setpoint can compensate every thermal-optical pathway.
 
 ---
 
-## 5. Baseline condition before heating
+## 3. V8.3 exact timeline
 
-| Location | Baseline dY slope (px min⁻¹) | Baseline dY scatter σ (px) | Status | Interpretation |
-|---|---:|---:|---|---|
-| Grating A | -0.0499 | 0.1208 | 🟠 Caution | Baseline was already drifting/noisy; amplitude requires caution. |
-| Grating B | +0.0136 | 0.0103 | 🟢 Clean baseline | Cleanest pre-heater centroid baseline. |
-| Camera mount A | +0.0185 | 0.0196 | 🟢 Clean baseline | Quiet baseline before later environmental evolution. |
-| Camera mount B | -0.0166 | 0.0584 | 🟠 Moderate | Moderate baseline scatter; short record. |
+Times below are timestamps recorded by the control PC; the CSV did not retain an explicit timezone.
 
-Slope is the least-squares change in ΔY per minute during the baseline. Scatter is the standard deviation of accepted baseline ΔY values.
+| Stage | Start | End | Duration |
+|---|---|---|---:|
+| Passive warm-up | 25 Jun 2026, 22:51:20 | 25 Jun 2026, 23:54:37 | 63.3 min |
+| TEC identification, positive leg | 25 Jun 2026, 23:55:47 | 26 Jun 2026, 00:13:52 | 18.1 min |
+| TEC identification, return leg | 26 Jun 2026, 00:15:03 | 26 Jun 2026, 00:21:30 | 6.5 min |
+| Post-identification settling | 26 Jun 2026, 00:22:41 | 26 Jun 2026, 00:36:53 | 14.2 min |
+| TEC-only control | 26 Jun 2026, 00:38:04 | 26 Jun 2026, 01:06:29 | 28.4 min |
+| MIMO phase | 26 Jun 2026, 01:07:46 | 26 Jun 2026, 11:45:56 | 10.64 h |
 
----
+![V8.3 phase-resolved telemetry](figures/v8_3_feedback_2026_06/v8_3_phase_resolved_context.png)
 
-## 6. Logger-measured response to the common impulse
-
-The following values are calculated from heater-on until the last accepted science frame after removing the pre-heater trend.
-
-| Location | Peak abs dY (px) | Time to peak (min) | Peak radial response (px) | Peak abs dOPL (µm) | Terminal dY (px) | Terminal dOPL (µm) | Status |
-|---|---:|---:|---:|---:|---:|---:|---|
-| **Grating A** | **0.888** | 11.43 | **1.047** | 0.142 | +0.888 | +0.134 | 🔴 Largest detector-plane response |
-| Grating B | 0.200 | 31.39 | 0.283 | 0.054 | +0.200 | -0.041 | 🟢 Small logger response |
-| **Camera mount A** | 0.713 | 20.42 | 0.941 | **2.273** | +0.233 | +2.273 | 🔴 Largest OPL response |
-| Camera mount B | 0.634 | **8.38** | 0.652 | 0.116 | +0.634 | -0.116 | 🟠 Fast image response |
-
-**Interpretation.** Grating A has the largest logger-recorded detector response, whereas Camera mount A has the largest OPL response. These are different observables and should not be collapsed into a single-root-cause statement.
+*Figure 1. Full V8.3 telemetry. The horizontal axis is elapsed experiment time. Warm-up is passive logging; TEC-only permits thermal setpoint correction only; MIMO enables the outer supervisory allocation logic. The later divergence must not be hidden by the early stable segment.*
 
 ---
 
-## 7. Independent FITS validation of image motion
+## 4. What the run actually achieved
 
-The logger centroid trace was checked independently using saved FITS frames. The replay used the exact MaxIm seed for each trial, a seed-centred crop, a median image from the first five baseline FITS frames, all available science frames, and a Fourier synthetic-shift self-test.
+| Segment | Frames | Duration | Radial RMS | 95th percentile \(|e|\) | \(|e|\leq0.5\) px | TEC actions | AO actions |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| TEC-only | 23 | 28.4 min | **0.092 px** | 0.149 px | 100.0% | 5 | 0 |
+| MIMO, feedback clock \(\leq6\) h | 255 | 5.47 h | **0.225 px** | 0.298 px | **99.6%** | 29 | 6 |
+| MIMO, feedback clock \(>6\) h | 240 | 5.15 h | 1.440 px | 2.286 px | 14.6% | 10 | 0 |
+| Full MIMO | 495 | 10.64 h | 1.016 px | 1.977 px | 58.4% | 39 | 6 |
 
-| Location | FITS frames checked | Self-test | All-post discrepancy RMS (px) | Typical all-post discrepancy (px) | Early-window discrepancy (px) | Status | Interpretation |
-|---|---:|---|---:|---:|---:|---|---|
-| Grating A | 41 | pass | 0.183 | 0.182 | 0.205 | 🟠 Trend validated | FITS supports the drift trend; measured amplitude differs from MaxIm. |
-| Grating B | 72 | pass | 0.098 | 0.081 | 0.098 | 🟢 Strong validation | Strong independent agreement, but smaller response amplitude. |
-| Camera mount A | 72 | pass | 0.389 | 0.333 | 0.217 | 🟠 OPL strong, centroid caution | Later feature-shape or intensity change likely affects rigid-shift comparison. |
-| Camera mount B | 36 | pass | 0.075 | 0.067 | 0.049 | 🟢 Strongest validation | Strongest independent agreement, but not the largest response. |
+The early MIMO interval is a real bounded interval. It is **not**, by itself, causal proof that outer feedback produced the stability: V8.3 did not include a matched no-outer-control baseline under comparable conditions.
 
-**All-post discrepancy RMS** is the root-mean-square radial difference between the MaxIm and independent FITS shifts from heater-on to the final accepted frame; it weights occasional large disagreements strongly. **Typical all-post discrepancy** is the median radial difference in the same interval. **Early-window discrepancy** is the median radial difference during the pulse plus the first five minutes after heater-off.
-
-The validation clarifies the interpretation:
-
-- **Camera mount B** and **Grating B** provide the cleanest evidence that the logger trace corresponds to rigid image translation.
-- **Grating A** shows a genuine image-motion trend, but its exact amplitude remains method-dependent.
-- **Camera mount A** retains the strongest OPL result, but its later centroid excursion should not be described as a fully validated rigid shift.
+The hardware TEC loop itself continued to track its own target: median absolute measured-target gap was 2.79 mK in early MIMO and 3.52 mK in late MIMO. The late centroid excursion was therefore not evidence that the inner TEC temperature regulator had simply stopped tracking.
 
 ---
 
-## 8. Early response versus full recorded response
+## 5. Forensic answer: why did long-duration stability fail?
 
-The early-response window is the 70 s pulse plus the first five minutes after heater-off. The full response includes all accepted non-baseline frames through the final recorded point.
+### 5.1 The onset was a control-model mismatch, not a proven external environmental step
 
-![MaxIm versus FITS early and full response comparison](../figures/thermal_impulse_june_2026/thermal_impulse_maxim_fits_response_comparison.svg)
+The first persistent loss of the 0.5 px containment band began at **26 Jun 2026, 07:05:38**. At **07:30:12**, the filtered image state changed from the preceding frame by:
 
-| Location | MaxIm early peak abs dY (px) | FITS early peak abs dY (px) | MaxIm full-record peak abs dY (px) | FITS full-record peak abs dY (px) | Status |
-|---|---:|---:|---:|---:|---|
-| Grating A | 0.460 | 0.717 | 0.888 | 1.170 | 🔴 Strong grating response |
-| Grating B | 0.097 | 0.180 | 0.200 | 0.531 | 🟢 Validated but smaller logger response |
-| Camera mount A | 0.073 | 0.106 | 0.713 | 0.596 | 🟠 Late behaviour dominates |
-| Camera mount B | 0.495 | 0.375 | 0.634 | 0.512 | 🟢 Fast validated response |
-
-The largest number in a full record is not necessarily the most direct response to the 70 s local pulse. This distinction is particularly important for Camera mount A, where later non-rigid or environmental behaviour contributes strongly.
-
----
-
-## 9. Environmental context
-
-The values below are post-heater spans: maximum minus minimum accepted value after heater-on. A span is a range across the record; it is neither an average nor a selected point.
-
-| Location | TEC span (°C) | ECU temperature span (°C) | BME temperature span (°C) | ECU/BME pressure span (hPa) | ECU/BME humidity span (%) |
-|---|---:|---:|---:|---:|---:|
-| Grating A | 0.013 | 0.035 | 0.060 | 0.12 / 0.07 | 0.93 / 2.51 |
-| Grating B | 0.011 | 0.121 | 0.460 | 0.66 / 0.55 | 3.91 / 7.00 |
-| Camera mount A | 0.034 | 0.562 | 1.060 | 0.34 / 0.38 | 7.80 / 20.96 |
-| Camera mount B | 0.011 | 0.009 | 0.340 | 0.10 / 0.07 | 4.21 / 8.01 |
-
-These channels provide context only. They do not directly give the temperature of the heated component, detector mount, grating substrate or camera cooling interface.
-
-### Descriptive correlations
-
-The following zero-lag Pearson coefficients show co-evolution, not causation or calibrated sensitivity coefficients.
-
-| Location | r(dY, dOPL) | r(dY, BME dT) | r(dY, BME dP) | r(dY, BME dRH) |
-|---|---:|---:|---:|---:|
-| Grating A | +0.980 | -0.888 | +0.897 | +0.187 |
-| Grating B | -0.512 | +0.830 | -0.739 | +0.432 |
-| Camera mount A | -0.288 | -0.364 | +0.264 | -0.488 |
-| Camera mount B | -0.852 | -0.887 | -0.979 | -0.981 |
-
----
-
-## 10. Hardware interpretation and engineering implications
-
-### Camera-side thermal boundary
-
-The camera is not described as a “leak.” Its cooling system is designed to keep the detector chip cold and improve signal-to-noise ratio. However, continuous cooling makes the camera a persistent thermal boundary: heat is removed at the detector and rejected elsewhere in the camera system. That process can maintain a local temperature gradient in the camera-side structure and nearby air.
-
-Camera mount A produced the largest OPL excursion, **2.273 µm**. This does not prove that camera cooling alone caused the observed drift; no direct camera-mount temperature or heat-flux measurement was made. It does identify the camera-side thermal environment as the first hardware mechanism to characterise and mitigate.
-
-### Measured IDS optical-path geometry
-
-For the Camera mount A run, the IDS-reported optical path had the following raw-log statistics:
-
-| Quantity | Value |
+| Quantity | Change over 78 s |
 |---|---:|
-| Valid OPL samples | 72 |
-| Mean OPL | 369274.490 µm = **36.9274 cm** |
-| Median OPL | 369274.222 µm = 36.9274 cm |
-| Baseline mean OPL (first five valid samples) | 369276.206 µm |
-| Standard deviation | 0.816 µm |
-| Minimum / maximum | 369273.508 / 369276.385 µm |
-| Full raw-log range | 2.877 µm |
+| \(\Delta X\) | −0.174 px |
+| \(\Delta Y\) | −0.333 px |
+| Radial error | +0.372 px |
+| OPL residual | −0.011 µm |
+| ECU temperature | 0.000 °C |
+| ECU pressure | −0.05 hPa |
+| ECU water content | −0.147 g m\(^{-3}\) |
+| BME temperature | −0.16 °C |
 
-The mean IDS-reported path is approximately 36.93 cm. Relative to the earlier approximately 59–60 cm configuration noted in the laboratory history, it is roughly 38% shorter. This comparison is meaningful only after confirming that the historical and present IDS values have the same optical-path definition and pass count; the IDS-reported path must not automatically be treated as a mechanical camera-to-component separation.
+No logged temperature, pressure, humidity, or OPL discontinuity matches the centroid jump in magnitude or timing. An **unmeasured local thermal-mechanical or centroid-measurement disturbance remains possible**, but the logged data do not identify an environmental channel as the unique trigger.
 
-For a refractive-index disturbance, the integrated optical-path response scales approximately as
+![Late-drift control forensic](figures/v8_3_feedback_2026_06/v8_3_late_drift_forensic.png)
 
-$$
-\Delta\mathrm{OPL}\approx L\,\Delta n.
-$$
+*Figure 2. Around the late-drift onset, the uncapped PI-D request became non-zero and large, but many proposed commands were vetoed by the predicted-cost gate. OPL and pressure evolved continuously; they do not show an equivalent abrupt event at the 07:30 centroid transition.*
 
-Thus a shorter monitored air path should reduce the integrated contribution of distributed refractive-index fluctuations. Despite this shorter current path, local camera-side heating still produced the largest measured OPL response. This supports the interpretation that local thermal gradients near the detector-side assembly are now at least as important as the total free-space path length.
+### 5.2 The implemented model had insufficient verified authority
 
-### Grating-side sensitivity
+The active thermal column remained fixed throughout MIMO at approximately:
 
-Grating A produced the largest logger-recorded detector response and a FITS-supported drift trend. The grating and mount remain a second high-priority thermal-sensitivity region. Camera-side mitigation alone should not be assumed to remove all detector drift.
+\[
+B_T=[0,\ +7.073,\ 0]^\mathsf{T}\ \mathrm{per\ ^\circ C}.
+\]
 
-### Practical implication
+In practical terms, the controller model assumed that TEC could directly correct **Y only**, with no identified direct authority in X or OPL. A single TEC setpoint is therefore not able to independently drive \(\Delta X\), \(\Delta Y\), and \(\Delta\mathrm{OPL}\) to zero. The system was structurally rank-limited until a validated AO response was available.
 
-The immediate engineering question is not whether to abandon feedback, but how to reduce the disturbance that feedback must reject. The current evidence supports:
+At **07:30:12**, the outer PI-D terms requested approximately **+25.9 mK** before limits. The provisional-model policy limited a single action to **+4 mK**. The predicted MIMO cost would then improve only from 222.27 to 210.55: **5.3%**, below the required 10% reduction. The command was therefore vetoed as `no_predicted_mimo_gain`.
 
-1. characterising the camera-side thermal gradient at the intended detector/chiller operating point;
-2. reducing thermal coupling between the cooling boundary and nearby optical path through local insulation, enclosure refinement or airflow management;
-3. retaining grating-side sensitivity as a second hardware issue;
-4. preserving adaptive model identification, TEC-primary correction and AO fine trim after the local thermal load has been reduced.
+At **07:32:47**, radial error exceeded 1 px and the integral state entered `coarse_error_no_integrate`. This was intentional anti-windup, but it removed the mechanism that could accumulate a persistent correction. The result was a conservative recovery deadlock: the controller calculated a non-zero request but refused the bounded command because its one-step predicted improvement was too small.
 
-A controller can compensate a disturbance only after it is measured and after the delayed actuator has authority. Hardware mitigation should reduce the size and rate of the disturbance so that the controller spends more time inside the desired detector-error band.
+### 5.3 The thermal model later failed its own response validation
+
+At **08:42:34**, a +4 mK TEC step was followed by a measured +14.3 mK thermal movement. The centroid response was opposite to the fixed model prediction and was logged as `direction_mismatch`. The correct interpretation is not that the hardware necessarily failed; it is that the local thermal response used by the controller was no longer predictive at that operating point.
+
+### 5.4 AO did not provide an independent recovery path
+
+![Actuator-response audit](figures/v8_3_feedback_2026_06/v8_3_actuator_response_audit.png)
+
+*Figure 3. All six AO moves were +X steps. The next-frame observed centroid changes were much smaller than, and often directionally inconsistent with, the stored AO calibration. Once cumulative X travel reached +6 steps, the software’s global soft-travel condition prevented further AO use on either axis.*
+
+| AO finding | Evidence |
+|---|---|
+| Y was never selected | All six commanded moves were \((+1,0)\) in the software step convention |
+| Stored AO calibration was not validated by the run | Observed next-frame responses were far below the predicted displacement and did not consistently align in direction |
+| X travel disabled Y | The policy used a global maximum travel test; reaching +6 in X blocked both X and Y |
+| AO could not rescue late drift | AO was restricted to fine residuals and was unavailable once error left that region |
 
 ---
 
-## 11. Conclusion
+## 6. Defensible conclusion from V8.3
 
-The campaign identifies two hardware directions rather than a single final culprit:
+> V8.3 showed an early bounded interval but did not provide robust long-duration centroid stabilisation. The late failure is best explained by a changed or unmodelled plant response combined with restrictive supervisory-control gates and an unverified AO calibration. The available telemetry does not identify a unique logged environmental trigger.
 
-- **Camera mount A / camera right mount:** strongest OPL-sensitivity candidate, with a 2.273 µm full-record OPL response despite a mean IDS-reported path of only 36.93 cm.
-- **Grating A (G2):** largest logger-recorded image-motion candidate, with a FITS-supported trend but method-dependent amplitude.
+This is more precise than either of the following unsupported claims:
 
-Camera mount B and Grating B provide the strongest agreement between MaxIm and FITS image translation. They validate the measurement pathway used to distinguish genuine detector motion from changes in feature brightness or shape, but they are not the largest-response locations in this campaign.
+- “the feedback worked for the whole run”; or
+- “the problem was only environmental.”
 
-The feedback loop remains valuable and has demonstrated stable operation in earlier long-duration experiments. The limiting problem is that EXOhSPEC is a distributed thermal-optical system with delayed and changing sensitivities. Reducing the camera-side and grating-side thermal disturbances at hardware level should allow the adaptive TEC-primary and AO-fine-trim strategy to operate closer to its demonstrated capability.
+---
+
+## 7. Version 9 requirements derived from the evidence
+
+1. **Bidirectional thermal identification:** do not arm autonomous feedback from a one-leg or inadequately settled temperature response.
+2. **Change-detection mode:** a `direction_mismatch` must freeze ordinary correction and trigger bounded re-identification, not normal planning against an invalid model.
+3. **Reachability check:** explicitly test the rank and conditioning of the TEC–AO response matrix before claiming three-output MIMO regulation.
+4. **AO recalibration in the current run:** identify X and Y separately; do not consume travel after a failed validation; use independent axis travel limits.
+5. **Recovery logic without deadlock:** compare the predicted benefit of a step against an absolute noise-aware threshold, not only a fixed relative cost reduction when the residual is already large.
+6. **Matched evidence run:** retain a fixed-reference passive segment before controlled operation and report the same metrics for both.
+7. **True resume checkpoint:** save reference, model coefficients and covariance, filter buffers, integrator state, pending actuator validation, action ledger, and AO state; resume only after a passive continuity check.
+8. **Local disturbance measurement:** prioritise temperature sensing at the Camera mount A/right-mount and Grating A sensitivity regions indicated by the thermal-impulse campaign.
+
+---
 
 ## Public boundary
 
-This public report contains derived response metrics, validation statistics, location naming clarification, and engineering interpretation. It intentionally omits raw telemetry, FITS files, detailed component geometry, sensor positions, optical alignment, hardware communications and operational controller settings.
+This public report contains derived metrics and figures only. It omits raw telemetry, detailed hardware geometry, optical alignment, operational communications, and live controller implementation details.
