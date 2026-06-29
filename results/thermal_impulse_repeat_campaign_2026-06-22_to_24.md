@@ -12,11 +12,7 @@
 
 Each accessible location received the same nominal thermal input:
 
-\[
-P = 2.20\ \mathrm{W}, \qquad
-\Delta t = 70\ \mathrm{s}, \qquad
-E = 154\ \mathrm{J}.
-\]
+**P = 2.20 W, Δt = 70 s, E = 154 J**
 
 | Location | Peak absolute ΔY | Peak radial image response | Peak absolute ΔOPL | Interpretation |
 |---|---:|---:|---:|---|
@@ -67,7 +63,9 @@ Times below are timestamps recorded by the control PC; the CSV did not retain an
 | TEC-only control | 26 Jun 2026, 00:38:04 | 26 Jun 2026, 01:06:29 | 28.4 min |
 | MIMO phase | 26 Jun 2026, 01:07:46 | 26 Jun 2026, 11:45:56 | 10.64 h |
 
-![V8.3 phase-resolved telemetry](./figures/v8_3_feedback_2026_06/v8_3_phase_resolved_context.png)
+<p align="center">
+  <img src="./figures/v8_3_feedback_2026_06/v8_3_phase_resolved_context.png" alt="V8.3 phase-resolved telemetry" width="100%">
+</p>
 
 *Figure 1. Full V8.3 telemetry. The horizontal axis is elapsed experiment time. Warm-up is passive logging; TEC-only permits thermal setpoint correction only; MIMO enables the outer supervisory allocation logic. The later divergence must not be hidden by the early stable segment.*
 
@@ -85,6 +83,30 @@ Times below are timestamps recorded by the control PC; the CSV did not retain an
 The early MIMO interval is a real bounded interval. It is **not**, by itself, causal proof that outer feedback produced the stability: V8.3 did not include a matched no-outer-control baseline under comparable conditions.
 
 The hardware TEC loop itself continued to track its own target: median absolute measured-target gap was 2.79 mK in early MIMO and 3.52 mK in late MIMO. The late centroid excursion was therefore not evidence that the inner TEC temperature regulator had simply stopped tracking.
+
+### 4.1 Histogram view: whole run versus stable first six feedback hours
+
+<p align="center">
+  <img src="./figures/v8_3_feedback_2026_06/v8_3_histograms_whole_vs_stable_first_6h.png" alt="Histograms comparing the whole V8.3 run with the stable first six feedback hours" width="100%">
+</p>
+
+*Figure 2. Histogram comparison of centroid and radial-error distributions for the full V8.3 run versus the stable first six feedback hours. The stable early interval is tightly concentrated, whereas the full-run distribution broadens substantially because of the later drift.*
+
+### 4.2 Distribution shift: early stability versus late drift
+
+<p align="center">
+  <img src="./figures/v8_3_feedback_2026_06/v8_3_distribution_shift_early_vs_late_drift.png" alt="Distribution shift between early MIMO stability and late MIMO drift" width="100%">
+</p>
+
+*Figure 3. ΔY distribution shift between the first six feedback hours and the later drift interval. The early distribution is narrow and centred close to zero, whereas the late interval shifts strongly negative, consistent with the persistent centroid excursion.*
+
+### 4.3 Whole-run histogram summary
+
+<p align="center">
+  <img src="./figures/v8_3_feedback_2026_06/v8_3_histograms_whole_run.png" alt="Whole-run histograms for ΔX, ΔY, and radial error" width="100%">
+</p>
+
+*Figure 4. Whole-run histograms of ΔX, ΔY, and radial error. Median and mean markers show that ΔY and radial error are strongly affected by the late-drift tail, even though a substantial fraction of frames remain near the early stable operating region.*
 
 ---
 
@@ -107,21 +129,21 @@ The first persistent loss of the 0.5 px containment band began at **26 Jun 2026,
 
 No logged temperature, pressure, humidity, or OPL discontinuity matches the centroid jump in magnitude or timing. An **unmeasured local thermal-mechanical or centroid-measurement disturbance remains possible**, but the logged data do not identify an environmental channel as the unique trigger.
 
-![Late-drift control forensic](./figures/v8_3_feedback_2026_06/v8_3_late_drift_forensic.png)
+<p align="center">
+  <img src="./figures/v8_3_feedback_2026_06/v8_3_late_drift_forensic.png" alt="Late-drift control forensic" width="100%">
+</p>
 
-*Figure 2. Around the late-drift onset, the uncapped PI-D request became non-zero and large, but many proposed commands were vetoed by the predicted-cost gate. OPL and pressure evolved continuously; they do not show an equivalent abrupt event at the 07:30 centroid transition.*
+*Figure 5. Around the late-drift onset, the uncapped PI-D request became non-zero and large, but many proposed commands were vetoed by the predicted-cost gate. OPL and pressure evolved continuously; they do not show an equivalent abrupt event at the 07:30 centroid transition.*
 
 ### 5.2 The implemented model had insufficient verified authority
 
 The active thermal column remained fixed throughout MIMO at approximately:
 
-\[
-B_T = [0,\ +7.073,\ 0]^\mathsf{T}\ \mathrm{per\ ^\circ C}.
-\]
+**B_T = [0, +7.073, 0]^T per °C**
 
 In practical terms, the controller model assumed that TEC could directly correct **Y only**, with no identified direct authority in X or OPL. A single TEC setpoint is therefore not able to independently drive ΔX, ΔY, and ΔOPL to zero. The system was structurally rank-limited until a validated AO response was available.
 
-At **07:30:12**, the outer PI-D terms requested approximately **+25.9 mK** before limits. The provisional-model policy limited a single action to **+4 mK**. The predicted MIMO cost would then improve only from 222.27 to 210.55: **5.3%**, below the required 10% reduction. The command was therefore vetoed as `no_predicted_mimo_gain`.
+At **07:30:12**, the outer PI-D terms requested approximately **+25.9 mK** before limits. The provisional-model policy limited a single action to **+4 mK**. The predicted MIMO cost would then improve only from 222.27 to 210.55, i.e. **5.3%**, below the required 10% reduction. The command was therefore vetoed as `no_predicted_mimo_gain`.
 
 At **07:32:47**, radial error exceeded 1 px and the integral state entered `coarse_error_no_integrate`. This was intentional anti-windup, but it removed the mechanism that could accumulate a persistent correction. The result was a conservative recovery deadlock: the controller calculated a non-zero request but refused the bounded command because its one-step predicted improvement was too small.
 
@@ -131,9 +153,11 @@ At **08:42:34**, a +4 mK TEC step was followed by a measured +14.3 mK thermal mo
 
 ### 5.4 AO did not provide an independent recovery path
 
-![Actuator-response audit](./figures/v8_3_feedback_2026_06/v8_3_actuator_response_audit.png)
+<p align="center">
+  <img src="./figures/v8_3_feedback_2026_06/v8_3_actuator_response_audit.png" alt="Actuator-response audit" width="100%">
+</p>
 
-*Figure 3. All six AO moves were +X steps. The next-frame observed centroid changes were much smaller than, and often directionally inconsistent with, the stored AO calibration. Once cumulative X travel reached +6 steps, the software’s global soft-travel condition prevented further AO use on either axis.*
+*Figure 6. All six AO moves were +X steps. The next-frame observed centroid changes were much smaller than, and often directionally inconsistent with, the stored AO calibration. Once cumulative X travel reached +6 steps, the software’s global soft-travel condition prevented further AO use on either axis.*
 
 | AO finding | Evidence |
 |---|---|
@@ -150,8 +174,8 @@ At **08:42:34**, a +4 mK TEC step was followed by a measured +14.3 mK thermal mo
 
 This is more precise than either of the following unsupported claims:
 
-- “the feedback worked for the whole run”; or
-- “the problem was only environmental.”
+- “the feedback worked for the whole run”
+- “the problem was only environmental”
 
 ---
 
