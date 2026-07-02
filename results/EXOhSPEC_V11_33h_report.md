@@ -102,22 +102,35 @@ The AO system remained within its travel envelope throughout the run. The y-axis
 
 ---
 
-## 6. Comparison with selected previous control runs
+## 6. Comparison with earlier control runs
 
-| Run / comparison basis | Duration | ΔX RMS | ΔY RMS | Radial RMS | Within ±0.5 px | Interpretation |
-|---|---:|---:|---:|---:|---:|---|
-| Temperature-only long-run benchmark | 44.5 h | — | ~0.37 px | — | 91% | Stable thermal control, without sustained AO fine correction |
-| V8.3 early MIMO interval | First ~6 h | — | — | 0.225 px | 99.6% | Strong short-duration stability |
-| V8.3 complete MIMO interval | 10.64 h | — | — | 1.016 px | 58.4% | Late-run drift and loss of containment |
-| V11 fixed initial feedback reference | 31.44 h | — | — | 0.225 px | 98.63% | Conservative drift-relative assessment |
-| V11 adaptive controller reference | 31.44 h | 0.0635 px | 0.1524 px | 0.1634 px | 100.0% | Sustained closed-loop containment |
+The historical A–E rows use full-run metrics from the cleaned-OPL comparison analysis. V11 uses an adaptive controller reference, so its controller-containment result and its more conservative fixed-reference result are stated separately.
 
-V11 matches the fixed-reference radial RMS of V8.3's best early interval, but sustains this behaviour for more than five times longer. Unlike V8.3, V11 showed no comparable late-run breakaway.
+| Run | Control approach | Duration | RMS ΔX | RMS ΔY | RMS radial error | Within ±0.5 px | TEC actions/h | AO actions/h |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| A — 23 Mar | Hybrid TEC + AO | 43.47 h | 0.7512 px | 0.3711 px | 0.8379 px | 51.56% | 5.11 | 2.39 |
+| B — Apr V6 | Adaptive hybrid run | 50.89 h | 0.3266 px | 1.7309 px | 1.7615 px | 37.89% | 11.18 | 5.36 |
+| C — 15 Apr | Fixed-model hybrid | 47.11 h | 0.3007 px | 4.9816 px | 4.9907 px | 23.32% | 8.62 | 0.70 |
+| D — 20 Apr | Fixed-prior / fixed-model | 36.95 h | 0.4394 px | 5.8756 px | 5.8920 px | 28.95% | 13.19 | 1.08 |
+| E — 22–24 Apr | Attended TEC-primary + AO | 49.63 h | 0.5254 px | 1.2015 px | 1.3113 px | 47.82% | 5.79 | 2.41 |
+| V11 — 1–2 Jul | Adaptive warm-up model + TEC + AO | 31.44 h feedback | 0.0635 px | 0.1524 px | 0.1634 px | 100.0% | 2.16 | 2.19 |
 
-V8.3's late instability coincided with environmental drift and insufficient verified recovery authority. The existing evidence does not isolate one unique environmental cause. V11 adds the internal-temperature feedforward and preserves bounded TEC-plus-AO range management, and this run shows no recurrence of the V8.3 collapse.
+> **Comparison note:** The V11 row above is measured relative to its adaptive controller reference, which is the correct metric for live closed-loop containment. For the conservative fixed-reference assessment, V11 achieved radial RMS = **0.225 px** and **98.63%** containment within ±0.5 px over the same 31.44 h feedback interval.
 
-> [!IMPORTANT]
-> V11 is a successful long-duration closed-loop containment result. It is strong evidence from one run, not final proof of repeatability. A second independent 24–33 hour run should be used to confirm the result.
+The table shows that V11 is the first run to combine low residual motion in both axes with sustained long-duration containment. Its ΔX RMS of 0.0635 px is substantially smaller than ΔY RMS of 0.1524 px, meaning the remaining error budget is dominated by the vertical image direction.
+
+### Focused V8.3–V11 long-duration comparison
+
+| Comparison window | Feedback duration | Radial RMS | Within ±0.5 px | Interpretation |
+|---|---:|---:|---:|---|
+| V8.3 early stable MIMO interval | First ~6 h | 0.225 px | 99.6% | Strong short-duration performance |
+| V8.3 full MIMO interval | 10.64 h | 1.016 px | 58.4% | Late-run drift and loss of containment |
+| V11 fixed initial feedback reference | 31.44 h | 0.225 px | 98.63% | Conservative long-duration drift result |
+| V11 adaptive controller reference | 31.44 h | 0.1634 px | 100.0% | Sustained closed-loop containment |
+
+V11 therefore matches V8.3's best early radial stability on the conservative fixed-reference basis, but sustains it for more than five times longer. Unlike V8.3, no comparable late-run breakaway occurred.
+
+> **Caveat:** this is strong evidence from one long run, not yet a repeatability claim. A second independent 24–33 h V11 run should be used to confirm the result.
 
 ---
 
