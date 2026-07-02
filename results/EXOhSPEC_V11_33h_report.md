@@ -101,37 +101,25 @@ The AO system remained within its travel envelope throughout the run. The y-axis
 ![Nine-panel full-run diagnostic](figures/06_nine_panel_stacked.png)
 
 ---
-## 6. Comparison across key control runs
+## 6. Comparison across control runs
 
-To avoid blank cells and ensure a fair comparison, this table uses **radial error**, which is available for every run. Axis-resolved ΔX and ΔY values are stated separately for V11.
+All rows use the principal full-run or full-feedback result for each experiment. Lower RMS values and higher containment fractions indicate better image stability.
 
-| Run | Control approach | Comparison duration | Radial RMS | Within ±0.5 px | Long-duration outcome |
-|---|---|---:|---:|---:|---|
-| A — 23 Mar | Hybrid TEC + AO | 43.47 h | 0.8379 px | 51.56% | **Limited containment** |
-| C — 15 Apr | Fixed-model hybrid | 47.11 h | 4.9907 px | 23.32% | **Fixed-model failure** |
-| D — 20 Apr | Fixed-prior / fixed-model | 35.19 h | 5.8920 px | 28.95% | **Late-run breakaway** |
-| E — 22–24 Apr | Attended TEC-primary + AO | 45.24 h | 1.3113 px | 47.82% | **Partial recovery, but large excursions remained** |
-| V8.3 — early MIMO | MIMO feedback, first ≤6 h | 5.47 h | 0.225 px | 99.6% | **Strong bounded short interval** |
-| V8.3 — full MIMO | MIMO feedback, complete run | 10.64 h | 1.016 px | 58.4% | **Late model mismatch and containment loss** |
-| V11 — fixed initial reference | Adaptive warm-up model + TEC + AO | 31.44 h feedback | 0.225 px | 98.63% | **Conservative long-duration drift result** |
-| V11 — adaptive controller reference | Adaptive warm-up model + TEC + AO | 31.44 h feedback | 0.1634 px | 100.0% | **Sustained closed-loop containment** |
+| Run | Duration | RMS ΔX | RMS ΔY | Radial RMS | Within ±0.5 px | TEC actions/h | AO actions/h | Result |
+|---|---:|---:|---:|---:|---:|---:|---:|---|
+| A — 23 Mar | 43.47 h | 0.7512 px | 0.3711 px | 0.8379 px | 51.56% | 5.11 | 2.39 | $\color{orange}{\text{Mixed long-duration stability}}$ |
+| B — Apr V6 | 50.89 h | 0.3266 px | 1.7309 px | 1.7615 px | 37.89% | 11.18 | 5.36 | $\color{orange}{\text{Thermally calm, but weak pixel containment}}$ |
+| C — 15 Apr fixed model | 47.11 h | 0.3007 px | 4.9816 px | 4.9907 px | 23.32% | 8.62 | 0.70 | $\color{red}{\text{Fixed-model failure}}$ |
+| D — 20 Apr fixed prior | 35.19 h | 0.4394 px | 5.8756 px | 5.8920 px | 28.95% | 13.19 | 1.08 | $\color{red}{\text{Late-run breakaway}}$ |
+| E — 22–24 Apr attended | 45.24 h | 0.5254 px | 1.2015 px | 1.3113 px | 47.82% | 5.79 | 2.41 | $\color{orange}{\text{Partial recovery; excursions remained}}$ |
+| V8.3 — full MIMO | 10.64 h | Not separately reported | Not separately reported | 1.016 px | 58.4% | 3.67 | 0.56 | $\color{red}{\text{Late model mismatch and containment loss}}$ |
+| V11 — full feedback | 31.44 h | 0.0635 px | 0.1524 px | 0.1634 px | 100.0% | 2.16 | 2.19 | $\color{green}{\text{Sustained closed-loop containment}}$ |
 
-### V11 axis-resolved result
+V11 is the strongest overall result in this comparison. It achieved the lowest reported ΔX, ΔY, and radial RMS values while maintaining every logged feedback frame within ±0.5 px for 31.44 h.
 
-| Metric | Value | Interpretation |
-|---|---:|---|
-| ΔX RMS | 0.0635 px | Horizontal residual remained small throughout the feedback run |
-| ΔY RMS | 0.1524 px | Vertical residual was the dominant remaining error direction |
-| Radial RMS | 0.1634 px | Combined controller-coordinate image error |
-| Fixed-reference radial RMS | 0.225 px | Conservative assessment against the initial feedback reference |
-| Fixed-reference containment | 98.63% within ±0.5 px | Long-duration physical-drift-relative result |
+The remaining V11 residual is dominated by the vertical direction: ΔY RMS = 0.1524 px, compared with ΔX RMS = 0.0635 px. Horizontal residual motion was therefore approximately 2.4 times smaller than vertical residual motion.
 
-V11 therefore matches V8.3's best early-MIMO radial RMS of 0.225 px when assessed against its initial fixed reference, but maintains that result for **31.44 h rather than 5.47 h**. Relative to the adaptive controller reference, V11 improves further to 0.1634 px radial RMS with 100% containment inside ±0.5 px.
-
-The remaining V11 error budget is dominated by ΔY. Its ΔX RMS is approximately 2.4 times smaller than ΔY RMS, showing that horizontal control was consistently quieter while vertical residual motion remains the primary refinement target.
-
-> **Caveat:** V11 is strong evidence from one 31.44-hour feedback run. A second independent long-duration repeat is required before claiming repeatability.
----
+> **Note:** The V11 row reports the live closed-loop residual used during feedback. A conservative fixed-reference check gave radial RMS = **0.225 px** and **98.63%** of frames within ±0.5 px over the same 31.44 h interval.---
 
 ## 7. Reproducibility
 
