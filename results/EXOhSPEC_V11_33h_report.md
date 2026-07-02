@@ -115,7 +115,7 @@ All rows use the principal full-run or full-feedback result for each experiment.
 | V8.3 — full MIMO | 10.64 h | Not separately reported | Not separately reported | $\color{red}{1.016}$ px | $\color{red}{58.4}$ | 3.67 | 0.56 | $\color{red}{\text{Late model mismatch and containment loss}}$ |
 | **V11 — full feedback** | **31.44 h** | $\color{green}{0.0635}$ px | $\color{green}{0.1524}$ px | $\color{green}{0.1634}$ px | $\color{green}{100.0}$ | $\color{green}{2.16}$ | $\color{green}{2.19}$ | $\color{green}{\text{Sustained closed-loop containment}}$ |
 
-V11 is the strongest overall result in this comparison. It achieved $\color{green}{\Delta X\ \mathrm{RMS}=0.0635\ \mathrm{px}}$, $\color{green}{\Delta Y\ \mathrm{RMS}=0.1524\ \mathrm{px}}$, and $\color{green}{\text{radial RMS}=0.1634\ \mathrm{px}}$ while maintaining $\color{green}{98.63.0}$% of logged feedback frames within ±0.5 px for 31.44 h.
+V11 is the strongest overall result in this comparison. It achieved $\color{green}{\Delta X\ \mathrm{RMS}=0.0635\ \mathrm{px}}$, $\color{green}{\Delta Y\ \mathrm{RMS}=0.1524\ \mathrm{px}}$, and $\color{green}{\text{radial RMS}=0.1634\ \mathrm{px}}$ while maintaining $\color{green}{98.63}$% of logged feedback frames within ±0.5 px for 31.44 h.
 
 The remaining V11 residual is dominated by the vertical direction: **ΔY RMS = 0.1524 px**, compared with **ΔX RMS = 0.0635 px**. Horizontal residual motion was therefore approximately 2.4 times smaller than vertical residual motion.
 
