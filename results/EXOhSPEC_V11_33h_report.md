@@ -3,160 +3,128 @@
 **Author:** Biswajit Jana  
 **Supervisors:** Prof. Hugh Jones, Prof. Bill Martin  
 **Run date:** 1–2 July 2026  
-**Run duration:** 33.36 h (Warm-up 1.88 h + Feedback 31.44 h)  
+**Run duration:** 33.36 h  
 **Data files:** `rt_stage2_v11.csv`, `exohspec_v11_final.py`
 
 ---
 
 ## 1. Summary
 
-This report documents the first sustained 33-hour closed-loop run of the EXOhSPEC V11 stabilisation controller (TEC + AO, two-phase, band-gain-scheduled with holdoff). It covers: warm-up vs. feedback performance, actuator behaviour (bang-bang characterisation), environmental coupling, an OPL noise/spectral analysis, and a direct comparison against the V8.3 MIMO run that previously represented the project's best short-term result.
+This report documents a 33.36-hour EXOhSPEC V11 closed-loop stabilisation run using TEC thermal correction and active-optics fine correction.
 
-**Headline result:** V11 sustained 100% of feedback frames within ±0.5 px continuously across all 31.4 h, with no late-run collapse — resolving the failure mode that ended V8.3's run at ~hour 6–8.
+**Primary result:** across 31.44 h of feedback, V11 maintained all controller-coordinate feedback frames within ±0.5 px. The controller-coordinate radial RMS was 0.1634 px, with ΔX RMS = 0.0635 px and ΔY RMS = 0.1524 px.
+
+The residual error was therefore dominated by the vertical direction, ΔY. Horizontal motion remained substantially smaller throughout the run.
+
+> [!NOTE]
+> The 100% containment result is relative to the adaptive controller reference. Relative to the initial fixed feedback reference, V11 achieved radial RMS = 0.225 px and 98.63% containment within ±0.5 px. Both metrics are reported because they answer different questions: closed-loop operating containment versus conservative physical drift.
 
 ---
 
 ## 2. Run overview
 
 | Metric | Value |
-|---|---|
-| Total duration | 33.36 h |
-| Warm-up duration | 1.88 h (96 frames) |
-| Feedback duration | 31.44 h (1604 frames) |
-| Feedback dY RMS | 0.1524 px |
-| Feedback dY mean | −0.0270 px |
-| Feedback dY max\|·\| | 0.4794 px |
-| Feedback dX RMS | 0.0635 px |
-| Within ±0.5 px | 100.0% |
-| Within ±0.2 px | 81.0% |
-| Within ±0.1 px | 49.0% |
-| Radial \|Δr\| RMS | 0.1634 px |
+|---|---:|
+| Total logged duration | 33.36 h |
+| Warm-up duration | 1.88 h, 96 frames |
+| Feedback duration | 31.44 h, 1604 frames |
+| Feedback ΔX RMS | 0.0635 px |
+| Feedback ΔY RMS | 0.1524 px |
+| Feedback radial RMS | 0.1634 px |
+| Maximum \|ΔY\| | 0.4794 px |
+| Controller-coordinate frames within ±0.5 px | 100.0% |
+| Controller-coordinate frames within ±0.2 px | 81.0% |
+| Fixed-reference frames within ±0.5 px | 98.63% |
 | OPL residual RMS | 0.4341 µm |
-| OPL model R² (median) | 0.546 |
+| Median OPL model R² | 0.546 |
 | TEC commands | 68 |
 | AO commands | 69 |
-| TEC inter-command gap (mean) | 26.8 min |
-| AO inter-command gap (mean) | 26.8 min |
-| AO max cumulative \|sx\| | 4 steps |
-| AO max cumulative \|sy\| | 11 steps |
-| ECU temperature drift (start→end) | +0.156 °C |
-| ECU pressure range | 5.74 hPa |
-| ECU water content range | 2.68 g/m³ |
-
-![Pixel residual — full-run diagnostic](figures/01_pixel_far_view.png)
+| Maximum cumulative AO \|sx\| | 4 steps |
+| Maximum cumulative AO \|sy\| | 11 steps |
+| Rejected centroid frames | 0 |
+| AO unload events | 0 |
 
 ---
 
-## 3. Warm-up vs. feedback: framing
+## 3. Axis-resolved closed-loop performance
 
-Raw RMS is **not** directly comparable between phases — warm-up is a short (1.9 h) window captured while the system is still settling toward thermal equilibrium, not a genuine long-duration disturbance-free baseline. The correct claim is duration-normalised: feedback ran ~17× longer than warm-up and sustained comparable stability throughout, against real multi-hour environmental drift (ECU/BME temperature cycling, pressure drift) that would have driven the beam well outside tolerance if left open-loop (uncorrected OPL baseline drift is independently characterised at ~0.36 px/hr from prior noise-floor analysis).
+ΔY was the principal stability direction because it carried the larger residual motion and was the direction in which V8.3 later lost containment. V11 nevertheless remained stable in both axes:
 
-![Far view, no phase marking — scale/flatness check](figures/01a_dY_far_no_transition.png)
-![Far view, with warm-up → feedback transition marked](figures/01b_dY_far_with_transition.png)
-![Close-up view — feedback-phase dY on ±0.3 px scale](figures/01c_dY_closeup_feedback.png)
+- **ΔX RMS = 0.0635 px**
+- **ΔY RMS = 0.1524 px**
+- **Radial RMS = 0.1634 px**
 
----
+Thus, ΔX was approximately 2.4 times quieter than ΔY. The remaining performance limit was vertical residual motion rather than horizontal drift.
 
-## 4. Actuator behaviour: is bang-bang control appropriate here?
+![Feedback close-up: centroid residuals](figures/01c_dY_closeup_feedback.png)
 
-TEC and AO are both driven by band-gain-scheduled, step-capped, holdoff-gated logic — a form of relay/bang-bang control, by design. This is the correct choice for a thermal actuator (TEC) with slow nonlinear response; continuous PID output would risk oscillation. Evidence that this is *well-tuned* bang-bang rather than poorly-tuned:
+The distribution comparison shows that the feedback residuals remain concentrated around zero, with ΔX narrower than ΔY.
 
-- Only 68 TEC and 69 AO commands issued across 31.4 h of feedback — actuators are silent (mean inter-command gap 26.8 min) the large majority of the time.
-- The resulting limit-cycle ripple stays bounded within ±0.5 px (mostly ±0.2 px) rather than growing or hunting.
-
-![dY with actuator command events overlaid](figures/01d_dY_with_actuator_events.png)
-![Actuator idle-time distribution](figures/05_command_gaps_hist.png)
+![ΔY and ΔX distributions](figures/07_hist_dY_dX_side_by_side.png)
 
 ---
 
-## 5. Radial error, OPL, and environment
+## 4. OPL model and spectral context
 
-![Radial image error](figures/02_radial_error.png)
-![OPL residual and model R²](figures/03_opl_residual_r2.png)
-![Temperature (internal ECU / external BME)](figures/04_environment_temperature.png)
-<!-- ![Pressure (internal / external, median-smoothed)](figures/pressure_stacked.png) -->
-<!-- ![Water content / absolute humidity (internal / external)](figures/water_content.png) -->
+The OPL residual remained bounded but was not perfectly removed by the environmental model:
 
----
+| OPL metric | Value |
+|---|---:|
+| Residual RMS | 0.4341 µm |
+| Largest absolute residual | 1.233 µm |
+| Fraction within ±0.5 µm | 73.4% |
+| Median rolling model R² | 0.546 |
 
-## 6. dY / dX distributions
+The centroid remained well controlled despite these residual OPL excursions. This indicates that the present controller has sufficient practical containment authority, while the OPL/environmental model remains the main area for further refinement.
 
-<!-- ![dY distribution — warm-up vs feedback](figures/hist_dY.png) -->
-<!-- ![dX distribution — warm-up vs feedback](figures/hist_dX.png) -->
-<!-- ![dY/dX merged distribution — feedback phase](figures/hist_dXdY_merged.png) -->
+![OPL residual and model fit quality](figures/03_opl_residual_r2.png)
 
----
+The spectral analysis identifies periodic structure consistent with the control-loop timescales. These associations are informative but should not be interpreted as proof of causality without a separate open-loop or no-command comparison run.
 
-## 7. Nine-panel diagnostic summary
+| Candidate period | Frequency | Interpretation |
+|---|---:|---|
+| ~30 min | 5.54×10⁻⁴ Hz | Consistent with TEC-command rhythm |
+| ~15 min | 1.11×10⁻³ Hz | Approximate harmonic |
+| ~5 min | 3.32×10⁻³ Hz | Faster correction-scale structure |
+| ~2.7 min | 6.09×10⁻³ Hz | Near-Nyquist residual structure |
 
-Full-run diagnostic covering centroid motion, radial error, TEC temperature, AO cumulative steps, OPL, temperature, pressure, and water content, stacked on a shared time axis for direct visual cross-referencing.
-
-![Nine-panel diagnostic summary](figures/06_nine_panel_stacked.png)
-
----
-
-## 8. OPL noise / spectral analysis
-
-Power spectral density (Welch's method, 128-sample segments, ~25 averaged windows) of the OPL time series, log–log scale, with a 95% confidence band and statistically robust peaks only (>2× local baseline).
-
-**Sampling limits:** frame cadence ≈70.5 s → Nyquist ≈7×10⁻³ Hz. This resolves periodic disturbances from minutes up to ~141 s; it is **not** sensitive to true mechanical/acoustic vibration (Hz–kHz range), which would require a dedicated high-rate sensor.
-
-**Quantization check:** theoretical pm-resolution quantization floor ≈1.2×10⁻¹¹ µm²/Hz vs. observed noise floor ≈2.2×10⁻³ µm²/Hz — a ratio of ~1.9×10⁸. The measured noise floor is real physical/electronic noise, not a pm→µm rounding artifact.
-
-**Robust peaks identified:**
-
-| Period | Frequency | Likely source |
-|---|---|---|
-| ~30 min | 5.54×10⁻⁴ Hz | TEC command cadence (dominant, ~10× next largest) |
-| ~15 min | 1.11×10⁻³ Hz | Harmonic of the 30-min TEC peak |
-| ~5 min | 3.32×10⁻³ Hz | Consistent with AO correction cadence |
-| ~2.7 min | 6.09×10⁻³ Hz | Fast residual / near-Nyquist |
-
-**Conclusion:** the dominant periodic component in the OPL signal is the control loop's own TEC actuation rhythm, not an unexplained external vibration source. Everything else is either a harmonic of that or broadband background noise.
-
-<!-- ![OPL power spectral density (Welch), confidence-checked peaks](figures/09_opl_psd_robust.png) -->
+![OPL power spectral density](figures/09_opl_psd_robust.png)
 
 ---
 
-## 9. V11 vs. V8.3 — did this resolve the open question?
+## 5. Full-run diagnostic
 
-| | V8.3 | V11 (this run) |
-|---|---:|---:|
-| Early stability | 99.6% within ±0.5px (first 6h), RMS radial 0.225px | 100% within ±0.5px sustained across all 31.4h |
-| Long-duration behaviour | Collapsed at hour ~6–8.3: RMS jumped to 1.44px, only 14.6% within ±0.5px (hours 6–11) | RMS dY held at 0.152px the entire 31.4h — no collapse |
-| Best short window | Best 2h window RMS = 0.135px | Comparable settled performance sustained continuously |
+The stacked diagnostic provides the full temporal context: centroid residuals, radial error, TEC evolution, AO cumulative travel, OPL, and environmental telemetry.
 
-V8.3's late-run instability was root-caused (in prior analysis) to ECU temperature drift (r=+0.62 with late dY) coupled with the absence of a Tin (internal temperature) feedforward predictor in its MIMO model — a model-mismatch failure, not an actuator-authority or bang-bang-architecture failure. V11 inherits the Tin feedforward term (from V6) specifically to close this gap. This 33-hour run — running ~4× longer than V8.3's stable window, through multiple day/night thermal cycles — shows no recurrence of the collapse, which is direct empirical support for that diagnosis.
+The AO system remained within its travel envelope throughout the run. The y-axis ledger reached 11 steps but recovered without hitting the unload trigger at 14 steps.
 
-**Caveat:** this is strong evidence from a single run, not definitive proof; a repeat run would further strengthen the claim.
+![Nine-panel full-run diagnostic](figures/06_nine_panel_stacked.png)
 
 ---
 
-## 10. Figures index
+## 6. Comparison with selected previous control runs
 
-| # | Filename | Description |
-|---|---|---|
-| 1 | `figures/01_pixel_far_view.png` | dX & dY, full run, ±1px scale, thresholds + actuator events |
-| 2 | `figures/01a_dY_far_no_transition.png` | dY far view, no phase marking |
-| 3 | `figures/01b_dY_far_with_transition.png` | dY far view, warm-up→feedback marked |
-| 4 | `figures/01c_dY_closeup_feedback.png` | dY close-up, ±0.3px |
-| 5 | `figures/01d_dY_with_actuator_events.png` | dY with TEC/AO command markers |
-| 6 | `figures/02_radial_error.png` | Radial image error \|Δr\| |
-| 7 | `figures/03_opl_residual_r2.png` | OPL residual + model R² |
-| 8 | `figures/04_environment_temperature.png` | ECU/BME temperature |
-<!-- | 9 | `figures/pressure_stacked.png` | ECU/BME pressure, median-smoothed | -->
-<!-- | 10 | `figures/water_content.png` | ECU/BME absolute humidity | -->
-<!-- | 11 | `figures/hist_dY.png` | dY distribution, warm-up vs feedback | -->
-<!-- | 12 | `figures/hist_dX.png` | dX distribution, warm-up vs feedback | -->
-<!-- | 13 | `figures/hist_dXdY_merged.png` | dX/dY merged distribution (feedback) | -->
-| 14 | `figures/05_command_gaps_hist.png` | Actuator inter-command gap histogram |
-| 15 | `figures/06_nine_panel_stacked.png` | Nine-panel diagnostic summary |
-<!-- | 16 | `figures/09_opl_psd_robust.png` | OPL PSD (Welch), robust peaks | -->
+| Run / comparison basis | Duration | ΔX RMS | ΔY RMS | Radial RMS | Within ±0.5 px | Interpretation |
+|---|---:|---:|---:|---:|---:|---|
+| Temperature-only long-run benchmark | 44.5 h | — | ~0.37 px | — | 91% | Stable thermal control, without sustained AO fine correction |
+| V8.3 early MIMO interval | First ~6 h | — | — | 0.225 px | 99.6% | Strong short-duration stability |
+| V8.3 complete MIMO interval | 10.64 h | — | — | 1.016 px | 58.4% | Late-run drift and loss of containment |
+| V11 fixed initial feedback reference | 31.44 h | — | — | 0.225 px | 98.63% | Conservative drift-relative assessment |
+| V11 adaptive controller reference | 31.44 h | 0.0635 px | 0.1524 px | 0.1634 px | 100.0% | Sustained closed-loop containment |
+
+V11 matches the fixed-reference radial RMS of V8.3's best early interval, but sustains this behaviour for more than five times longer. Unlike V8.3, V11 showed no comparable late-run breakaway.
+
+V8.3's late instability coincided with environmental drift and insufficient verified recovery authority. The existing evidence does not isolate one unique environmental cause. V11 adds the internal-temperature feedforward and preserves bounded TEC-plus-AO range management, and this run shows no recurrence of the V8.3 collapse.
+
+> [!IMPORTANT]
+> V11 is a successful long-duration closed-loop containment result. It is strong evidence from one run, not final proof of repeatability. A second independent 24–33 hour run should be used to confirm the result.
 
 ---
 
-## 11. Data & reproducibility
+## 7. Reproducibility
 
 - Source CSV: `rt_stage2_v11.csv`
-- Controller source: `exohspec_v11_final.py` (V11, verbatim V6 base + [V11-1] AO quiet-time relaxation + [V11-2] CCD cooler gate)
-- Analysis notebook: `EXOhSPEC_V11_analysis.ipynb` (same style/flow template reused across all EXOhSPEC experiment analyses)
+- Controller source: `exohspec_v11_final.py`
+- Analysis notebook: `EXOhSPEC_V11_analysis.ipynb`
+- Controller basis: V6 preserved with V11 AO quiet-time relaxation and CCD cooler-settling gate.
+- Figures: `results/figures/`
