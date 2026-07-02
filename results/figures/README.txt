@@ -1,0 +1,1 @@
+EXOhSPEC V11 33-hour run figures are stored in this directory.
