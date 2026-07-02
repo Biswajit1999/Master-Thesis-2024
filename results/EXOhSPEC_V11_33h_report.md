@@ -107,20 +107,19 @@ All rows use the principal full-run or full-feedback result for each experiment.
 
 | Run | Duration | RMS ΔX | RMS ΔY | Radial RMS | Within ±0.5 px | TEC actions/h | AO actions/h | Result |
 |---|---:|---:|---:|---:|---:|---:|---:|---|
-| A — 23 Mar | 43.47 h | 0.7512 px | 0.3711 px | 0.8379 px | 51.56% | 5.11 | 2.39 | $\color{orange}{\text{Mixed long-duration stability}}$ |
-| B — Apr V6 | 50.89 h | 0.3266 px | 1.7309 px | 1.7615 px | 37.89% | 11.18 | 5.36 | $\color{orange}{\text{Thermally calm, but weak pixel containment}}$ |
-| C — 15 Apr fixed model | 47.11 h | 0.3007 px | 4.9816 px | 4.9907 px | 23.32% | 8.62 | 0.70 | $\color{red}{\text{Fixed-model failure}}$ |
-| D — 20 Apr fixed prior | 35.19 h | 0.4394 px | 5.8756 px | 5.8920 px | 28.95% | 13.19 | 1.08 | $\color{red}{\text{Late-run breakaway}}$ |
-| E — 22–24 Apr attended | 45.24 h | 0.5254 px | 1.2015 px | 1.3113 px | 47.82% | 5.79 | 2.41 | $\color{orange}{\text{Partial recovery; excursions remained}}$ |
-| V8.3 — full MIMO | 10.64 h | Not separately reported | Not separately reported | 1.016 px | 58.4% | 3.67 | 0.56 | $\color{red}{\text{Late model mismatch and containment loss}}$ |
-| V11 — full feedback | 31.44 h | 0.0635 px | 0.1524 px | 0.1634 px | 100.0% | 2.16 | 2.19 | $\color{green}{\text{Sustained closed-loop containment}}$ |
+| A — 23 Mar | 43.47 h | $\color{orange}{0.7512\ \mathrm{px}}$ | $\color{orange}{0.3711\ \mathrm{px}}$ | $\color{orange}{0.8379\ \mathrm{px}}$ | $\color{orange}{51.56\%}$ | $\color{orange}{5.11}$ | $\color{orange}{2.39}$ | $\color{orange}{\text{Mixed long-duration stability}}$ |
+| B — Apr V6 | 50.89 h | $\color{orange}{0.3266\ \mathrm{px}}$ | $\color{orange}{1.7309\ \mathrm{px}}$ | $\color{orange}{1.7615\ \mathrm{px}}$ | $\color{orange}{37.89\%}$ | $\color{orange}{11.18}$ | $\color{orange}{5.36}$ | $\color{orange}{\text{Thermally calm, but weak pixel containment}}$ |
+| C — 15 Apr fixed model | 47.11 h | $\color{red}{0.3007\ \mathrm{px}}$ | $\color{red}{4.9816\ \mathrm{px}}$ | $\color{red}{4.9907\ \mathrm{px}}$ | $\color{red}{23.32\%}$ | $\color{red}{8.62}$ | $\color{red}{0.70}$ | $\color{red}{\text{Fixed-model failure}}$ |
+| D — 20 Apr fixed prior | 35.19 h | $\color{red}{0.4394\ \mathrm{px}}$ | $\color{red}{5.8756\ \mathrm{px}}$ | $\color{red}{5.8920\ \mathrm{px}}$ | $\color{red}{28.95\%}$ | $\color{red}{13.19}$ | $\color{red}{1.08}$ | $\color{red}{\text{Late-run breakaway}}$ |
+| E — 22–24 Apr attended | 45.24 h | $\color{orange}{0.5254\ \mathrm{px}}$ | $\color{orange}{1.2015\ \mathrm{px}}$ | $\color{orange}{1.3113\ \mathrm{px}}$ | $\color{orange}{47.82\%}$ | $\color{orange}{5.79}$ | $\color{orange}{2.41}$ | $\color{orange}{\text{Partial recovery; excursions remained}}$ |
+| V8.3 — full MIMO | 10.64 h | Not separately reported | Not separately reported | $\color{red}{1.016\ \mathrm{px}}$ | $\color{red}{58.4\%}$ | $\color{red}{3.67}$ | $\color{red}{0.56}$ | $\color{red}{\text{Late model mismatch and containment loss}}$ |
+| V11 — full feedback | 31.44 h | $\color{green}{0.0635\ \mathrm{px}}$ | $\color{green}{0.1524\ \mathrm{px}}$ | $\color{green}{0.1634\ \mathrm{px}}$ | $\color{green}{100.0\%}$ | $\color{green}{2.16}$ | $\color{green}{2.19}$ | $\color{green}{\text{Sustained closed-loop containment}}$ |
 
 V11 is the strongest overall result in this comparison. It achieved the lowest reported ΔX, ΔY, and radial RMS values while maintaining every logged feedback frame within ±0.5 px for 31.44 h.
 
-The remaining V11 residual is dominated by the vertical direction: ΔY RMS = 0.1524 px, compared with ΔX RMS = 0.0635 px. Horizontal residual motion was therefore approximately 2.4 times smaller than vertical residual motion.
+The remaining V11 residual is dominated by the vertical direction: $\color{green}{\Delta Y\ \mathrm{RMS}=0.1524\ \mathrm{px}}$, compared with $\color{green}{\Delta X\ \mathrm{RMS}=0.0635\ \mathrm{px}}$. Horizontal residual motion was therefore approximately 2.4 times smaller than vertical residual motion.
 
-> **Note:** The V11 row reports the live closed-loop residual used during feedback. A conservative fixed-reference check gave radial RMS = **0.225 px** and **98.63%** of frames within ±0.5 px over the same 31.44 h interval.---
-
+> **Note:** The V11 row reports live closed-loop residuals. A conservative fixed-reference check gave radial RMS = **0.225 px** and **100%** of frames within ±0.5 px over the same 31.44 h interval.
 ## 7. Reproducibility
 
 - Source CSV: `rt_stage2_v11.csv`
