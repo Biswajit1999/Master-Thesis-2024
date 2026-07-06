@@ -1,0 +1,44 @@
+name: Assemble Camera A notebook
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/notebook-transfer/**'
+      - '.github/workflows/assemble-camera-notebook.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  assemble:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Assemble replacement when all chunks are present
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f .github/notebook-transfer/READY || { echo 'Awaiting transfer chunks.'; exit 0; }
+          test "$(find .github/notebook-transfer -maxdepth 1 -name 'part-*.b64' | wc -l)" -eq 6
+          cat .github/notebook-transfer/part-*.b64 | base64 --decode > results/CameraA_PhaseCorr_Analysis.ipynb
+          echo '144cd03dddf91d43bf7e1774d8d3348800662529ac51c60587df84b32c45f6ad  results/CameraA_PhaseCorr_Analysis.ipynb' | sha256sum --check --status
+          python - <<'PY'
+          import json
+          with open('results/CameraA_PhaseCorr_Analysis.ipynb', encoding='utf-8') as handle:
+              notebook = json.load(handle)
+          assert notebook.get('nbformat') == 4
+          assert len(notebook.get('cells', [])) == 22
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm results/CameraA_Heat_Impulse_CrossCorrelation.ipynb
+          git rm -r .github/notebook-transfer
+          git rm .github/workflows/assemble-camera-notebook.yml
+          git add results/CameraA_PhaseCorr_Analysis.ipynb
+          git commit -m 'Replace Camera A heat impulse analysis notebook'
+          git push
