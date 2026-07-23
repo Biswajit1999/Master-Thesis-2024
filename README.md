@@ -26,6 +26,14 @@ The control hierarchy is TEC-primary: thermal correction is used for coarse and 
 
 The code-derived model, including the rolling OLS predictor, OPL feed-forward term, PI fallback, AO matrix inversion and reference-management rule, is documented in [`methods/V6B_HYBRID_CONTROLLER.md`](methods/V6B_HYBRID_CONTROLLER.md).
 
+## Controller lineage & evidence graph
+
+An interactive 3D graph connecting every controller version (V11-V17), calibration dataset, diagnostic script and finding in this project, with the recorded RMS figures and open questions kept alongside it for reference.
+
+**[Open the interactive graph](https://htmlpreview.github.io/?https://raw.githubusercontent.com/Biswajit1999/Master-Thesis-2024/main/EXOhSPEC_Memory_Graph/exohspec_brain.html)**
+
+Source: [`EXOhSPEC_Memory_Graph/exohspec_brain.html`](EXOhSPEC_Memory_Graph/exohspec_brain.html) - a single self-contained HTML file, no external dependencies.
+
 ## Component studies
 
 <p align="center">
