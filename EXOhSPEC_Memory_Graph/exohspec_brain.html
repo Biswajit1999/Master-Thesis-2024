@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>EXOhSPEC Controller Lineage &amp; Evidence Graph</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+:root{
+  --bg-0:#0a0c12;
+  --surface:#0d1220;
+  --ink-0:#eef0f6;
+  --ink-1:#a7adc0;
+  --ink-2:#6b7288;
+  --line:#1c2233;
+  --panel:#0d1220ee;
+  --accent:#f2ead8;
+
+  /* validated categorical palette (dataviz skill, dark mode, surface #0a0c12).
+     controller/tool/data/finding are the primary read; output/concept/incident
+     are deliberately muted so the graph reads as one hierarchy, not 8 equal hues. */
+  --c-controller:#d95926;   /* orange, primary */
+  --c-tool:      #3987e5;   /* blue, primary */
+  --c-data:      #c98500;   /* amber, primary */
+  --c-finding:   #e66767;   /* red, primary */
+  --c-output:    #c2748f;   /* muted rose */
+  --c-concept:   #3a9c81;   /* muted teal */
+  --c-incident:  #8570c2;   /* muted violet */
+  --c-hub:       #f2ead8;   /* singleton, not part of the categorical set */
+}
+::-webkit-scrollbar{width:8px;height:8px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:#2a3148;border-radius:4px;}
+::-webkit-scrollbar-thumb:hover{background:#3a4260;}
+*{scrollbar-width:thin;scrollbar-color:#2a3148 transparent;}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;height:100%;background:var(--bg-0);overflow:hidden;}
+body{
+  font-family:'Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif;
+  color:var(--ink-0);
+  -webkit-font-smoothing:antialiased;
+}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace;}
+
+#stage{position:fixed;inset:0;left:min(300px,24vw);}
+canvas{display:block;width:100%;height:100%;cursor:grab;}
+canvas.dragging{cursor:grabbing;}
+
+/* ---- top bar ---- */
+#topbar{
+  position:fixed;top:0;left:min(300px,24vw);right:0;
+  display:flex;flex-direction:column;gap:.15rem;
+  padding:1.35rem 1.6rem 0;
+  pointer-events:none;
+  z-index:5;
+}
+#topbar h1{
+  margin:0;
+  font-size:1.42rem;
+  font-weight:600;
+  letter-spacing:.01em;
+  text-wrap:balance;
+}
+#topbar .sub{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:.72rem;
+  letter-spacing:.04em;
+  color:var(--ink-1);
+  margin-top:.15rem;
+  display:block;
+}
+
+/* ---- legend (lives inside #sidebar now) ---- */
+#legend{
+  display:flex;flex-wrap:wrap;gap:.35rem;
+}
+.chip{
+  display:flex;align-items:center;gap:.36rem;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:.63rem;
+  letter-spacing:.02em;
+  color:var(--ink-1);
+  background:#0d1220b0;
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:.32rem .5rem .32rem .4rem;
+  cursor:pointer;
+  user-select:none;
+  transition:border-color .15s, color .15s, opacity .15s;
+  width:calc(50% - .18rem);
+}
+.chip:hover{border-color:#3a4260;color:var(--ink-0);}
+.chip.off{opacity:.32;}
+.chip .dot{width:.5rem;height:.5rem;border-radius:50%;flex:none;}
+
+/* ---- hint ---- */
+#hint{
+  position:fixed;left:calc(min(300px,24vw) + 1.6rem);bottom:1.3rem;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:.66rem;
+  color:var(--ink-2);
+  letter-spacing:.02em;
+  z-index:5;
+  line-height:1.6;
+  pointer-events:none;
+}
+#hint b{color:var(--ink-1);font-weight:500;}
+
+#counts{
+  position:fixed;right:1.6rem;bottom:1.3rem;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:.66rem;
+  color:var(--ink-2);
+  z-index:5;
+  text-align:right;
+  line-height:1.6;
+}
+#counts b{color:var(--ink-1);font-weight:500;}
+
+/* ---- side panel ---- */
+#panel{
+  position:fixed;top:0;right:0;bottom:0;
+  width:min(380px,88vw);
+  background:var(--panel);
+  backdrop-filter:blur(10px);
+  border-left:1px solid var(--line);
+  transform:translateX(105%);
+  transition:transform .38s cubic-bezier(.19,1,.22,1);
+  z-index:10;
+  padding:2.1rem 1.7rem 1.7rem;
+  overflow-y:auto;
+}
+#panel.open{transform:translateX(0);}
+#panel .close{
+  position:absolute;top:1.3rem;right:1.4rem;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:.9rem;color:var(--ink-2);
+  background:none;border:none;cursor:pointer;
+  padding:.3rem;
+}
+#panel .close:hover{color:var(--ink-0);}
+#panel .kind{
+  display:inline-block;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
+  padding:.22rem .55rem;border-radius:999px;
+  border:1px solid var(--line);
+  color:var(--ink-1);
+  margin-bottom:.9rem;
+}
+#panel h2{
+  margin:0 0 .9rem;
+  font-size:1.22rem;
+  line-height:1.3;
+  text-wrap:balance;
+  padding:.7rem .85rem;
+  border-radius:5px;
+  border-left:3px solid var(--line);
+  background:#ffffff08;
+}
+#panel p{
+  font-size:.9rem;
+  line-height:1.62;
+  color:var(--ink-1);
+  margin:0 0 1.1rem;
+}
+#panel .specbox{
+  border-left:3px solid var(--line);
+  background:#ffffff06;
+  border-radius:4px;
+  padding:.75rem .9rem;
+  margin:0 0 1.1rem;
+  font-size:.78rem;
+  line-height:1.85;
+  color:var(--ink-1);
+}
+#panel .specbox b{color:var(--ink-0);font-weight:600;}
+#panel .file{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:.72rem;
+  color:var(--ink-2);
+  margin:0 0 1.5rem;
+  word-break:break-all;
+  border-left:3px solid var(--line);
+  padding:.5rem .75rem;
+  background:#ffffff05;
+  border-radius:4px;
+}
+#panel .linkshead{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:.64rem;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink-2);
+  margin:0 0 .6rem;
+}
+#panel .links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.1rem;}
+#panel .links li a{
+  display:flex;align-items:center;gap:.5rem;
+  font-size:.86rem;
+  color:var(--ink-0);
+  text-decoration:none;
+  padding:.5rem .1rem;
+  border-bottom:1px solid #ffffff0d;
+  transition:padding-left .15s, color .15s;
+}
+#panel .links li a:hover{padding-left:.35rem;color:var(--accent);}
+#panel .links li a .dot{width:.5rem;height:.5rem;border-radius:50%;flex:none;}
+
+#empty-msg{
+  position:fixed;left:calc(50% + min(150px,12vw));bottom:5.2rem;transform:translateX(-50%);
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:.7rem;color:var(--ink-2);
+  z-index:5;opacity:0;transition:opacity .4s;
+  pointer-events:none;letter-spacing:.02em;
+}
+
+/* ---- left sidebar: static, sourced summary (no fabricated live data) ---- */
+#sidebar{
+  position:fixed;top:0;left:0;bottom:0;
+  width:min(300px,24vw);
+  background:linear-gradient(180deg, var(--surface) 0%, #0a0e1a 100%);
+  border-right:1px solid var(--line);
+  padding:1.5rem 1.25rem;
+  overflow-y:auto;
+  z-index:8;
+}
+#sidebar h3{
+  margin:1.5rem 0 .7rem;
+  font-size:.68rem;
+  color:var(--ink-2);
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  border-bottom:1px solid var(--line);
+  padding-bottom:.5rem;
+}
+#sidebar h3:first-child{margin-top:0;}
+.card{
+  background:#ffffff05;
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:.8rem .9rem;
+  margin-bottom:.6rem;
+}
+.card .label{
+  color:var(--ink-2);
+  font-size:.66rem;
+  letter-spacing:.04em;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  margin-bottom:.35rem;
+}
+.card .value{
+  color:var(--ink-0);
+  font-size:.98rem;
+  font-weight:600;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+.card .note{color:var(--ink-2);font-size:.68rem;margin-top:.3rem;line-height:1.5;}
+.card.caveat{border-color:#c9850055;background:#c9850010;}
+.status-dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:.4rem;flex:none;}
+.st-resolved{background:#1baf7a;}
+.st-open{background:#c98500;}
+.st-blocking{background:#e66767;}
+
+#rms-table{
+  width:100%;border-collapse:collapse;margin-bottom:.6rem;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:.7rem;
+}
+#rms-table th{
+  text-align:left;color:var(--ink-2);font-weight:500;
+  letter-spacing:.04em;text-transform:uppercase;font-size:.6rem;
+  padding:0 .4rem .4rem 0;border-bottom:1px solid var(--line);
+}
+#rms-table td{
+  padding:.42rem .4rem;border-bottom:1px solid #ffffff08;
+  color:var(--ink-1);
+}
+#rms-table tr td:first-child{color:var(--ink-0);font-weight:600;}
+#rms-table tr td:nth-child(3){color:var(--ink-0);}
+.warn-dot{color:#c98500;font-size:.5rem;margin-left:.3rem;vertical-align:middle;}
+
+@media (max-width:1024px){
+  #sidebar{width:min(260px,30vw);}
+  #stage{left:min(260px,30vw);}
+  #topbar{left:min(260px,30vw);}
+  #hint{left:calc(min(260px,30vw) + 1.6rem);}
+}
+@media (max-width:640px){
+  #sidebar{display:none;}
+  #stage{left:0;}
+  #topbar{left:0;}
+  #topbar h1{font-size:1.1rem;}
+  #hint{display:none;}
+}
+</style>
+</head>
+<body>
+
+<div id="sidebar">
+  <h3>Data Provenance</h3>
+  <div class="card">
+    <div class="label">Runs analyzed</div>
+    <div class="value" style="font-size:.82rem;">V11, V14, V15, V16</div>
+    <div class="note">V17: controller delivered, run pending (blocked on the orthogonality fix)</div>
+    <div class="note" style="margin-top:.5rem;">Source: PROJECT_NOTES.md &middot; vault, current through 2026-07-21</div>
+  </div>
+
+  <h3>dY RMS, Feedback Phase</h3>
+  <table id="rms-table">
+    <thead><tr><th>Run</th><th>AO</th><th>RMS</th><th>Dur.</th></tr></thead>
+    <tbody>
+      <tr><td>V11</td><td>old</td><td>0.152px</td><td>long</td></tr>
+      <tr><td>V14</td><td>old</td><td>0.128px</td><td>long</td></tr>
+      <tr><td>V15</td><td>new</td><td>0.476px</td><td>4h<span class="warn-dot">&#9679;</span></td></tr>
+      <tr><td>V16</td><td>new</td><td>0.165px</td><td>4h<span class="warn-dot">&#9679;</span></td></tr>
+    </tbody>
+  </table>
+  <div class="card caveat">
+    <span class="status-dot st-open"></span><b>Duration mismatch</b>
+    <div class="note">V16's 0.165px is a 4h run, not yet duration-matched to V11/V14's 28&ndash;30h settled runs &mdash; treat as early recovery evidence, not a final ranking. The RMS Comparison finding names a duration-matched (~28&ndash;30h) new-AO run as the natural next test.</div>
+  </div>
+
+  <h3>Open Questions</h3>
+  <div class="card"><span class="status-dot st-blocking"></span><span class="value" style="font-size:.82rem;">Settle-gate bottleneck</span>
+    <div class="note">Confirmed independent of the fan fault &mdash; still gates 206/215 frames on V16.</div></div>
+  <div class="card"><span class="status-dot st-resolved"></span><span class="value" style="font-size:.82rem;">AO delivery gap</span>
+    <div class="note">Narrowed from &minus;4.9px (V15) to &minus;0.123px (V16).</div></div>
+  <div class="card"><span class="status-dot st-resolved"></span><span class="value" style="font-size:.82rem;">TEC fan failure</span>
+    <div class="note">Fixed and confirmed before the V16 run.</div></div>
+  <div class="card"><span class="status-dot st-open"></span><span class="value" style="font-size:.82rem;">RMS win, new vs old AO</span>
+    <div class="note">Not yet demonstrated &mdash; needs a duration-matched long run.</div></div>
+
+  <h3>Node Types</h3>
+  <div id="legend"></div>
+
+  <h3>Graph</h3>
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;">
+      <div><div class="label">Notes</div><div class="value" id="nodes-count">&mdash;</div></div>
+      <div><div class="label">Links</div><div class="value" id="edges-count">&mdash;</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="stage"><canvas id="cv"></canvas></div>
+
+<div id="topbar">
+  <h1>EXOhSPEC Controller Lineage &amp; Evidence Graph</h1>
+  <span class="sub">Hybrid TEC + AO closed-loop control &middot; V11&ndash;V17 &middot; calibration, scripts, findings, and unresolved issues</span>
+</div>
+
+<div id="hint"><b>drag</b> to rotate &middot; <b>scroll</b> to zoom &middot; <b>click</b> a node or connection to inspect</div>
+<div id="counts" class="mono"></div>
+<div id="empty-msg">click empty space to deselect</div>
+
+<div id="panel">
+  <button class="close" id="panel-close">&times;</button>
+  <div id="panel-body"></div>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------------------------------------------------------------------- */
+/* DATA — mirrors the Obsidian vault at E:\Claude Memory\EXOhSPEC_project */
+/* All figures below are the same numbers recorded in PROJECT_NOTES.md    */
+/* and the vault findings — nothing here is simulated or randomized.      */
+/* ---------------------------------------------------------------------- */
+
+const CATS = {
+  hub:        {label:"Project hub",     color:"var(--c-hub)"},
+  controller: {label:"Controller",      color:"var(--c-controller)"},
+  tool:       {label:"Notebook/script", color:"var(--c-tool)"},
+  data:       {label:"Calibration data",color:"var(--c-data)"},
+  output:     {label:"Deliverable",     color:"var(--c-output)"},
+  finding:    {label:"Finding",         color:"var(--c-finding)"},
+  incident:   {label:"Incident",        color:"var(--c-incident)"},
+  concept:    {label:"Concept",         color:"var(--c-concept)"},
+};
+// resolve CSS custom properties to hex once, so canvas drawing can use them directly
+(function resolveColors(){
+  const probe = document.createElement("div");
+  probe.style.position="absolute"; probe.style.opacity="0";
+  document.body.appendChild(probe);
+  Object.values(CATS).forEach(c=>{
+    probe.style.color = c.color;
+    const rgb = getComputedStyle(probe).color.match(/\d+/g).map(Number);
+    c.hex = "#" + rgb.slice(0,3).map(v=>v.toString(16).padStart(2,"0")).join("");
+  });
+  document.body.removeChild(probe);
+})();
+
+const nodes = [
+  {id:"hub",   name:"EXOhSPEC Stage-2", cat:"hub",
+   desc:"Hybrid TEC + AO closed-loop image-stabilisation system for the EXOhSPEC Stage-2 spectrograph (EPRV / exoplanet radial-velocity precision). University of Hertfordshire — supervisors Prof. Hugh Jones and Prof. Bill Martin.",
+   file:"06_notes/vault/EXOhSPEC Stage-2.md"},
+
+  {id:"v11",   name:"V11 Baseline Controller", cat:"controller",
+   desc:"Original production hybrid TEC+AO controller. Confirmed byte-identical to V15's TEC/settle-gate logic via a diff script — ruled out a software regression as the cause of the live-run TEC behaviour.",
+   file:"03_controllers/ (lineage reference)"},
+  {id:"v14",   name:"V14 Production Controller", cat:"controller",
+   desc:"The full production controller (“VERSION 14”) — OPL model active. Distinct from the V14.2 resume/fallback variant.",
+   file:"03_controllers/ (lineage reference)"},
+  {id:"v15",   name:"V15 Controller", cat:"controller",
+   desc:"Built on V14 via 14 diff-verified substitutions. New AO calibration matrix, burst-based stepping, 1024-step range, 2h warmup / 4h feedback.",
+   file:"03_controllers/v15_controller.py"},
+  {id:"v151",  name:"V15.1 Controller", cat:"controller",
+   desc:"Refined repeat of V15 with the reference-continuity fix — the Feedback phase carries forward accumulated drift instead of resetting it. Gated on a physical AO verification test.",
+   file:"03_controllers/v15_1_controller.py"},
+  {id:"v16",   name:"V16 Controller", cat:"controller",
+   desc:"Two-edit diff on V15 (warmup 120→90min, run IDs) run 2026-07-21. TEC fired 5/215 frames (V15: 1/203); feedback err_px mean 0.149px (V15: 0.394px). AO delivery gap resolved to a small end-of-run mismatch. Settle-gate still binds independent of the fan fix.",
+   file:"03_controllers/v16_controller.py"},
+  {id:"v17",   name:"V17 Controller", cat:"controller",
+   desc:"Resume mode, AO fast lane in the stability zone, connection-health fallback (Passive/OpenLoop, self-healing), frame saving for phase-correlation analysis. Base is V14's full three-phase structure.",
+   file:"03_controllers/v17_controller.py"},
+
+  {id:"aonb",  name:"AO Calibration Notebook", cat:"tool",
+   desc:"Automated 1/100/1000-step AO calibration over COM6 via MaxIm DL, with manual per-phase centroid re-seeding, direction gaps, and phase cooldowns.",
+   file:"01_notebooks/AO_COM6_automatic_notebook.ipynb"},
+  {id:"aoold", name:"AO Old Matrix (2024)", cat:"data",
+   desc:"[[0.15035,-0.04510],[0.06420,0.15150]] px/step. Used by V11 and V14. Superseded by the 2026 matrix, ~30x finer.",
+   file:"02_reports/ (baseline reference)"},
+  {id:"aonew", name:"AO New Matrix (2026)", cat:"data",
+   desc:"[[0.004939,0.0012355],[0.001342,-0.005084]] px/step. Measured via the calibration notebook, confirmed twice independently.",
+   file:"02_reports/AO_experiment_report_20260713_v3.docx"},
+  {id:"aorep", name:"AO Experiment Report", cat:"output",
+   desc:"Tables of px/step and µm/step, orthogonality analysis, comparison against the 2024 baseline. v5 adds the 17/21 Jul repeatability columns and a combined three-repeat vector plot.",
+   file:"02_reports/AO_experiment_report_20260721_v5.docx"},
+  {id:"aovec", name:"AO Vector Plots", cat:"output",
+   desc:"Matplotlib displacement-vector plot — 1000-step main panel with a 100-step inset. Embedded in the poster.",
+   file:"02_reports/vectors_1000_100_combined.png"},
+
+  {id:"diag1", name:"analyze_v15_run.py", cat:"tool",
+   desc:"9-cell diagnostic script for the V15 CSV. Includes the predicted-vs-actual dY check that exposed the AO delivery gap.",
+   file:"04_diagnostics/analyze_v15_run.py"},
+  {id:"diag2", name:"9-Panel + Correlation Script", cat:"tool",
+   desc:"9-panel stacked diagnostic plot, correlation matrix, and TEC settle-gate breakdown parsed from the run's note column.",
+   file:"04_diagnostics/v15_9panel_and_correlation.py"},
+  {id:"diag3", name:"analyze_v16_run.py", cat:"tool",
+   desc:"11-cell diagnostic extending the V15 analysis with a V15-vs-V16 comparison table.",
+   file:"04_diagnostics/analyze_v16_run.py"},
+
+  {id:"fset",  name:"Finding: Settle-Gate Bottleneck", cat:"finding",
+   desc:"TEC fired once in 203 feedback frames on V15. Confirmed independent of the fan fault on V16 — still gated 206/215 frames despite the fan fix.",
+   file:"06_notes/vault/Finding - Settle-Gate Bottleneck.md"},
+  {id:"fao",   name:"Finding: AO Delivery Gap", cat:"finding",
+   desc:"On V15: order-of-magnitude mismatch, predicted −4.9px vs actual ~0.7–1.2px. Largely resolved on V16: gap narrowed to −0.123px. BME_T (r=−0.815) remains the dominant driver of dY.",
+   file:"06_notes/vault/Finding - AO Delivery Gap.md"},
+  {id:"fhvac", name:"Finding: HVAC Tout Cycling", cat:"finding",
+   desc:"BME_T cycling with a ~35–40 min period, spread 3.14°C vs. 0.09°C for Tin — pattern-matched against the settle-gate sawtooth.",
+   file:"06_notes/vault/Finding - HVAC Tout Cycling.md"},
+  {id:"ftec",  name:"Finding: TEC Fan Failure", cat:"incident",
+   desc:"The cooling fan was not working during the V15 run. Also degraded the AO calibration on 17 Jul. Direct cause of repeating the run as V16.",
+   file:"06_notes/vault/Finding - TEC Fan Failure.md"},
+  {id:"aorepeat",name:"AO Calibration Repeatability (Jul 2026)", cat:"finding",
+   desc:"17 Jul is a severe outlier (40–100x smaller response), traced to the same known-bad hardware window as the fan failure and excluded. 13 Jul and 21 Jul agree within a few percent.",
+   file:"06_notes/vault/AO Calibration Repeatability (Jul 2026).md"},
+  {id:"frms",  name:"Finding: RMS Comparison, Old vs New AO", cat:"finding",
+   desc:"dY RMS: V11 0.152px, V14 clean Hybrid 0.128px (old AO) vs V15 0.476px, V16 0.165px (new AO). Not yet a demonstrated win for the finer calibration — confounded by duration mismatch and the still-binding settle-gate.",
+   file:"06_notes/vault/Finding - RMS Comparison Old vs New AO.md"},
+
+  {id:"tecinc",name:"TEC Condensation Incident", cat:"incident",
+   desc:"TEC pinned at max current, unable to reach setpoint. Root-caused to water condensation on the cold sink from high ambient humidity.",
+   file:"06_notes/vault/TEC Condensation Incident.md"},
+
+  {id:"fusion",name:"OplReg / PixReg Fusion", cat:"concept",
+   desc:"Two ridge-regression drift models fused via R²-weighted combination into eT_fused, the signal driving the TEC PID. Warmup sequence: freeze → OPL-only → full fusion ramp-up.",
+   file:"06_notes/vault/OplReg PixReg Fusion.md"},
+  {id:"pid",   name:"Gain-Scheduled TEC PID", cat:"concept",
+   desc:"Error-band-dependent gains and step caps, gated by a settle condition and an HVAC-transient defer.",
+   file:"06_notes/vault/Gain-Scheduled TEC PID.md"},
+  {id:"refcon",name:"Reference Continuity Fix", cat:"concept",
+   desc:"Fixed by seeding the Feedback-phase reference tracker from the original warmup reference instead of a fresh centroid read.",
+   file:"06_notes/vault/Reference Continuity Fix.md"},
+  {id:"gptrev",name:"External Code Review", cat:"concept",
+   desc:"A third-party code review was fact-checked line by line rather than trusted outright — real bugs confirmed and fixed, unverifiable changes rejected.",
+   file:"06_notes/vault/External Code Review.md"},
+
+  {id:"poster",name:"EXOhSPEC Poster", cat:"output",
+   desc:"Journal-style academic poster built with native PowerPoint objects. Results chart from real V11–V14 numbers, embedded vector plot, architecture flowchart.",
+   file:"05_poster/EXOhSPEC_poster.pptx"},
+];
+
+const edges = [
+  ["hub","v11"],["v11","v14"],["v14","v15"],["v15","v151"],["v15","v16"],["v16","v17"],
+  ["hub","fusion"],["fusion","pid"],["pid","hub"],
+  ["v14","aoold"],["v15","aonew"],["aoold","aonew"],
+  ["aonew","aonb"],["aonb","aorep"],["aorep","aovec"],
+  ["v15","diag1"],["v15","diag2"],
+  ["diag1","fao"],["diag2","fset"],["diag2","fhvac"],
+  ["fset","pid"],["fset","fhvac"],["fset","fao"],
+  ["fao","aonew"],["fao","refcon"],["v151","refcon"],
+  ["fhvac","tecinc"],
+  ["v15","gptrev"],["v16","gptrev"],
+  ["poster","hub"],["poster","aovec"],["poster","aorep"],
+  ["poster","v11"],["poster","v14"],["poster","fao"],
+  ["v15","ftec"],["ftec","tecinc"],["ftec","fset"],["ftec","v16"],
+  ["ftec","aorepeat"],["aorepeat","aonew"],["aorepeat","aorep"],["v16","aorepeat"],
+  ["v16","diag3"],["diag3","fao"],["diag3","fset"],["diag3","ftec"],
+  ["v11","frms"],["v14","frms"],["v15","frms"],["v16","frms"],["frms","fset"],["frms","fao"],
+  ["v16","v17"],["fset","v17"],["fao","v17"],
+];
+
+// Real transition notes, sourced from PROJECT_NOTES.md / the vault findings.
+// Shown when a user clicks a lineage edge between two controller versions.
+const edgeInfo = {
+  "v11-v14": {title:"V11 → V14", body:"Confirmed byte-identical TEC/settle-gate logic via diff. OPL model becomes active on top of the shared TEC/AO core."},
+  "v14-v15": {title:"V14 → V15", body:"14 diff-verified substitutions. New AO calibration matrix (~30x finer), burst-based stepping, 1024-step range. dY RMS: 0.128px → 0.476px — the fan fault (not the new AO) explains most of the regression."},
+  "v15-v151":{title:"V15 → V15.1", body:"Reference-continuity fix: the Feedback-phase reference now seeds from the warmup baseline instead of a fresh centroid read, so accumulated drift is tracked rather than reset. Gated on a physical AO verification test that was never run standalone."},
+  "v15-v16": {title:"V15 → V16", body:"Two-edit diff: warmup 120→90min, run IDs updated. TEC fan fault fixed and confirmed. dY RMS: 0.476px → 0.165px. Settle-gate bottleneck confirmed independent of the fan — still gates 206/215 frames."},
+  "v16-v17": {title:"V16 → V17", body:"Resume mode (recovers phase/reference/AO position from the last CSV row), AO fast lane in the stability zone (short cadence while TEC's settle-gate holds), connection-health fallback with self-healing recovery, and per-frame FITS saving for phase-correlation analysis."},
+};
+
+/* ---------------------------------------------------------------------- */
+/* LEGEND                                                                  */
+/* ---------------------------------------------------------------------- */
+
+const legendEl = document.getElementById("legend");
+const activeCats = new Set(Object.keys(CATS));
+Object.entries(CATS).forEach(([key,c])=>{
+  const chip = document.createElement("div");
+  chip.className = "chip";
+  chip.innerHTML = '<span class="dot" style="background:'+c.hex+'"></span>'+c.label;
+  chip.addEventListener("click", ()=>{
+    if(activeCats.has(key)){ activeCats.delete(key); chip.classList.add("off"); }
+    else { activeCats.add(key); chip.classList.remove("off"); }
+  });
+  legendEl.appendChild(chip);
+});
+
+document.getElementById("counts").innerHTML =
+  "<b>"+nodes.length+"</b> notes &middot; <b>"+edges.length+"</b> links";
+document.getElementById("nodes-count").textContent = nodes.length;
+document.getElementById("edges-count").textContent = edges.length;
+
+/* ---------------------------------------------------------------------- */
+/* 3D FORCE LAYOUT                                                        */
+/* ---------------------------------------------------------------------- */
+
+const byId = {};
+nodes.forEach(n=>{
+  byId[n.id]=n;
+  const r = 260;
+  n.x = (Math.random()-0.5)*r; n.y = (Math.random()-0.5)*r; n.z=(Math.random()-0.5)*r;
+  n.vx=0; n.vy=0; n.vz=0;
+  n.links = [];
+});
+edges.forEach(([a,b])=>{
+  byId[a].links.push(b);
+  byId[b].links.push(a);
+});
+nodes.forEach(n=>{
+  n.baseR = n.id==="hub" ? 15 : (n.cat==="finding"||n.cat==="incident") ? 10.5 : 8.5 + Math.min(n.links.length,6)*0.5;
+});
+
+// Lineage spine: bias V11->V17 onto an evenly-spaced horizontal line, so the
+// controller history reads as a backbone rather than sitting wherever the
+// force layout happens to settle. A soft pull, not a hard pin -- the graph
+// still rotates and breathes in 3D.
+const SPINE = ["v11","v14","v15","v151","v16","v17"];
+const SPINE_SPAN = 210;
+SPINE.forEach((id,i)=>{
+  const n = byId[id];
+  if(!n) return;
+  n.spineX = (i/(SPINE.length-1) - 0.5) * SPINE_SPAN;
+  n.onSpine = true;
+});
+const spineEdgeSet = new Set();
+for(let i=0;i<SPINE.length-1;i++){
+  const a=SPINE[i], b=SPINE[i+1];
+  if(byId[a] && byId[b]) spineEdgeSet.add(a<b ? a+"|"+b : b+"|"+a);
+}
+function isSpineEdge(a,b){ return spineEdgeSet.has(a<b ? a+"|"+b : b+"|"+a); }
+
+function step(){
+  const REPEL = 2200, SPRING_LEN = 95, SPRING_K = 0.02, CENTER_K = 0.0026, DAMP = 0.86, SPINE_K = 0.006;
+  for(let i=0;i<nodes.length;i++){
+    const a = nodes[i];
+    let fx=0, fy=0, fz=0;
+    for(let j=0;j<nodes.length;j++){
+      if(i===j) continue;
+      const b = nodes[j];
+      let dx=a.x-b.x, dy=a.y-b.y, dz=a.z-b.z;
+      let d2 = dx*dx+dy*dy+dz*dz+0.01;
+      let d = Math.sqrt(d2);
+      let f = REPEL/d2;
+      fx += (dx/d)*f; fy += (dy/d)*f; fz += (dz/d)*f;
+    }
+    fx += -a.x*CENTER_K; fy += -a.y*CENTER_K; fz += -a.z*CENTER_K;
+    if(a.onSpine){ fx += (a.spineX - a.x)*SPINE_K; fy += -a.y*SPINE_K; fz += -a.z*SPINE_K; }
+    a.fx=fx; a.fy=fy; a.fz=fz;
+  }
+  edges.forEach(([ka,kb])=>{
+    const a=byId[ka], b=byId[kb];
+    let dx=b.x-a.x, dy=b.y-a.y, dz=b.z-a.z;
+    let d = Math.sqrt(dx*dx+dy*dy+dz*dz)+0.01;
+    let f = (d-SPRING_LEN)*SPRING_K;
+    let ux=dx/d, uy=dy/d, uz=dz/d;
+    a.fx += ux*f; a.fy += uy*f; a.fz += uz*f;
+    b.fx -= ux*f; b.fy -= uy*f; b.fz -= uz*f;
+  });
+  nodes.forEach(n=>{
+    n.vx = (n.vx + n.fx)*DAMP; n.vy = (n.vy + n.fy)*DAMP; n.vz = (n.vz + n.fz)*DAMP;
+    n.x += n.vx*0.045; n.y += n.vy*0.045; n.z += n.vz*0.045;
+  });
+}
+for(let i=0;i<220;i++) step(); // pre-settle -- longer run now that the spine needs to straighten out
+
+/* ---------------------------------------------------------------------- */
+/* CAMERA + RENDER                                                        */
+/* ---------------------------------------------------------------------- */
+
+const cv = document.getElementById("cv");
+const ctx = cv.getContext("2d");
+let W,H,DPR;
+function resize(){
+  DPR = Math.min(window.devicePixelRatio||1, 2);
+  W = cv.clientWidth; H = cv.clientHeight;
+  cv.width = W*DPR; cv.height = H*DPR;
+  ctx.setTransform(DPR,0,0,DPR,0,0);
+}
+window.addEventListener("resize", resize); resize();
+
+// The canvas no longer starts at the viewport's left edge (the sidebar
+// occupies the first ~300px), but p.sx/p.sy from project() are canvas-local.
+// Every hit-test needs client coordinates converted into that local space.
+function toLocal(clientX, clientY){
+  const rect = cv.getBoundingClientRect();
+  return [clientX - rect.left, clientY - rect.top];
+}
+
+let yaw = 0.35, pitch = -0.12, dist = 440;
+let autoRotate = true;
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+if(reduceMotion) autoRotate = false;
+
+let dragging=false, lastX=0, lastY=0, dragged=false;
+cv.addEventListener("mousedown", e=>{ dragging=true; dragged=false; lastX=e.clientX; lastY=e.clientY; cv.classList.add("dragging"); autoRotate=false; });
+window.addEventListener("mouseup", e=>{
+  if(dragging && !dragged){ const [lx,ly]=toLocal(e.clientX,e.clientY); handleClick(lx,ly); }
+  dragging=false; cv.classList.remove("dragging");
+});
+window.addEventListener("mousemove", e=>{
+  if(!dragging) { const [lx,ly]=toLocal(e.clientX,e.clientY); handleHover(lx,ly); return; }
+  const dx=e.clientX-lastX, dy=e.clientY-lastY;
+  if(Math.abs(dx)+Math.abs(dy) > 3) dragged = true;
+  yaw += dx*0.0045; pitch += dy*0.0045;
+  pitch = Math.max(-1.3, Math.min(1.3, pitch));
+  lastX=e.clientX; lastY=e.clientY;
+});
+cv.addEventListener("wheel", e=>{
+  e.preventDefault();
+  dist += e.deltaY*0.6;
+  dist = Math.max(180, Math.min(1400, dist));
+}, {passive:false});
+
+let touchId=null;
+cv.addEventListener("touchstart", e=>{
+  if(e.touches.length!==1) return;
+  const t=e.touches[0]; touchId=t.identifier; lastX=t.clientX; lastY=t.clientY; dragged=false; autoRotate=false;
+}, {passive:true});
+cv.addEventListener("touchmove", e=>{
+  const t=[...e.touches].find(t=>t.identifier===touchId);
+  if(!t) return;
+  const dx=t.clientX-lastX, dy=t.clientY-lastY;
+  if(Math.abs(dx)+Math.abs(dy)>3) dragged=true;
+  yaw += dx*0.0045; pitch += dy*0.0045;
+  pitch = Math.max(-1.3, Math.min(1.3, pitch));
+  lastX=t.clientX; lastY=t.clientY;
+}, {passive:true});
+cv.addEventListener("touchend", e=>{
+  if(!dragged && touchId!==null){ const [lx,ly]=toLocal(lastX,lastY); handleClick(lx,ly); }
+  touchId=null;
+}, {passive:true});
+
+let selected = null;
+let hovered = null;
+const projected = [];
+
+function project(n){
+  const cy=Math.cos(yaw), sy=Math.sin(yaw), cp=Math.cos(pitch), sp=Math.sin(pitch);
+  let x1 = n.x*cy - n.z*sy;
+  let z1 = n.x*sy + n.z*cy;
+  let y1 = n.y*cp - z1*sp;
+  let z2 = n.y*sp + z1*cp;
+  const camZ = z2 + dist;
+  const f = 560 / Math.max(camZ, 40);
+  return { sx: W/2 + x1*f, sy: H/2 + y1*f, scale: f, depth: camZ };
+}
+
+function handleHover(mx,my){
+  let best=null, bestD=18;
+  for(const p of projected){
+    const dx=p.sx-mx, dy=p.sy-my;
+    const d=Math.sqrt(dx*dx+dy*dy);
+    const hitR = Math.max(6, p.n.baseR*p.scale*1.15);
+    if(d<hitR && d<bestD+40 && p.n.baseR*p.scale>1){ best=p.n; bestD=d; }
+  }
+  if(best!==hovered){ hovered=best; cv.style.cursor = hovered ? "pointer":"grab"; }
+}
+function handleClick(mx,my){
+  let bestNode=null, bestNodeScale=-1;
+  for(const p of projected){
+    const dx=p.sx-mx, dy=p.sy-my;
+    const d=Math.sqrt(dx*dx+dy*dy);
+    const hitR = Math.max(10, p.n.baseR*p.scale*1.3);
+    if(d<hitR && p.scale>bestNodeScale){ bestNode=p.n; bestNodeScale=p.scale; }
+  }
+  if(bestNode){ openPanel(bestNode); return; }
+
+  let bestEdge=null, bestEdgeDist=15;
+  edges.forEach(([a,b])=>{
+    const pa = projected.find(p=>p.n.id===a), pb = projected.find(p=>p.n.id===b);
+    if(!pa||!pb) return;
+    const x1=pa.sx, y1=pa.sy, x2=pb.sx, y2=pb.sy;
+    const A = mx - x1, B = my - y1, C = x2 - x1, D = y2 - y1;
+    const dot = A*C + B*D, lenSq = C*C + D*D;
+    let param = lenSq ? dot/lenSq : 0;
+    param = Math.max(0, Math.min(1, param));
+    const xx = x1 + param*C, yy = y1 + param*D;
+    const dx = mx - xx, dy = my - yy;
+    const d = Math.sqrt(dx*dx+dy*dy);
+    if(d < bestEdgeDist){ bestEdge=[a,b]; bestEdgeDist=d; }
+  });
+  if(bestEdge) openEdgePanel(bestEdge); else closePanel();
+}
+
+function neighborSet(n){
+  const s = new Set([n.id]);
+  n.links.forEach(id=>s.add(id));
+  return s;
+}
+
+function draw(){
+  ctx.clearRect(0,0,W,H);
+
+  const g = ctx.createRadialGradient(W*0.5,H*0.42,0, W*0.5,H*0.42, Math.max(W,H)*0.75);
+  g.addColorStop(0,"#0d1424");
+  g.addColorStop(0.55,"#080b14");
+  g.addColorStop(1,"#05060a");
+  ctx.fillStyle=g;
+  ctx.fillRect(0,0,W,H);
+
+  projected.length = 0;
+  nodes.forEach(n=>{ const p=project(n); p.n=n; projected.push(p); });
+  projected.sort((a,b)=>b.depth-a.depth);
+
+  const active = selected || hovered;
+  const nbrs = active ? neighborSet(active) : null;
+
+  edges.forEach(([a,b])=>{
+    const pa = projected.find(p=>p.n.id===a), pb = projected.find(p=>p.n.id===b);
+    if(!pa||!pb) return;
+    const na=byId[a], nb=byId[b];
+    const dimmed = !activeCats.has(na.cat) || !activeCats.has(nb.cat);
+    let hi = active ? (nbrs.has(a)&&nbrs.has(b)) : false;
+    const spine = isSpineEdge(a,b);
+    const avgDepth = (pa.depth+pb.depth)/2;
+    let alpha = Math.max(0.03, Math.min(0.34, 340/Math.max(avgDepth,60)));
+    if(spine && !active) alpha = Math.max(alpha, 0.5);          // lineage spine always slightly emphasized
+    if(active) alpha = hi ? Math.min(0.85, alpha*3.2) : alpha*(spine?0.35:0.18);
+    if(dimmed) alpha *= 0.15;
+    ctx.strokeStyle = hi ? "rgba(242,234,216,"+alpha+")" : spine ? "rgba(217,89,38,"+alpha+")" : "rgba(140,150,175,"+alpha+")";
+    ctx.lineWidth = hi ? 1.4 : spine ? 1.5 : 0.7;
+    ctx.beginPath();
+    ctx.moveTo(pa.sx,pa.sy); ctx.lineTo(pb.sx,pb.sy);
+    ctx.stroke();
+  });
+
+  // Labels: hub + controller lineage stay labeled at all times so the spine
+  // reads on its own; everything else shows a label only while hovered,
+  // selected, or a neighbor of the active node -- avoids the label pile-up
+  // a fully-labeled force graph gets around any densely-linked node.
+  projected.forEach(p=>{
+    const n=p.n;
+    const dimmedCat = !activeCats.has(n.cat);
+    const hi = active ? nbrs.has(n.id) : true;
+    const r = Math.max(1.4, n.baseR*p.scale);
+    let alpha = active ? (hi?1:0.16) : Math.max(0.35, Math.min(1, 480/Math.max(p.depth,80)));
+    if(dimmedCat) alpha *= 0.14;
+    const col = CATS[n.cat].hex;
+
+    if(r>2.2){
+      const glow = ctx.createRadialGradient(p.sx,p.sy,0, p.sx,p.sy,r*2.1);
+      glow.addColorStop(0, hexA(col, (selected===n?0.32:0.16)*alpha));
+      glow.addColorStop(1, hexA(col, 0));
+      ctx.fillStyle=glow;
+      ctx.beginPath(); ctx.arc(p.sx,p.sy,r*2.1,0,Math.PI*2); ctx.fill();
+    }
+
+    ctx.beginPath();
+    ctx.arc(p.sx,p.sy,r,0,Math.PI*2);
+    ctx.fillStyle = hexA(col, alpha);
+    ctx.fill();
+    if(selected===n){
+      ctx.lineWidth=1.6; ctx.strokeStyle=hexA("#ffffff",0.9*alpha); ctx.stroke();
+    }
+
+    const alwaysLabeled = n.id==="hub" || n.onSpine;
+    const showLabel = r>3.5 && (alwaysLabeled || (active && nbrs.has(n.id)));
+    if(showLabel){
+      const fs = Math.max(9.5, Math.min(13.5, r*0.95));
+      ctx.font = fs+"px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace";
+      ctx.textBaseline="middle";
+      const labelX = p.sx + r + 7, labelY = p.sy;
+      const tw = ctx.measureText(n.name).width;
+      ctx.fillStyle = "rgba(6,7,12,"+Math.min(0.72,alpha*0.8)+")";
+      ctx.fillRect(labelX-4, labelY-fs*0.62, tw+8, fs*1.28);
+      ctx.fillStyle = "rgba(238,240,246,"+ (alpha*0.92) +")";
+      ctx.fillText(n.name, labelX, labelY);
+    }
+  });
+}
+
+function hexA(hex, a){
+  const c = hex.replace("#","");
+  const r = parseInt(c.slice(0,2),16), g=parseInt(c.slice(2,4),16), b=parseInt(c.slice(4,6),16);
+  return "rgba("+r+","+g+","+b+","+Math.max(0,Math.min(1,a))+")";
+}
+
+function loop(){
+  if(autoRotate) yaw += 0.0011;
+  step();
+  draw();
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+
+/* ---------------------------------------------------------------------- */
+/* SIDE PANEL                                                             */
+/* ---------------------------------------------------------------------- */
+
+const panel = document.getElementById("panel");
+const panelBody = document.getElementById("panel-body");
+const emptyMsg = document.getElementById("empty-msg");
+
+function openPanel(n){
+  selected = n;
+  const cat = CATS[n.cat];
+  const linksHtml = n.links.map(id=>{
+    const t = byId[id];
+    return '<li><a href="#" data-id="'+id+'"><span class="dot" style="background:'+CATS[t.cat].hex+'"></span>'+t.name+'</a></li>';
+  }).join("");
+  panelBody.innerHTML =
+    '<span class="kind" style="color:'+cat.hex+';border-color:'+hexA(cat.hex,0.4)+'">'+cat.label+'</span>'+
+    '<h2 style="border-left-color:'+cat.hex+'">'+n.name+'</h2>'+
+    '<p>'+n.desc+'</p>'+
+    '<div class="file mono">'+n.file+'</div>'+
+    (n.links.length ? '<div class="linkshead">Connected notes ('+n.links.length+')</div><ul class="links">'+linksHtml+'</ul>' : '');
+  panel.classList.add("open");
+  emptyMsg.style.opacity = "1";
+  panelBody.querySelectorAll("a[data-id]").forEach(a=>{
+    a.addEventListener("click", e=>{ e.preventDefault(); openPanel(byId[a.dataset.id]); });
+  });
+}
+
+function openEdgePanel([a,b]){
+  const info = edgeInfo[a+"-"+b] || edgeInfo[b+"-"+a];
+  if(!info) return; // no authored note for this link — do nothing rather than fabricate one
+  selected = null;
+  const na = byId[a], nb = byId[b];
+  panelBody.innerHTML =
+    '<span class="kind">Lineage transition</span>'+
+    '<h2>'+info.title+'</h2>'+
+    '<p>'+info.body+'</p>'+
+    '<div class="linkshead">Connects</div>'+
+    '<ul class="links">'+
+      '<li><a href="#" data-id="'+a+'"><span class="dot" style="background:'+CATS[na.cat].hex+'"></span>'+na.name+'</a></li>'+
+      '<li><a href="#" data-id="'+b+'"><span class="dot" style="background:'+CATS[nb.cat].hex+'"></span>'+nb.name+'</a></li>'+
+    '</ul>';
+  panel.classList.add("open");
+  emptyMsg.style.opacity = "1";
+  panelBody.querySelectorAll("a[data-id]").forEach(el=>{
+    el.addEventListener("click", e=>{ e.preventDefault(); openPanel(byId[el.dataset.id]); });
+  });
+}
+
+function closePanel(){
+  selected=null;
+  panel.classList.remove("open");
+  emptyMsg.style.opacity="0";
+}
+document.getElementById("panel-close").addEventListener("click", closePanel);
+document.addEventListener("keydown", e=>{ if(e.key==="Escape") closePanel(); });
+
+})();
+</script>
+</body>
+</html>
