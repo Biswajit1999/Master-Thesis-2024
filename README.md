@@ -60,6 +60,19 @@ A perfectly flat `dX = dY = 0` trace is not the appropriate baseline expectation
 
 The full report, including the Stage-2 performance comparison and a quantitative explanation of the remaining control limitations, is available in [`results/why_zero_pixel_regulation_not_yet_achieved.md`](results/why_zero_pixel_regulation_not_yet_achieved.md).
 
+
+## Current thermal-management development
+
+The latest instrumentation work extends the thermal-mapping programme to the camera body itself. A post-rotation monitoring run showed persistent spatial temperature differences across the camera while the detector TEC and liquid-cooling outlet remained stable, motivating a controlled forced-airflow experiment.
+
+The resulting **EXOhSPEC V25 camera thermal-homogenisation study** documents the design of a compact dual side-vent fan mount, low-power fan selection, vibration-isolation strategy, editable parametric CAD and the staged thermal + pixel + OPL validation plan.
+
+<p align="center">
+  <a href="reports/thermal-management/EXOhSPEC_V25_camera_thermal_homogenisation.md"><img src="figures/v25_camera_thermal_homogenisation/v25_problem_to_design.svg" alt="EXOhSPEC V25 camera thermal homogenisation concept" width="100%"></a>
+</p>
+
+**[Open the V25 design report](reports/thermal-management/EXOhSPEC_V25_camera_thermal_homogenisation.md)**
+
 ## Code
 
 - [`tec_temperature_monitor.py`](code/tec_temperature_monitor.py) - portable Meerstetter TEC temperature logger, adapted from the thesis development notebook.
