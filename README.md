@@ -1,10 +1,10 @@
-# Closed-Loop Feedback Control System for EXOhSPEC
+# EXOhSPEC-CLFCD — Closed-Loop Feedback Control Development
 
 <p align="center">
   <img src="figures/exohspec_feedback_architecture.svg" alt="EXOhSPEC closed-loop stability architecture" width="100%">
 </p>
 
-**MSc Astrophysics Thesis and Selected Instrumentation Development**  
+**Master thesis and extended instrumentation-development record**
 University of Hertfordshire · 2024
 
 **Author:** Biswajit Jana  
@@ -12,9 +12,9 @@ University of Hertfordshire · 2024
 
 ## EXOhSPEC programme website revision — 6 October 2026
 
-The day-mode redesign of the wider EXOhSPEC programme website is in [`new website made on 6th october/`](new%20website%20made%20on%206th%20october/). It modernises the structure of the official instrument site while retaining the spectrograph, optical design, fibre research, active control, telescope, guiding, science and publication record. This thesis is included only as a small continuing-research contribution.
+The day-mode redesign of the wider EXOhSPEC programme website is in [`new website made on 6th october/`](new%20website%20made%20on%206th%20october/). It is now a multi-page scientific instrument site covering the spectrograph, optical and mechanical design, fibre research, active control, telescope deployment, science and publication record.
 
-The separate A–Z thesis evidence archive remains stored in [`new website made on 6th october/research-record/`](new%20website%20made%20on%206th%20october/research-record/) and is not promoted through the main EXOhSPEC website.
+The closed-loop work is a dedicated research track within that programme: [`EXOhSPEC-CLFCD`](new%20website%20made%20on%206th%20october/closed-loop/). Its separate A–Z evidence archive is stored in [`new website made on 6th october/research-record/`](new%20website%20made%20on%206th%20october/research-record/) with reports, provenance and duplicate-aware indexing.
 
 ## Research question
 
