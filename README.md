@@ -1,99 +1,135 @@
 # EXOhSPEC-CLFCD — Closed-Loop Feedback Control Development
 
-<p align="center">
-  <img src="figures/exohspec_feedback_architecture.svg" alt="EXOhSPEC closed-loop stability architecture" width="100%">
-</p>
-
-**Master thesis and extended instrumentation-development record**
-University of Hertfordshire · 2024
-
+**MSc thesis (2024) + continuing EXOhSPEC instrumentation research record (2026)**  
 **Author:** Biswajit Jana  
-**Supervisors:** Prof Hugh R. A. Jones and Prof Bill Martin
+**Supervisors:** Prof Hugh R. A. Jones and Prof William E. Martin  
+**University of Hertfordshire**
 
-## EXOhSPEC programme website revision — 6 October 2026
+This repository follows one experimental question from the original MSc project into the current Stage-2 programme:
 
-The day-mode redesign of the wider EXOhSPEC programme website is in [`new website made on 6th october/`](new%20website%20made%20on%206th%20october/). It is now a multi-page scientific instrument site covering the spectrograph, optical and mechanical design, fibre research, active control, telescope deployment, science and publication record.
+> How do environmental and thermal disturbances propagate into optical-path and detector-plane motion in EXOhSPEC, and how far can thermal control plus bounded active optics suppress that motion?
 
-The closed-loop work is a dedicated research track within that programme: [`EXOhSPEC-CLFCD`](new%20website%20made%20on%206th%20october/closed-loop/). Its separate A–Z evidence archive is stored in [`new website made on 6th october/research-record/`](new%20website%20made%20on%206th%20october/research-record/) with reports, provenance and duplicate-aware indexing.
-
-## Research question
-
-EXOhSPEC is a high-resolution spectrograph development platform for precision radial-velocity work. This project investigated how temperature, pressure and humidity affect optical path length (OPL) and detector-plane motion, and whether feedback control can reduce spectral-image drift.
-
-The experimental workflow combines environmental telemetry, IDS3010 interferometry, MaxIm DL centroid measurement, thermal control through a Meerstetter TEC controller, and bounded active-optics correction.
-
-## Feedback architecture
+The 2024 submitted thesis is preserved as a historical document. The later V11–V24 experiments are recorded as a continuation rather than retroactively rewriting the examined thesis. V25 is the next hardware-validation phase and does not yet have a performance result.
 
 <p align="center">
-  <a href="figures/hybrid_feedback_algorithm.svg"><img src="figures/hybrid_feedback_algorithm.svg" alt="Hybrid feedback algorithm" width="88%"></a>
+  <img src="figures/06_nine_panel_stacked.png" alt="EXOhSPEC multi-channel Stage-2 diagnostic plot" width="96%">
 </p>
 
-The control hierarchy is TEC-primary: thermal correction is used for coarse and slow drift, while active optics is used only for small residual image motion. Cumulative AO travel is monitored so that the thermal loop can absorb an offset before the fine actuator reaches its range limit.
+## Where the research is now — October 2026
 
-The code-derived model, including the rolling OLS predictor, OPL feed-forward term, PI fallback, AO matrix inversion and reference-management rule, is documented in [`methods/V6B_HYBRID_CONTROLLER.md`](methods/V6B_HYBRID_CONTROLLER.md).
+| Stage | Main result | What it means |
+|---|---|---|
+| **V17 endurance** | 88.59 h settled feedback, 4,761 frames; dX RMS 0.0594 px, dY RMS 0.1631 px; 100% within ±0.5 px | Demonstrated sustained sub-pixel operation over a multi-day run. |
+| **V18.1** | 3.98 h feedback; dX RMS 0.0564 px, dY RMS 0.1073 px | Phase-correlation tracking and faster AO activation tightened the short-run result. |
+| **V18.2** | 3.98 h feedback; dX RMS 0.0373 px, dY RMS 0.0990 px, radial RMS 0.1058 px | Multi-line ThAr phase correlation, PT104 integration and no-rewind AO logic reached the strongest reported short-run detector-plane result in this sequence. |
+| **V19–V21 diagnosis** | V19 passive 5 h run showed a recurring ~33.4 min component across room/chiller/camera/OPL/dY telemetry | Shifted the programme from controller tuning alone toward physical thermal-path diagnosis; it is not a unique root-cause proof. |
+| **V22 replacement LK220** | With camera TEC ON: dY RMS 0.2125 px and 100% within ±0.5 px; switching the camera TEC OFF reduced cooling load but produced a large thermo-optical transition | The camera TEC is a substantial heat load, but its removal is not an acceptable stability solution. The old/new LK220 runs are not a matched hardware A/B test because operating conditions differed. |
+| **V23 / V23.2 thermal optimisation** | Best tested completed settings: Kp 2.5, PERIOD 2000 ms; pump 75% selected as balanced default at ~1.10 L/min | Established a stable thermal operating point. These runs intentionally omitted optical telemetry, so they demonstrate thermal behaviour only. |
+| **V24 rotation monitor** | After a 180° camera reorientation, the early ~28 min interval reached about +0.64 px dY and −0.32 µm OPL change while detector/coolant telemetry remained comparatively stable | Motivated direct testing of spatial camera-body thermal gradients; this observation does not by itself establish causality. |
+| **V25 next phase** | Two low-power 30 mm side-vent fans ordered; black TPU sealed mounts submitted for 3D printing | A hardware hypothesis now awaiting fit, vibration, single-fan and push–pull validation. No V25 performance claim is made yet. |
 
-## Controller lineage & evidence graph
+## The research story
 
-An interactive 3D graph connecting every controller version (V11-V17), calibration dataset, diagnostic script and finding in this project, with the recorded RMS figures and open questions kept alongside it for reference.
+### 1. Original MSc work: measure the disturbance before correcting it
 
-**[Open the interactive graph](https://htmlpreview.github.io/?https://raw.githubusercontent.com/Biswajit1999/Master-Thesis-2024/main/EXOhSPEC_Memory_Graph/exohspec_brain.html)**
+The thesis established the measurement chain linking environmental telemetry, IDS3010 optical-path-length metrology, detector motion, thermal actuation and active optics. Configuration-specific measurements showed that both pressure and temperature can produce measurable OPL variation. Early thermal-control work also demonstrated millikelvin-scale TEC stability over long intervals.
 
-Source: [`EXOhSPEC_Memory_Graph/exohspec_brain.html`](EXOhSPEC_Memory_Graph/exohspec_brain.html) - a single self-contained HTML file, no external dependencies.
+[Open the original MSc thesis PDF](new%20website%20made%20on%206th%20october/research-record/pdf-reports/email-sent/2024-04-26_299a5e_Master%20Thesises.pdf)
 
-## Component studies
+### 2. Stage-2: thermal control plus bounded active optics
 
-<p align="center">
-  <a href="components/"><img src="figures/component_characterisation_map.svg" alt="EXOhSPEC component characterisation map" width="100%"></a>
-</p>
+The controller evolved into a TEC-primary hierarchy: the slow thermal loop carries coarse/persistent drift while the AO unit trims residual image motion. The V17 endurance run showed that this architecture could remain inside a broad sub-pixel band for almost four days, while also revealing that dX and dY do not necessarily optimise together.
 
-The [`components/`](components/) reports explain how the interferometer, BME680, PT104 four-region thermal mapping, TEC, active optics, MaxIm DL and Python workflow were characterised before or alongside hybrid feedback development. Each report includes the relevant experiment, compact equations and a public-safe boundary that keeps operational build details private.
+[Stage-2 V17–V18 progression](results/stage2_v17_v18_precision_progression.md) · [Controller model](methods/V6B_HYBRID_CONTROLLER.md)
 
-## Selected results
+### 3. Measurement refinement: multi-line phase correlation
 
-<p align="center">
-  <a href="results/"><img src="figures/selected_experimental_results.svg" alt="Selected experimental results" width="100%"></a>
-</p>
+V18.1 and V18.2 moved the detector measurement from a single local feature toward phase-correlation tracking and then a multi-line ThAr ROI. The result improved detector-plane RMS, but this repository deliberately keeps detector displacement separate from calibrated stellar radial-velocity precision. A pixel-RMS value is not reported as an m/s precision measurement without a wavelength solution and end-to-end RV calibration.
 
-Selected experiments measured OPL sensitivity to environmental change, millikelvin-level TEC stability during a 44.5 h run, active-optics centroid response, and a hybrid-control comparison in which `dY` RMS decreased from 2.72 px to 0.69 px. See [`results/README.md`](results/README.md).
+### 4. Thermal diagnosis: V19 through V24
 
-## Control interpretation
+Once the feedback architecture was operating reliably, the limiting question changed: what physical thermal path is driving the remaining structured motion?
 
-A perfectly flat `dX = dY = 0` trace is not the appropriate baseline expectation for a delayed, continuously disturbed spectrograph. The current engineering question is how much time the system can remain inside a defined sub-pixel band while rejecting temperature, pressure, humidity and HVAC disturbances without exhausting AO range.
+V19–V21 exposed a repeatable thermal timescale. V22 used a replacement LK220 and a camera-TEC ON/OFF intervention. V23/V23.2 isolated controller and coolant-flow behaviour. V24 then reintroduced detector/OPL monitoring after a 180° camera rotation. Together these experiments point to a coupled camera/cooling/environment problem rather than a single controller gain.
 
-<p align="center">
-  <a href="results/why_zero_pixel_regulation_not_yet_achieved.md"><img src="figures/ideal_vs_disturbed_regulation.svg" alt="Ideal and disturbed regulation comparison" width="100%"></a>
-</p>
+[Read the V19–V24 thermal diagnostic synthesis](results/thermal_diagnostics_v19_to_v24.md)
 
-The full report, including the Stage-2 performance comparison and a quantitative explanation of the remaining control limitations, is available in [`results/why_zero_pixel_regulation_not_yet_achieved.md`](results/why_zero_pixel_regulation_not_yet_achieved.md).
+### 5. V25: test airflow as a physical intervention
 
+The next experiment is deliberately simple: test whether gentle, low-vibration airflow through the two camera side vents reduces the spatial body-temperature gradient without degrading dX/dY or OPL. The current design uses one left-intake and one right-exhaust 30 × 30 × 10 mm fan on removable black TPU mounts.
 
-## Current thermal-management development
+[Open the current V25 design and validation report](reports/thermal-management/EXOhSPEC_V25_camera_thermal_homogenisation.md)
 
-The latest instrumentation work extends the thermal-mapping programme to the camera body itself. A post-rotation monitoring run showed persistent spatial temperature differences across the camera while the detector TEC and liquid-cooling outlet remained stable, motivating a controlled forced-airflow experiment.
+## Evidence in measured plots
 
-The resulting **EXOhSPEC V25 camera thermal-homogenisation study** documents the design of a compact dual side-vent fan mount, low-power fan selection, vibration-isolation strategy, editable parametric CAD and the staged thermal + pixel + OPL validation plan.
+<table>
+<tr>
+<td width="50%"><img src="figures/01_dXdY_far_combined.png" alt="Measured detector displacement over time"></td>
+<td width="50%"><img src="figures/03_opl_residual_r2.png" alt="Measured OPL residual diagnostic"></td>
+</tr>
+<tr>
+<td align="center"><b>Detector-plane motion</b></td>
+<td align="center"><b>Optical-path residual</b></td>
+</tr>
+<tr>
+<td width="50%"><img src="figures/04_environment_temp_pressure.png" alt="Measured environmental temperature and pressure context"></td>
+<td width="50%"><img src="figures/08_annotated_diagnostic.png" alt="Annotated multi-channel experimental diagnostic"></td>
+</tr>
+<tr>
+<td align="center"><b>Environmental forcing</b></td>
+<td align="center"><b>Multi-channel diagnostic context</b></td>
+</tr>
+</table>
 
-<p align="center">
-  <a href="reports/thermal-management/EXOhSPEC_V25_camera_thermal_homogenisation.md"><img src="figures/v25_camera_thermal_homogenisation/v25_problem_to_design.svg" alt="EXOhSPEC V25 camera thermal homogenisation concept" width="100%"></a>
-</p>
+These are experiment-derived plots from the repository rather than decorative illustrations. Interpretation should always follow the phase definitions and limitations in the associated reports.
 
-**[Open the V25 design report](reports/thermal-management/EXOhSPEC_V25_camera_thermal_homogenisation.md)**
+## Current working thermal configuration
 
-## Code
+After V23/V23.2, the working configuration for the next optical validation is:
 
-- [`tec_temperature_monitor.py`](code/tec_temperature_monitor.py) - portable Meerstetter TEC temperature logger, adapted from the thesis development notebook.
-- [`hybrid_feedback_model.py`](code/hybrid_feedback_model.py) - hardware-independent TEC-primary / AO-fine-trim decision logic.
-- [`drift_metrics.py`](code/drift_metrics.py) - RMS, mean-absolute-error and threshold-fraction summaries for reference-relative centroid drift.
+- LK220 target: **22 °C**
+- Kp: **2.5**
+- TI / TD: **1.0 / 1.0**
+- PERIOD: **2000 ms**
+- pump: **75% balanced default**, measured readout ~**1.10 L/min**
+- camera TEC: **ON**, setpoint **−10 °C**
 
-The public code exposes the method and its calibration inputs. Device ports, credentials, raw telemetry and laboratory configuration are not included.
+The 80% pump condition produced slightly lower external camera-surface temperatures, but with higher LK220 current, duty and heat-sink temperature. The 75% setting is therefore the current compromise, not a universal optimum.
 
-## Presentations
+## Repository map
 
-- [State of Art: Radial Velocity Spectrograph](Poster%20Presentation%20and%20Seminar/Seminar1-State%20of%20Art_%20Radial%20Velocity%20Spectrograph.pdf)
-- [Advancements in Precision: LASER Interferometer Control System](Poster%20Presentation%20and%20Seminar/Seminar%202%20-%20Advancements%20in%20Precision_LASER%20Interferometer%20Control%20Systempdf.pdf)
-- [Optimising Path Length Stability in Laser Interferometers using Air Refractive Index](Poster%20Presentation%20and%20Seminar/Seminar%203%20-%20Optimizing%20Path%20Length%20Stability%20in%20Laser%20Interferometers%20using%20Air%20Refractive%20Index.pdf)
-- [High-Resolution RV Spectrographs: ANDES and PID Loop Implementation in EXOhSPEC](Poster%20Presentation%20and%20Seminar/Seminar%204%20-High-Resolution%20RV%20Spectrographs_ANDES%20and%20PID%20Loop%20Implementation%20in%20EXOhSPEC%20.pdf)
+| Area | Contents |
+|---|---|
+| [results/](results/) | Experiment-level results, limitations and cross-run interpretation |
+| [reports/](reports/) | Longer research updates, thermal-management and active-optics reports |
+| [methods/](methods/) | Hardware-independent control logic and validation requirements |
+| [components/](components/) | IDS3010, PT104, BME680, TEC, AO, MaxIm DL and workflow characterisation |
+| [code/](code/) | Portable Python monitoring, analysis and controller-model code |
+| [designs/v25_camera_fan_mount/](designs/v25_camera_fan_mount/) | V25 camera-airflow prototype geometry and print notes |
+| [new website made on 6th october/closed-loop/](new%20website%20made%20on%206th%20october/closed-loop/) | Public-facing CLFCD research story |
+| [new website made on 6th october/research-record/](new%20website%20made%20on%206th%20october/research-record/) | Searchable evidence archive and provenance record |
 
-## Scope
+## Software and analysis
 
-This public repository contains selected methods, figures, code and MSc presentation material. The full working archive, raw data, laboratory configuration, detailed controller variants and unsubmitted material are kept separately.
+**Python is the dominant programming language across the experimental acquisition, control, synchronisation, analysis and plotting workflow.** The project also uses instrument/vendor interfaces and scientific tools including MaxIm DL, IDS3010 metrology, PT104/BME environmental sensing, Meerstetter TEC control, LK220 telemetry, InfluxDB/Grafana monitoring and OpenSCAD for the current V25 mechanical prototype.
+
+The public code is intentionally hardware-independent where possible. Device addresses, credentials, operational safety settings and raw laboratory telemetry are not published.
+
+## Research boundaries
+
+This repository distinguishes four types of statement:
+
+- **Measured:** directly reported from an experiment or calibration.
+- **Demonstrated interval:** valid for a stated window and conditions.
+- **Interpretation:** supported by the data but not a unique causal proof.
+- **Proposed / in fabrication:** a design that still requires experimental validation.
+
+This matters especially for V19–V25. The programme has narrowed the thermal problem substantially, but the current evidence does not justify claiming that one component is the sole cause of the remaining drift.
+
+## Master-thesis continuation
+
+A single current narrative connecting the 2024 thesis to the V17–V25 programme is maintained here:
+
+**[EXOhSPEC Master-Thesis Research Continuation — 2026](reports/EXOhSPEC_Master_Thesis_Research_Continuation_2026.md)**
+
+The original thesis remains unchanged; the continuation records what was learned afterwards and why the next experiment follows.
