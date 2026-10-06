@@ -106,7 +106,7 @@ The 80% pump condition produced slightly lower external camera-surface temperatu
 | [components/](components/) | IDS3010, PT104, BME680, TEC, AO, MaxIm DL and workflow characterisation |
 | [code/](code/) | Portable Python monitoring, analysis and controller-model code |
 | [designs/v25_camera_fan_mount/](designs/v25_camera_fan_mount/) | V25 camera-airflow prototype geometry and print notes |
-| [new website made on 6th october/closed-loop/](new%20website%20made%20on%206th%20october/closed-loop/) | Public-facing CLFCD research story |
+| [new website made on 6th october/closed-loop/](new%20website%20made%20on%206th%20october/closed-loop/) | Public-facing CLFCD microsite: overview, V17–V18 results, V19–V24 diagnostics, V25 prototype and evidence library |
 | [new website made on 6th october/research-record/](new%20website%20made%20on%206th%20october/research-record/) | Searchable evidence archive and provenance record |
 
 ## Software and analysis

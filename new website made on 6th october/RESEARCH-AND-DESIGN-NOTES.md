@@ -18,3 +18,6 @@
 6. Use programme photographs on the main site and thesis-derived internal images only inside CLFCD.
 7. Make the programme and research timelines operable with buttons and keyboard focus, with a static reduced-motion state.
 8. Use a light institutional palette, a custom vector mark, restrained spectral-flow motion and no scroll-jacking.
+9. Route the expanded CLFCD record through dedicated results, thermal-diagnostic, prototype and evidence pages instead of turning the programme homepage into a thesis archive.
+10. Treat V25 as a product-development page with verified dimensions and public CAD, while labelling it explicitly as an unvalidated prototype.
+11. Make tabbed research sequences keyboard-operable with arrow, Home and End keys, and keep every data table horizontally accessible on small screens.
