@@ -38,7 +38,7 @@ The print submitted in October 2026 is different:
 6. M3 pilot holes are nominally 2.85 mm for light thread-forming in TPU;
 7. left and right parts are dedicated intake/exhaust variants.
 
-[DIMENSIONS.json](DIMENSIONS.json) is the current public dimensional record.
+[DIMENSIONS.json](DIMENSIONS.json) is the current public dimensional record. The detailed screw, curvature, clearance and physical-fit checks are recorded in [DESIGN_VERIFICATION_v1_1.md](DESIGN_VERIFICATION_v1_1.md).
 
 The current editable parametric source is [EXOhSPEC_V25_TPU_mount_v1_1.scad](EXOhSPEC_V25_TPU_mount_v1_1.scad). Set `DIR = "L"` or `DIR = "R"` before export to generate the intake or exhaust variant. The older [EXOhSPEC_V25_mount_v0_6_parametric.scad](EXOhSPEC_V25_mount_v0_6_parametric.scad) is retained for design history and should **not** be sent to a printer as the final v1.1 part.
 
