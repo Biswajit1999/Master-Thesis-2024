@@ -1,0 +1,530 @@
+{
+  "generated_on": "2026-10-06",
+  "scope": "PDF attachments from sent Gmail messages addressed to Bill Martin and/or Hugh Jones, filtered to EXOhSPEC and thesis research records. Recipient email addresses and message bodies are excluded from this public index.",
+  "count": 41,
+  "items": [
+    {
+      "id": 1,
+      "date": "2026-08-21",
+      "subject": "Re: catchup",
+      "recipients": [
+        "Hugh Jones",
+        "William Martin",
+        "Supriyo Ghosh"
+      ],
+      "attachment_name": "EXOhSPEC_V19_V20_V21_Merged_Report.pdf",
+      "message_id": "1a024839214176e5",
+      "local_path": "research-record/pdf-reports/email-sent/2026-08-21_4176e5_EXOhSPEC_V19_V20_V21_Merged_Report.pdf"
+    },
+    {
+      "id": 2,
+      "date": "2026-10-05",
+      "subject": "Re: Thorlabs has created Case CAS-856895-S5D4Q5 regarding your enquiry LK220 temperature/current cycling with scientific CMOS camera",
+      "recipients": [
+        "Hugh Jones",
+        "William Martin",
+        "Supriyo Ghosh"
+      ],
+      "attachment_name": "EXOhSPEC_Independent_Fan_Control_Proposal.pdf",
+      "message_id": "1a10bbf528fc9f59",
+      "local_path": "research-record/pdf-reports/email-sent/2026-10-05_fc9f59_EXOhSPEC_Independent_Fan_Control_Proposal.pdf"
+    },
+    {
+      "id": 3,
+      "date": "2026-07-28",
+      "subject": "EXOhSPEC V17 Stability Report — complete, and a question for you",
+      "recipients": [
+        "Hugh Jones",
+        "William Martin",
+        "Supriyo Ghosh"
+      ],
+      "attachment_name": "EXOhSPEC_V17_Final_Report.pdf",
+      "message_id": "19fa76f726025f37",
+      "local_path": "research-record/pdf-reports/email-sent/2026-07-28_025f37_EXOhSPEC_V17_Final_Report.pdf"
+    },
+    {
+      "id": 4,
+      "date": "2026-08-19",
+      "subject": "Re: catchup",
+      "recipients": [
+        "William Martin",
+        "Supriyo Ghosh",
+        "Hugh Jones"
+      ],
+      "attachment_name": "EXOhSPEC_V19_Report.pdf",
+      "message_id": "1a019515496eff23",
+      "local_path": "research-record/pdf-reports/email-sent/2026-08-19_6eff23_EXOhSPEC_V19_Report.pdf"
+    },
+    {
+      "id": 5,
+      "date": "2026-08-06",
+      "subject": "Re: Control Signal components",
+      "recipients": [
+        "Hugh Jones",
+        "William Martin",
+        "Supriyo Ghosh"
+      ],
+      "attachment_name": "EXOhSPEC_V17_Final_Report (1).pdf",
+      "message_id": "19fd6b026b2c4c08",
+      "local_path": "research-record/pdf-reports/email-sent/2026-08-06_2c4c08_EXOhSPEC_V17_Final_Report (1).pdf"
+    },
+    {
+      "id": 6,
+      "date": "2026-04-30",
+      "subject": "Re: Wednesday",
+      "recipients": [
+        "Hugh Jones",
+        "Supriyo Ghosh",
+        "William Martin"
+      ],
+      "attachment_name": "24 hour data bubble experiment.pdf",
+      "message_id": "19dddf8feb30f8f4",
+      "local_path": "research-record/pdf-reports/email-sent/2026-04-30_30f8f4_24 hour data bubble experiment.pdf"
+    },
+    {
+      "id": 7,
+      "date": "2026-04-30",
+      "subject": "Re: Wednesday",
+      "recipients": [
+        "Hugh Jones",
+        "Supriyo Ghosh",
+        "William Martin"
+      ],
+      "attachment_name": "with vs without bubble plot.pdf",
+      "message_id": "19dddf8feb30f8f4",
+      "local_path": "research-record/pdf-reports/email-sent/2026-04-30_30f8f4_with vs without bubble plot.pdf"
+    },
+    {
+      "id": 8,
+      "date": "2026-07-13",
+      "subject": "New AO July, 2026 result in comparison with July, 2024",
+      "recipients": [
+        "William Martin",
+        "Hugh Jones"
+      ],
+      "attachment_name": "AO_experiment_report_20260713_v3.pdf",
+      "message_id": "19f5c54e8386342d",
+      "local_path": "research-record/pdf-reports/email-sent/2026-07-13_86342d_AO_experiment_report_20260713_v3.pdf"
+    },
+    {
+      "id": 9,
+      "date": "2026-04-27",
+      "subject": "Re: [EXTERNAL MESSAGE] Today’s lab plan(16/02/2026): heat-injection test (ΔY sensitivity) + TEC start",
+      "recipients": [
+        "William Martin",
+        "Hugh Jones",
+        "Supriyo Ghosh"
+      ],
+      "attachment_name": "Story_Time____Notes_of_5_runs_ft__Biswajit.pdf",
+      "message_id": "19dcdad0b23741c8",
+      "local_path": "research-record/pdf-reports/email-sent/2026-04-27_3741c8_Story_Time____Notes_of_5_runs_ft__Biswajit.pdf"
+    },
+    {
+      "id": 10,
+      "date": "2026-07-13",
+      "subject": "Re: Requesting for a meeting on coming Monday 13th",
+      "recipients": [
+        "Hugh Jones",
+        "William Martin",
+        "Supriyo Ghosh"
+      ],
+      "attachment_name": "EXOhSPEC_report_latest_July (1).pdf",
+      "message_id": "19f5947af98412e3",
+      "local_path": "research-record/pdf-reports/email-sent/2026-07-13_8412e3_EXOhSPEC_report_latest_July (1).pdf"
+    },
+    {
+      "id": 11,
+      "date": "2026-04-13",
+      "subject": "Re: [EXTERNAL MESSAGE] Today’s lab plan(16/02/2026): heat-injection test (ΔY sensitivity) + TEC start",
+      "recipients": [
+        "William Martin",
+        "Hugh Jones",
+        "Supriyo Ghosh"
+      ],
+      "attachment_name": "sim_v4_temp_version4_replay.pdf",
+      "message_id": "19d841663f58288f",
+      "local_path": "research-record/pdf-reports/email-sent/2026-04-13_58288f_sim_v4_temp_version4_replay.pdf"
+    },
+    {
+      "id": 12,
+      "date": "2026-04-13",
+      "subject": "Re: [EXTERNAL MESSAGE] Today’s lab plan(16/02/2026): heat-injection test (ΔY sensitivity) + TEC start",
+      "recipients": [
+        "William Martin",
+        "Hugh Jones",
+        "Supriyo Ghosh"
+      ],
+      "attachment_name": "sim_v4_h2o_version4_replay.pdf",
+      "message_id": "19d841663f58288f",
+      "local_path": "research-record/pdf-reports/email-sent/2026-04-13_58288f_sim_v4_h2o_version4_replay.pdf"
+    },
+    {
+      "id": 13,
+      "date": "2026-04-13",
+      "subject": "Re: [EXTERNAL MESSAGE] Today’s lab plan(16/02/2026): heat-injection test (ΔY sensitivity) + TEC start",
+      "recipients": [
+        "William Martin",
+        "Hugh Jones",
+        "Supriyo Ghosh"
+      ],
+      "attachment_name": "sim_v4_pressure_version4_replay.pdf",
+      "message_id": "19d841663f58288f",
+      "local_path": "research-record/pdf-reports/email-sent/2026-04-13_58288f_sim_v4_pressure_version4_replay.pdf"
+    },
+    {
+      "id": 14,
+      "date": "2026-04-25",
+      "subject": "Re: [EXTERNAL MESSAGE] Today’s lab plan(16/02/2026): heat-injection test (ΔY sensitivity) + TEC start",
+      "recipients": [
+        "William Martin",
+        "Hugh Jones",
+        "Supriyo Ghosh"
+      ],
+      "attachment_name": "Story_Time____Notes_of_2_runs_ft__Biswajit.pdf",
+      "message_id": "19dc1c37765962a6",
+      "local_path": "research-record/pdf-reports/email-sent/2026-04-25_5962a6_Story_Time____Notes_of_2_runs_ft__Biswajit.pdf"
+    },
+    {
+      "id": 15,
+      "date": "2026-03-27",
+      "subject": "Re: [EXTERNAL MESSAGE] Re: Today’s lab plan(16/02/2026): heat-injection test (ΔY sensitivity) + TEC start",
+      "recipients": [
+        "Supriyo Ghosh",
+        "William Martin",
+        "Hugh Jones"
+      ],
+      "attachment_name": "Gmail - Stage 2_ Fwd_ Long-run feedback experiment (Exp-H) — results and discussion.pdf",
+      "message_id": "19d2cd083fbf3438",
+      "local_path": "research-record/pdf-reports/email-sent/2026-03-27_bf3438_Gmail - Stage 2_ Fwd_ Long-run feedback experiment (Exp-H) — results and discussion.pdf"
+    },
+    {
+      "id": 16,
+      "date": "2026-03-23",
+      "subject": "Re: Today’s lab plan(16/02/2026): heat-injection test (ΔY sensitivity) + TEC start",
+      "recipients": [
+        "Supriyo Ghosh",
+        "William Martin",
+        "Hugh Jones"
+      ],
+      "attachment_name": "stage2_mermaid_style_multipage_v2.pdf",
+      "message_id": "19d18571dceceef6",
+      "local_path": "research-record/pdf-reports/email-sent/2026-03-23_eceef6_stage2_mermaid_style_multipage_v2.pdf"
+    },
+    {
+      "id": 17,
+      "date": "2026-03-25",
+      "subject": "Re: Today’s lab plan(16/02/2026): heat-injection test (ΔY sensitivity) + TEC start",
+      "recipients": [
+        "Hugh Jones",
+        "William Martin",
+        "Supriyo Ghosh"
+      ],
+      "attachment_name": "stage2_story_23_03_26_clean9panel (1).pdf",
+      "message_id": "19d25e00adec8b50",
+      "local_path": "research-record/pdf-reports/email-sent/2026-03-25_ec8b50_stage2_story_23_03_26_clean9panel (1).pdf"
+    },
+    {
+      "id": 18,
+      "date": "2026-03-23",
+      "subject": "Re: Today’s lab plan(16/02/2026): heat-injection test (ΔY sensitivity) + TEC start",
+      "recipients": [
+        "Supriyo Ghosh",
+        "William Martin",
+        "Hugh Jones"
+      ],
+      "attachment_name": "Stage2_Controller_Flowchart.pdf",
+      "message_id": "19d18571dceceef6",
+      "local_path": "research-record/pdf-reports/email-sent/2026-03-23_eceef6_Stage2_Controller_Flowchart.pdf"
+    },
+    {
+      "id": 19,
+      "date": "2026-03-24",
+      "subject": "Re: Today’s lab plan(16/02/2026): heat-injection test (ΔY sensitivity) + TEC start",
+      "recipients": [
+        "William Martin",
+        "Hugh Jones",
+        "Supriyo Ghosh"
+      ],
+      "attachment_name": "stage2_story_23_03_26_clean9panel.pdf",
+      "message_id": "19d1eef18a41ddbb",
+      "local_path": "research-record/pdf-reports/email-sent/2026-03-24_41ddbb_stage2_story_23_03_26_clean9panel.pdf"
+    },
+    {
+      "id": 20,
+      "date": "2026-03-23",
+      "subject": "Re: Today’s lab plan(16/02/2026): heat-injection test (ΔY sensitivity) + TEC start",
+      "recipients": [
+        "Hugh Jones",
+        "Supriyo Ghosh",
+        "William Martin"
+      ],
+      "attachment_name": "full_story_plot_feedback_separated.pdf",
+      "message_id": "19d19cef486efa92",
+      "local_path": "research-record/pdf-reports/email-sent/2026-03-23_6efa92_full_story_plot_feedback_separated.pdf"
+    },
+    {
+      "id": 21,
+      "date": "2026-02-26",
+      "subject": "Re: Today’s lab plan(16/02/2026): heat-injection test (ΔY sensitivity) + TEC start",
+      "recipients": [
+        "Hugh Jones",
+        "William Martin",
+        "Supriyo Ghosh",
+        "Krupa Kuruvila"
+      ],
+      "attachment_name": "New24h_allruns_6panel_core.pdf",
+      "message_id": "19c9c4dbfaa9eef6",
+      "local_path": "research-record/pdf-reports/email-sent/2026-02-26_a9eef6_New24h_allruns_6panel_core.pdf"
+    },
+    {
+      "id": 22,
+      "date": "2026-03-11",
+      "subject": "Re: Today’s lab plan(16/02/2026): heat-injection test (ΔY sensitivity) + TEC start",
+      "recipients": [
+        "Hugh Jones",
+        "William Martin",
+        "Supriyo Ghosh"
+      ],
+      "attachment_name": "CLosed_feedback_loop_hybrid_control_experiment_Report (3).pdf",
+      "message_id": "19cdeb32cea0c542",
+      "local_path": "research-record/pdf-reports/email-sent/2026-03-11_a0c542_CLosed_feedback_loop_hybrid_control_experiment_Report (3).pdf"
+    },
+    {
+      "id": 23,
+      "date": "2026-02-19",
+      "subject": "Re: Today’s lab plan(16/02/2026): heat-injection test (ΔY sensitivity) + TEC start",
+      "recipients": [
+        "William Martin",
+        "Hugh Jones",
+        "Supriyo Ghosh"
+      ],
+      "attachment_name": "rawsteps_7panel_20260218.pdf",
+      "message_id": "19c736cebdce009b",
+      "local_path": "research-record/pdf-reports/email-sent/2026-02-19_ce009b_rawsteps_7panel_20260218.pdf"
+    },
+    {
+      "id": 24,
+      "date": "2026-03-04",
+      "subject": "Re: Today’s lab plan(16/02/2026): heat-injection test (ΔY sensitivity) + TEC start",
+      "recipients": [
+        "William Martin",
+        "Hugh Jones",
+        "Supriyo Ghosh",
+        "Krupa Kuruvila"
+      ],
+      "attachment_name": "Comparison two AO units Analysis.pdf",
+      "message_id": "19cb8ab5f63f62ea",
+      "local_path": "research-record/pdf-reports/email-sent/2026-03-04_3f62ea_Comparison two AO units Analysis.pdf"
+    },
+    {
+      "id": 25,
+      "date": "2026-03-18",
+      "subject": "Re: Today’s lab plan(16/02/2026): heat-injection test (ΔY sensitivity) + TEC start",
+      "recipients": [
+        "Hugh Jones",
+        "Supriyo Ghosh",
+        "William Martin"
+      ],
+      "attachment_name": "full_story_plot_feedback_separated.pdf",
+      "message_id": "19d00d057405f2b0",
+      "local_path": "research-record/pdf-reports/email-sent/2026-03-18_05f2b0_full_story_plot_feedback_separated.pdf"
+    },
+    {
+      "id": 26,
+      "date": "2025-09-15",
+      "subject": "OPL drift modeling update — 97% fit on training data, control law & deployment plan (+plots)",
+      "recipients": [
+        "Hugh Jones",
+        "William Martin",
+        "Supriyo Ghosh"
+      ],
+      "attachment_name": "Equations_models used in the code.pdf",
+      "message_id": "1994a8eac76ee354",
+      "local_path": "research-record/pdf-reports/email-sent/2025-09-15_6ee354_Equations_models used in the code.pdf"
+    },
+    {
+      "id": 27,
+      "date": "2025-12-12",
+      "subject": "Long-run feedback experiment (Exp-H) — results and discussion",
+      "recipients": [
+        "William Martin",
+        "Hugh Jones",
+        "Supriyo Ghosh"
+      ],
+      "attachment_name": "OPL_model (4).pdf",
+      "message_id": "19b124f1333fde9e",
+      "local_path": "research-record/pdf-reports/email-sent/2025-12-12_3fde9e_OPL_model (4).pdf"
+    },
+    {
+      "id": 28,
+      "date": "2025-09-15",
+      "subject": "OPL drift modeling update — 97% fit on training data, control law & deployment plan (+plots)",
+      "recipients": [
+        "Hugh Jones",
+        "William Martin",
+        "Supriyo Ghosh"
+      ],
+      "attachment_name": "OPL_model.pdf",
+      "message_id": "1994a8eac76ee354",
+      "local_path": "research-record/pdf-reports/email-sent/2025-09-15_6ee354_OPL_model.pdf"
+    },
+    {
+      "id": 29,
+      "date": "2025-11-11",
+      "subject": "Re: Experiment Planning",
+      "recipients": [
+        "Hugh Jones",
+        "William Martin",
+        "Krupa Kuruvila"
+      ],
+      "attachment_name": "OPL_model (1).pdf",
+      "message_id": "19a74b2ba570d014",
+      "local_path": "research-record/pdf-reports/email-sent/2025-11-11_70d014_OPL_model (1).pdf"
+    },
+    {
+      "id": 30,
+      "date": "2025-11-26",
+      "subject": "Re: Experiment Planning",
+      "recipients": [
+        "Hugh Jones",
+        "William Martin",
+        "Supriyo Ghosh"
+      ],
+      "attachment_name": "Closed_Loop_Feedback_Control_System_for_high_resolution_spectrograph (3).pdf",
+      "message_id": "19abe36d41a218bd",
+      "local_path": "research-record/pdf-reports/email-sent/2025-11-26_a218bd_Closed_Loop_Feedback_Control_System_for_high_resolution_spectrograph (3).pdf"
+    },
+    {
+      "id": 31,
+      "date": "2025-04-16",
+      "subject": "Re: Request for Static IP Allocation for Interferometer",
+      "recipients": [
+        "Hugh Jones",
+        "William Martin",
+        "Supriyo Ghosh"
+      ],
+      "attachment_name": "Interferometer_IP_Address_Issue__SOLVED by Biswajit.pdf",
+      "message_id": "1963ecd164a7608f",
+      "local_path": "research-record/pdf-reports/email-sent/2025-04-16_a7608f_Interferometer_IP_Address_Issue__SOLVED by Biswajit.pdf"
+    },
+    {
+      "id": 32,
+      "date": "2024-07-17",
+      "subject": "Re: New AO in spectrograph",
+      "recipients": [
+        "Institutional recipient",
+        "William Martin"
+      ],
+      "attachment_name": "AO step size report.pdf",
+      "message_id": "190c085b6cb7d224",
+      "local_path": "research-record/pdf-reports/email-sent/2024-07-17_b7d224_AO step size report.pdf"
+    },
+    {
+      "id": 33,
+      "date": "2024-10-04",
+      "subject": "Re: Updates",
+      "recipients": [
+        "William Martin",
+        "Hugh Jones"
+      ],
+      "attachment_name": "Report 1 - AO measurements pixels per step.pdf",
+      "message_id": "1925839c8713f4d4",
+      "local_path": "research-record/pdf-reports/email-sent/2024-10-04_13f4d4_Report 1 - AO measurements pixels per step.pdf"
+    },
+    {
+      "id": 34,
+      "date": "2025-05-21",
+      "subject": "Re: Catchup",
+      "recipients": [
+        "Hugh Jones",
+        "William Martin",
+        "Supriyo Ghosh"
+      ],
+      "attachment_name": "Report_of_the_feedback_experiments (1).pdf",
+      "message_id": "196f1ee4268d6784",
+      "local_path": "research-record/pdf-reports/email-sent/2025-05-21_8d6784_Report_of_the_feedback_experiments (1).pdf"
+    },
+    {
+      "id": 35,
+      "date": "2024-07-29",
+      "subject": "Re: [EXTERNAL MESSAGE] New AO in spectrograph",
+      "recipients": [
+        "Hugh Jones",
+        "William Martin"
+      ],
+      "attachment_name": "Comparison two AO units Analysis.pdf",
+      "message_id": "190ff1ce58298641",
+      "local_path": "research-record/pdf-reports/email-sent/2024-07-29_298641_Comparison two AO units Analysis.pdf"
+    },
+    {
+      "id": 36,
+      "date": "2023-10-25",
+      "subject": "Re: [EXTERNAL MESSAGE] Laser Training Schedule",
+      "recipients": [
+        "William Martin",
+        "Hugh Jones",
+        "\"Thomas Wocial [Student-PECS]\""
+      ],
+      "attachment_name": "Info.pdf",
+      "message_id": "18b690199b9ee411",
+      "local_path": "research-record/pdf-reports/email-sent/2023-10-25_9ee411_Info.pdf"
+    },
+    {
+      "id": 37,
+      "date": "2024-02-19",
+      "subject": "Request for Clarification and Further Analysis on Temperature Data Report",
+      "recipients": [
+        "Hugh Jones",
+        "William Martin"
+      ],
+      "attachment_name": "Temperature Data Analysis - Biswajit.pdf",
+      "message_id": "18dc218616049230",
+      "local_path": "research-record/pdf-reports/email-sent/2024-02-19_049230_Temperature Data Analysis - Biswajit.pdf"
+    },
+    {
+      "id": 38,
+      "date": "2024-02-02",
+      "subject": "Re: Deadline on Friday",
+      "recipients": [
+        "Hugh Jones"
+      ],
+      "attachment_name": "Sample chapter and content page.pdf",
+      "message_id": "18d68f5b642fa296",
+      "local_path": "research-record/pdf-reports/email-sent/2024-02-02_2fa296_Sample chapter and content page.pdf"
+    },
+    {
+      "id": 39,
+      "date": "2024-02-02",
+      "subject": "Re: Deadline on Friday",
+      "recipients": [
+        "Hugh Jones"
+      ],
+      "attachment_name": "Master_Project___Biswajit_Jana (2).pdf",
+      "message_id": "18d68f5b642fa296",
+      "local_path": "research-record/pdf-reports/email-sent/2024-02-02_2fa296_Master_Project___Biswajit_Jana (2).pdf"
+    },
+    {
+      "id": 40,
+      "date": "2024-04-26",
+      "subject": "Project Report Update",
+      "recipients": [
+        "Hugh Jones"
+      ],
+      "attachment_name": "Master Thesises.pdf",
+      "message_id": "18f1c7591b299a5e",
+      "local_path": "research-record/pdf-reports/email-sent/2024-04-26_299a5e_Master Thesises.pdf"
+    },
+    {
+      "id": 41,
+      "date": "2023-10-20",
+      "subject": "Re: Project Update and Request for review",
+      "recipients": [
+        "Hugh Jones"
+      ],
+      "attachment_name": "Biswajit Jana Initial Plan.pdf",
+      "message_id": "18b4a34f16efc2b4",
+      "local_path": "research-record/pdf-reports/email-sent/2023-10-20_efc2b4_Biswajit Jana Initial Plan.pdf"
+    }
+  ]
+}
+

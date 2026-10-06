@@ -10,6 +10,10 @@ University of Hertfordshire · 2024
 **Author:** Biswajit Jana  
 **Supervisors:** Prof Hugh R. A. Jones and Prof Bill Martin
 
+## Scientific website revision — 6 October 2026
+
+The day-mode, evidence-led EXOhSPEC website and its A–Z report archive are in [`new website made on 6th october/`](new%20website%20made%20on%206th%20october/). The revision identifies measured, modelled and proposed results separately and records 61 historical PDF copies (54 unique contents by checksum) from the research archive.
+
 ## Research question
 
 EXOhSPEC is a high-resolution spectrograph development platform for precision radial-velocity work. This project investigated how temperature, pressure and humidity affect optical path length (OPL) and detector-plane motion, and whether feedback control can reduce spectral-image drift.
