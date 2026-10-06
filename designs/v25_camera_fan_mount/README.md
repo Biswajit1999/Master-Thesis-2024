@@ -40,7 +40,7 @@ The print submitted in October 2026 is different:
 
 [DIMENSIONS.json](DIMENSIONS.json) is the current public dimensional record.
 
-The older [EXOhSPEC_V25_mount_v0_6_parametric.scad](EXOhSPEC_V25_mount_v0_6_parametric.scad) is retained for design history and should **not** be sent to a printer as the final v1.1 part.
+The current editable parametric source is [EXOhSPEC_V25_TPU_mount_v1_1.scad](EXOhSPEC_V25_TPU_mount_v1_1.scad). Set `DIR = "L"` or `DIR = "R"` before export to generate the intake or exhaust variant. The older [EXOhSPEC_V25_mount_v0_6_parametric.scad](EXOhSPEC_V25_mount_v0_6_parametric.scad) is retained for design history and should **not** be sent to a printer as the final v1.1 part.
 
 ## Fit and assembly rules
 
