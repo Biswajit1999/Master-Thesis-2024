@@ -1,5 +1,7 @@
 *.pdf binary
 *.png binary
 *.jpg binary
+*.JPG binary
 *.jpeg binary
 *.webp binary
+*.gif binary

@@ -10,9 +10,11 @@ University of Hertfordshire · 2024
 **Author:** Biswajit Jana  
 **Supervisors:** Prof Hugh R. A. Jones and Prof Bill Martin
 
-## Scientific website revision — 6 October 2026
+## EXOhSPEC programme website revision — 6 October 2026
 
-The day-mode, evidence-led EXOhSPEC website and its A–Z report archive are in [`new website made on 6th october/`](new%20website%20made%20on%206th%20october/). The revision identifies measured, modelled and proposed results separately and records 61 historical PDF copies (54 unique contents by checksum) from the research archive.
+The day-mode redesign of the wider EXOhSPEC programme website is in [`new website made on 6th october/`](new%20website%20made%20on%206th%20october/). It modernises the structure of the official instrument site while retaining the spectrograph, optical design, fibre research, active control, telescope, guiding, science and publication record. This thesis is included only as a small continuing-research contribution.
+
+The separate A–Z thesis evidence archive remains stored in [`new website made on 6th october/research-record/`](new%20website%20made%20on%206th%20october/research-record/) and is not promoted through the main EXOhSPEC website.
 
 ## Research question
 
