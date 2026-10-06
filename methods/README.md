@@ -1,7 +1,14 @@
 # Methods
 
-This folder documents the public, reviewable control model behind the EXOhSPEC stability work.
+This folder documents the public, reviewable measurement and control methods behind the EXOhSPEC stability programme.
 
-- [`V6B_HYBRID_CONTROLLER.md`](V6B_HYBRID_CONTROLLER.md) derives the measurement vector, supervisory temperature-control model, active-optics fine-trim model, phase logic and validation requirements from the V6b controller design.
+| Method | Scope |
+|---|---|
+| [V6B hybrid controller](V6B_HYBRID_CONTROLLER.md) | TEC-primary / AO-fine-trim architecture, measurement vector, phase logic, actuator limits, AO unloading and validation requirements. |
+| [V24 180° camera-rotation passive monitor](V24_ROTATION_MONITOR.md) | Read-only thermal + detector + OPL monitoring, coordinate handling after camera rotation, phase-correlation workflow, PT104 mapping and safety/validity gates. |
 
-The full laboratory controller remains private because it contains site-specific hardware interfaces and operating configuration. The public documentation separates the scientific model from those implementation details.
+## Public-method boundary
+
+The repository exposes scientific logic and reproducible analysis structure while keeping laboratory deployment details out of the public method documents.
+
+Python is the dominant language across acquisition, synchronisation, analysis, plotting and the controller prototypes. Hardware-specific ports, local network addresses, credentials and operational device configuration are deliberately not reproduced here.
