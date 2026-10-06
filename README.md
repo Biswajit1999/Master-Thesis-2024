@@ -5,6 +5,10 @@
 **Supervisors:** Prof Hugh R. A. Jones and Prof William E. Martin  
 **University of Hertfordshire**
 
+## [Open the EXOhSPEC scientific website →](https://biswajit1999.github.io/Master-Thesis-2024/new%20website%20made%20on%206th%20october/)
+
+The GitHub Pages root for this repository also redirects to the programme website.
+
 This repository follows one experimental question from the original MSc project into the current Stage-2 programme:
 
 > How do environmental and thermal disturbances propagate into optical-path and detector-plane motion in EXOhSPEC, and how far can thermal control plus bounded active optics suppress that motion?
