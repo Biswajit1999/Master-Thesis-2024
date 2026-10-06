@@ -1,208 +1,246 @@
-# EXOhSPEC V25 — camera thermal-homogenisation and dual side-vent fan-mount design
+# EXOhSPEC V25 — camera thermal homogenisation and sealed dual side-vent fan prototype
 
 **Author:** Biswajit Jana  
 **Project:** EXOhSPEC Stage-2 instrumentation development  
-**Date:** 22 September 2026  
-**Status:** design study and first-print prototype; not yet hardware-validated
+**Updated:** 6 October 2026  
+**Status:** fan hardware ordered; black TPU v1.1 mount submitted for 3D printing; no powered V25 performance data yet
 
-<p align="center">
-  <img src="../../figures/v25_camera_thermal_homogenisation/v25_problem_to_design.svg" alt="EXOhSPEC V25 problem-to-design overview" width="96%">
-</p>
+## 1. Research question
 
-## 1. Why I started this design
+V25 is a physical follow-up to the V19–V24 thermal diagnostic sequence.
 
-The immediate motivation came from the camera-rotation thermal experiment carried out after the ASI6200MM Pro was rotated by 180 degrees. The camera detector TEC remained near its existing -10 degrees C operating point, the external liquid-cooling loop remained close to its controlled temperature, and the coolant flow was stable. However, the camera body did not behave as a single isothermal object.
+The post-rotation V24 observation showed that the detector TEC and liquid-cooling loop could remain close to their controlled states while different external camera regions remained at different temperatures. During approximately the first 28 minutes after the 180° camera reorientation, dY reached about +0.64 px and OPL changed by about −0.32 µm.
 
-During the early part of the run, the externally measured camera regions remained at different absolute temperatures even while each individual probe changed only slowly. In the same interval, the phase-correlation measurement showed a clear detector-plane drift in dY, while the interferometer recorded a simultaneous OPL change. For example, during approximately the first 28 minutes the measured dY reached about +0.64 px and the OPL change reached about -0.32 micrometres, while the LK220 outlet remained close to 22 degrees C and the detector remained close to -10 degrees C.
+That observation does **not** prove that a camera-body temperature gradient caused the optical drift. Mechanical rotation, settling, room forcing and thermal redistribution were not independently isolated.
 
-This does **not** prove that the camera-body temperature gradient caused the optical drift. The camera had also been mechanically reoriented, and the experiment included environmental and structural effects that were not independently controlled. The result instead motivated a new question:
+V25 therefore asks a narrower experimental question:
 
-> Can a small amount of low-vibration forced airflow reduce the spatial temperature gradient around the camera body without degrading pixel or OPL stability?
+> Can gentle forced airflow through the two opposing camera side vents reduce the spatial camera-body temperature difference without introducing measurable detector or OPL jitter?
 
-The V25 design is intended to test that question experimentally.
+## 2. Why airflow is being tested now
 
-## 2. Mechanical starting point
+The thermal chain has been narrowed progressively.
 
-The stock ZWO ASI6200MM/MC Pro mechanical drawing gives a main camera body diameter of approximately 90 mm and an overall body length of approximately 97 mm. The current EXOhSPEC camera has been modified from the original rear-fan arrangement to use liquid cooling, so the stock thermal path cannot be assumed to represent the present instrument.
+- V19 identified a recurring ~33.4 min signature across room/chiller/camera/OPL/dY telemetry.
+- V22 showed that the camera TEC is a substantial heat load: with the camera TEC switched OFF, LK220 current and duty fell while the external camera body cooled, but the detector underwent a large thermal/optical transition.
+- V23 repeated the heat-load intervention and showed that outlet-temperature variability remained nearly unchanged even though coolant heat pickup fell strongly.
+- V23/V23.2 established a practical LK220 operating point.
+- V24 reintroduced optical monitoring and motivated a direct camera-body homogenisation test.
 
-The side ventilation grilles are on opposing sides of the cylindrical camera body. Manual measurements made on the laboratory unit gave an accessible grille width of approximately **35 mm in the camera-axis direction** and approximately **45-50 mm along the curved circumferential span**. The lower part of the curved grille approaches the existing camera support, which limits access and makes a full wrap-around mount undesirable.
+The remaining hypothesis is not “more cooling is always better”. It is whether **spatially more uniform local heat removal** improves the optical state.
 
-<p align="center">
-  <img src="../../figures/v25_camera_thermal_homogenisation/v25_camera_geometry.svg" alt="ASI6200 camera and manually measured vent geometry" width="92%">
-</p>
+## 3. Fixed fan selection
 
-The design therefore uses two compact mounts positioned over the two opposing side vents at the same axial location:
+The first physical test uses:
 
-- **left side:** intake;
-- **right side:** exhaust;
-- no additional rear fan;
-- no drilling into the camera body;
-- no permanent adhesive;
-- no board-mounted support structure;
-- no rigid plastic-to-aluminium contact.
-
-## 3. Design requirements
-
-| Requirement | Design response |
+| Parameter | Selected fan |
 |---|---|
-| Do not modify the camera body | no drilled or tapped holes in the camera |
-| Preserve the ventilation opening | open central airflow throat and larger underside plenum |
-| Avoid hard contact with the red camera housing | 3 mm compliant camera-side gasket |
-| Reduce fan vibration coupling | 1.5 mm fan-side gasket / silicone isolation |
-| Fit the measured grille | 40 mm central mount coverage over a ~35 mm axial vent |
-| Avoid inaccessible lower curvature | 40 mm chord span rather than wrapping the full 45-50 mm grille |
-| Keep fan power small | 30 x 30 x 10 mm, 5 V fan class |
-| Keep the design reversible | modular left-intake and right-exhaust parts |
-| Keep the design editable | parametric OpenSCAD source and modular geometry |
-| Allow airflow rather than blocking the fan | 28 mm top throat expanding to a 34 mm underside plenum |
+| manufacturer / model | Sunon MF30100V3-1000U-A99 |
+| quantity | 2 |
+| dimensions | 30 × 30 × 10 mm |
+| supply | 5 V DC |
+| nominal current | 45 mA |
+| nominal power | 0.23 W |
+| nominal speed | 6000 rpm |
+| airflow | 2.5 CFM |
+| static pressure | 0.07 in H2O |
+| acoustic rating | 10.2 dBA |
+| bearing | Vapo / MagLev |
+| mounting-hole pitch | 24 mm |
 
-## 4. Final prototype geometry
+The V3 variant was selected because the experiment prioritises low motor power and low disturbance over maximum airflow.
 
-The present prototype is intentionally conservative. It is designed for a **30 x 30 x 10 mm** fan and an approximately **R45** camera body.
+The intended arrangement is:
 
-<p align="center">
-  <img src="../../figures/v25_camera_thermal_homogenisation/v25_mount_stack.svg" alt="V25 fan mount stack and dimensions" width="94%">
-</p>
+- **LEFT = intake**
+- **RIGHT = exhaust**
 
-| Parameter | Current value |
+The first V25 validation uses fixed fan operation. No Arduino/PID/automatic fan-control layer is part of the present experiment. The aim is to characterise the mechanical and thermal plant before introducing another feedback loop.
+
+## 4. Final v1.1 sealed mount
+
+The print design moved through several concepts before the final submission. The current part is a one-piece compliant black TPU mount rather than the earlier rigid modular/gasket concept.
+
+### Print specification
+
+- material: **black TPU, approximately Shore 95A**
+- units: mm
+- scale: 100%
+- application: functional prototype
+- one LEFT intake part
+- one RIGHT exhaust part
+
+### Geometry
+
+| Parameter | v1.1 value |
 |---|---:|
-| Camera diameter | 90 mm |
-| Camera radius used by CAD | 45 mm |
-| Manually measured vent width, axial | ~35 mm |
-| Manually measured curved vent span | ~45-50 mm |
-| Central rigid mount coverage | 40 x 40 mm |
-| Fan envelope | 30 x 30 x 10 mm |
-| Fan mounting-hole pitch | 24 mm |
-| Fan-hole diameter | 3.4 mm |
-| Top airflow throat | 28 mm diameter |
-| Underside plenum | 34 mm diameter |
-| Rigid camera-side clearance | 3.0 mm |
-| Camera-side soft gasket | 3.0 mm |
-| Fan-side gasket | 1.5 mm |
+| camera reference diameter | 90 mm |
+| camera reference radius | 45 mm |
+| measured vent width, camera axis | ~35 mm |
+| measured vent span, curved direction | ~45–50 mm |
+| central mount axial width | 40 mm |
+| curved sealing span | 54 mm |
+| internal chamber | 36 × 49 mm |
+| nominal centre plenum | ~3.2 mm |
+| clear fan throat | Ø28 mm |
+| fan envelope | 30 × 30 × 10 mm |
+| fan-hole pitch | 24 mm |
+| fan / clamp pilot diameter | Ø2.85 mm |
+| side-sealing skirt | 1.0 mm nominal |
+| skirt inner clear opening | 38 × 52 mm |
 
-The **3 mm camera-side clearance** is deliberate. The rigid printed part is not intended to rest directly on the anodised camera body. A compliant TPU, silicone, or closed-cell silicone-foam gasket occupies this region. The gasket should support and seal the mount around the accessible perimeter while leaving the central plenum open over the ventilation grille.
+The large curved underside remains open because it is the camera interface. The camera body closes that interface once the mount is fitted. The central plenum remains open over the actual ventilation grille.
 
-The fan is separated from the rigid platform by a **1.5 mm compliant gasket**. This is intended to reduce direct motor-vibration transmission and also reduce air leakage around the fan frame.
+### Why the side skirt was added
 
-### Airflow path
+An earlier side view left visible bypass openings between the fan deck and curved saddle. Those openings could allow part of the fan flow to short-circuit around the outside of the ventilation grille.
 
-For the intake side:
+The v1.1 revision closes those side openings with a thin continuous TPU skirt while preserving the vent-facing chamber.
 
-room air → fan → 28 mm throat → 34 mm plenum → camera side vent.
+The 38 × 52 mm clear region remains outside the manually measured ~35 × 45–50 mm ventilation opening, giving nominal margin rather than intentionally covering the grille.
 
-The exhaust side uses the same geometry with the fan direction reversed. The purpose of using two identical mounts is to create a repeatable push-pull path while keeping the mechanical geometry symmetric.
+This is an airflow-routing feature, not an assertion of an airtight seal. The real printed TPU fit still has to be checked on the modified camera.
 
-## 5. Fan selection
+## 5. Retention and screw design
 
-The first prototype is designed around the 30 mm Sunon MagLev/Vapo family because the form factor fits the measured grille and the 5 V variants can be powered independently from a simple regulated USB or bench supply.
+The fan is held on the upper bosses with M3 nylon hardware. The mount itself is retained by four angled M3 nylon clamp screws per side.
 
-| Model | Supply | Current | Power | Speed | Airflow | Static pressure | Noise | Bearing |
-|---|---:|---:|---:|---:|---:|---:|---:|---|
-| Sunon MF30100V3-1000U-A99 | 5 V | 45 mA nominal manufacturer value | 0.23 W | 6000 rpm | 2.5 CFM | 0.07 in H2O | 10.2 dBA | Vapo / MagLev |
-| Sunon MF30100V2-1000U-A99 | 5 V | 80 mA | 0.40 W | 9500 rpm | 4.7 CFM | 0.17 in H2O | 21 dBA | Vapo / MagLev |
-| Sunon MF30100V1-1000U-A99 | 5 V | 120 mA | 0.60 W | 11000 rpm | 5.5 CFM | 0.20 in H2O | 23 dBA | Vapo / MagLev |
+The camera-retention screws:
 
-The **V3** is the preferred starting point because this experiment is not trying to maximise airflow. The objective is to find the minimum forced airflow that improves thermal uniformity without introducing measurable detector or OPL jitter. Two V3 fans would dissipate only a few tenths of a watt each, but their motor power is still a real heat and vibration source and must be tested rather than assumed negligible.
+- point approximately radially toward the Ø90 mm camera body;
+- contact solid camera housing outside the measured ventilation grille;
+- do not enter the camera;
+- do not require drilling or permanent camera modification.
 
-As a September 2026 supplier snapshot, Rapid Electronics listed the MF30100V3-1000U-A99 at **£11.72 ex VAT** for one unit, while DigiKey UK listed the higher-flow MF30100V2-1000U-A99 at **£8.42 ex VAT** for one unit. Supplier pricing is included only as a procurement snapshot and will change over time.
+Nominal pilot diameter is Ø2.85 mm for light thread-forming in TPU. Printed TPU holes can be undersized, so the pilot should be inspected and lightly cleaned/reamed if required rather than forcing a screw.
 
-## 6. Why the mount is modular
+Soft silicone/TPU protection should be used on camera-facing screw tips. The screws should be tightened only enough to prevent movement. The mount is not intended to structurally preload or distort the detector housing.
 
-Several early CAD iterations were deliberately rejected.
+## 6. Airflow path
 
-The first saddle-style concept followed too much of the full 90 mm camera curvature and produced a bulky part. A later flat bridge improved access but did not provide a sufficiently explicit airflow opening. PrusaSlicer testing then showed that a monolithic STL was inconvenient for engineering iteration because individual bosses, tabs, labels and gaskets could not be edited independently.
+### Left / intake
 
-The current design therefore separates the geometry into:
+room or enclosure air → 30 mm fan → Ø28 throat → local plenum → camera ventilation grille
 
-1. curved camera-side base;
-2. fan platform;
-3. four fan bosses;
-4. four local preload/contact tabs;
-5. 3 mm camera-side compliant gasket;
-6. 1.5 mm fan-side gasket;
-7. recessed direction label: **L IN** or **R OUT**;
-8. recessed author mark: **B. JANA**.
+### Right / exhaust
 
-The public CAD source is parametric so dimensions can be altered after the first physical fit test without redrawing the whole mount.
+camera ventilation grille → local plenum → Ø28 throat → 30 mm fan → enclosure air
 
-## 7. Experimental plan
+The intent is a repeatable push–pull path through the existing camera ventilation system.
 
-<p align="center">
-  <img src="../../figures/v25_camera_thermal_homogenisation/v25_validation_plan.svg" alt="V25 staged validation plan" width="94%">
-</p>
+The new side skirt reduces obvious lateral bypass, but the mount is deliberately not described as airtight until the physical fit is inspected.
 
-### Stage A — mechanical fit
+## 7. Why the prototype is TPU
 
-Print one rigid mount first, with no powered fan. Check the R45 contact geometry, vent centring, 3 mm gasket space, support clearance and cable clearance.
+TPU ~95A is used because the mount has to combine several functions:
 
-### Stage B — vibration baseline
+- conform to the curved camera surface;
+- avoid hard plastic-to-anodised-aluminium contact;
+- tolerate small manual-measurement and printer tolerances;
+- provide some mechanical damping between the fan and camera;
+- form a local airflow perimeter without a separate rigid gasket stack.
 
-With the mount installed but the fan OFF, repeat the normal detector/OPL monitoring sequence. This separates any effect of the mount preload from fan rotation.
+The TPU is not itself the thermal sink. Heat removal is provided by the camera ventilation path and forced airflow.
 
-### Stage C — single-fan tests
+## 8. Test sequence after printing
 
-Test left-intake only and right-exhaust only. A single fan may be preferable if it removes enough heat while adding less vibration than the two-fan configuration.
+### Stage A — fit only
 
-### Stage D — push-pull test
+1. Keep both fans unpowered.
+2. Fit the LEFT mount first.
+3. Check that the Ø28 throat is centred over the side vent.
+4. Confirm the skirt/ribs contact solid camera body rather than covering the grille.
+5. Confirm every clamp-screw tip lands on solid housing.
+6. Confirm the mount cannot slide under gentle finger pressure.
+7. Check cable, coolant-line, optical and support clearances.
 
-Operate left intake and right exhaust together. Record PT104 gradients, CMOS temperature and cooler power, liquid-cooling telemetry, phase-correlation dX/dY, centroid position and interferometric OPL.
+If the mount is loose, blocks the grille or requires excessive screw preload, stop and revise the print.
 
-The comparison should use matched windows and the same detector, liquid-cooling and optical-control conditions. The success criterion is not simply a lower camera temperature. The useful configuration is the one that reduces the **spatial temperature gradient** while preserving or improving detector and OPL stability.
+### Stage B — mount-only baseline
 
-## 8. Risks and failure modes
+Install the mount and fan mechanically but leave the fan OFF. Record the normal thermal + detector + OPL observables. This separates mount preload from fan rotation.
 
-**Fan-induced vibration.** Motor imbalance, bearing excitation, mounting resonance or beat frequencies between two fans could appear directly in dX, dY or OPL.
+### Stage C — one fan at a time
 
-**Air recirculation.** Without a reasonably sealed local plenum, an intake fan can move air around the outside of the camera instead of through the intended ventilation path.
+Test left intake only and right exhaust only. A single fan may be preferable if it reduces the spatial gradient without adding the vibration of a second rotor.
 
-**Electrical coupling.** The fans should initially use an independent 5 V supply rather than the camera power rail.
+### Stage D — push–pull
 
-**Over-constraining the camera.** The mount must not act as a structural clamp on the detector housing. The soft gasket should locate and seal the airflow path with only the preload required to prevent motion.
+Operate LEFT intake + RIGHT exhaust together. Keep the thermal and optical configuration otherwise fixed.
 
-**Dust and contamination.** Forced airflow can increase particle transport, so testing should begin at low airflow in the normal enclosed laboratory configuration.
+Record:
 
-## 9. Current status
+- PT104 Left / Right / Rear camera-surface temperatures;
+- PT104 room/AC channel;
+- camera detector temperature and cooler power;
+- LK220 temperature, flow, current, duty and heat-sink telemetry;
+- dX and dY;
+- interferometric OPL.
 
-V25 is presently a **design and prototype stage**, not a demonstrated performance upgrade.
+## 9. Success criteria
 
-Completed:
+V25 is useful only if airflow improves the **spatial camera thermal state** while preserving or improving the optical measurements.
 
-- measured the accessible side-vent geometry;
-- defined a two-sided intake/exhaust architecture;
-- shortlisted compact low-power fan options;
-- developed the parametric 40 mm mount geometry;
-- added a 28 mm airflow throat and 34 mm plenum;
-- added compliant camera-side and fan-side gaskets;
-- separated the model into modular editable parts;
-- prepared left-intake and right-exhaust variants.
+Relevant comparison metrics are:
 
-Next:
+- camera max–min surface-temperature spread;
+- per-probe standard deviation and drift;
+- dX RMS and dY RMS;
+- mean detector bias;
+- time within ±0.1 / ±0.2 / ±0.5 px where applicable;
+- OPL RMS / peak-to-peak / drift;
+- appearance of new fan-frequency or beat-frequency structure;
+- fan configuration and test window.
 
-- print one mount;
-- check real fit on the modified ASI6200;
-- revise dimensions if necessary;
-- perform mount-only and fan-on vibration checks;
-- run matched thermal + pixel + OPL experiments.
+A lower mean camera temperature by itself is not sufficient.
 
-The design should only be considered successful if the experimental data show that improved thermal uniformity outweighs any vibration, electrical or airflow disturbance introduced by the fans.
+## 10. Stop conditions
 
-## 10. CAD files
+Stop the powered test if:
 
-The editable source and design dimensions are stored in:
+- the mount moves or creeps;
+- the TPU deforms into the fan blades;
+- the skirt blocks the camera grille;
+- nylon screw tips contact the grille or hard metal contacts the housing;
+- the camera housing is visibly loaded or distorted;
+- dX/dY or OPL develops obvious new periodic jitter;
+- cables or fan leads can snag the optical train;
+- detector/cooler behaviour becomes abnormal.
 
-- [EXOhSPEC_V25_mount_v0_6_parametric.scad](../../designs/v25_camera_fan_mount/EXOhSPEC_V25_mount_v0_6_parametric.scad)
-- [DIMENSIONS.json](../../designs/v25_camera_fan_mount/DIMENSIONS.json)
+## 11. Current status
+
+As of 6 October 2026:
+
+- two Sunon MF30100V3-1000U-A99 fans have been ordered;
+- the v1.1 LEFT and RIGHT sealed mounts have been submitted to the University 3D-print service;
+- requested material is solid black TPU ~95A;
+- physical fit is pending;
+- no powered fan experiment has yet been performed.
+
+Therefore V25 remains **proposed / in fabrication**, not a demonstrated improvement.
+
+## 12. Relationship to the thermal operating point
+
+The V25 optical test should initially preserve the V23/V23.2 working configuration:
+
+- LK220 target 22 °C
+- Kp 2.5
+- TI / TD 1.0 / 1.0
+- PERIOD 2000 ms
+- pump 75%, flow readout ~1.10 L/min
+- camera TEC ON at −10 °C
+
+That allows airflow to be introduced as the new variable rather than simultaneously retuning the cooling controller.
+
+## 13. Public design files
+
+The design directory records the current geometry and print requirements:
+
 - [design README](../../designs/v25_camera_fan_mount/README.md)
+- [DIMENSIONS.json](../../designs/v25_camera_fan_mount/DIMENSIONS.json)
 
-## References
-
-1. ZWO, **ASI6200 Pro Series** — https://www.zwoastro.com/product/asi6200/
-2. ZWO, **ASI6200MM/MC Pro manual and mechanical drawing** — https://i.zwoastro.com/zwo-website/manuals/ASI6200_Manual_EN_v1.4.pdf
-3. Sunon, **30 x 30 x 10 mm DC brushless fan series** — https://www.sunon.com/eu/MANAGE/Docs/WEBCONT/Files/1236/Sunon%20DC%20Brushless%20Fan%20%26%20Blower_%28240-E%29.pdf
-4. Rapid Electronics, **MF30100V3-1000U-A99** — https://www.rapidonline.com/sunon-mf30100v3-1000u-a99-axial-fan-5v-dc-4-25m-h-30x30x10mm-07-2383
-5. DigiKey UK, **MF30100V2-1000U-A99** — https://www.digikey.co.uk/en/products/detail/sunon-fans/MF30100V2-1000U-A99/10441404
+The earlier v0.6 parametric OpenSCAD source is retained as design history. It should not be mistaken for the final v1.1 print geometry.
 
 ---
 
-**Design and experimental development:** Biswajit Jana, 2026.  
-This report records an ongoing EXOhSPEC instrumentation study. It should be read as a design rationale and test plan, not as a final causal claim or validated thermal-performance result.
+**Engineering interpretation:** V25 is a direct test of a thermal-gradient hypothesis generated by the V19–V24 evidence chain. The hypothesis remains falsifiable: if airflow does not reduce the spatial gradient, or if fan-induced vibration worsens detector/OPL stability, the fan approach should be rejected or redesigned.
