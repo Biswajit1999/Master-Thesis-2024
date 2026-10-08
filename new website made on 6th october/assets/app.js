@@ -311,27 +311,39 @@ $$("[data-timeline-year]").forEach((b) =>
 );
 
 const researchTimeline = {
-  baseline: {
-    date: "2023–Apr 2024",
-    title: "Baseline and MSc system study",
-    text: "Mapped the optical, thermal and software system; tested IDS3010, environmental sensing, thermal control and early feedback. The thesis established the disturbance-rejection problem and first control architecture.",
+  start: {
+    date: "October 2023",
+    title: "Frame the measurement problem",
+    text: "The initial brief connected IDS displacement sensing, the spectrograph output and environmental variables. Before closing a loop, the work had to establish what the inherited instrument measured and which quantities could legitimately be compared.",
     image: "../assets/research/exohspec-internal-annotated.jpg",
   },
-  characterise: {
-    date: "2024–2025",
-    title: "Characterisation before control",
-    text: "Measured environmental and component response before assigning corrections. Temperature, pressure, local thermal response and actuator calibration were treated as configuration-specific measurements.",
+  msc: {
+    date: "2024",
+    title: "Build the measurement chain",
+    text: "The MSc phase linked ThAr illumination and detector acquisition to IDS3010 optical-path measurements, environmental sensing and TEC actuation. It established the disturbance-rejection architecture without claiming that every later subsystem had already been validated.",
+    image: "../assets/research/thar-orders.jpg",
+  },
+  debug: {
+    date: "2025",
+    title: "Characterise, integrate and debug",
+    text: "Passive baselines, MaxIm DL/Python acquisition, COM-interface failures, AO direction and hysteresis tests, adaptive and fixed PID trials, 2 mK steps and cooldown logic exposed the delay and configuration dependence of the plant.",
     image: "../../figures/04_environment_temp_pressure.png",
   },
-  hybrid: {
-    date: "2025–Jul 2026",
-    title: "Hybrid control and V17 endurance",
-    text: "The controller evolved into TEC-primary correction with bounded AO fine trim. V17 sustained 88.59 h of settled feedback across 4,761 frames with 100% inside ±0.5 px.",
+  failures: {
+    date: "March–June 2026",
+    title: "Treat failure as evidence",
+    text: "Stage-2 runs A–E and June V4 revealed fixed-model failure, breakaway, biased references and bounded-actuator limits. A lower RMS could coexist with a displaced mean, so reference selection and actuator history became first-class parts of the result.",
+    image: "../../figures/stage2_rms_dy_comparison.svg",
+  },
+  endurance: {
+    date: "V11–V17 · 2026",
+    title: "Test sustained, interval-specific control",
+    text: "V11 maintained 31.44 h of feedback across 1,604 frames: 100% containment in controller coordinates and 98.63% against the fixed initial reference. V17 later extended the settled interval to 88.59 h across 4,761 frames, with its own stated reference and evaluation window.",
     image: "../../figures/06_nine_panel_stacked.png",
   },
-  longrun: {
+  measurement: {
     date: "Aug 2026",
-    title: "V18 multi-line detector tracking",
+    title: "Improve the detector measurement",
     text: "Phase correlation progressed to a multi-line ThAr ROI with synchronous PT104 telemetry. V18.2 reached dX RMS 0.0373 px and dY RMS 0.0990 px over 3.98 h feedback.",
     image: "../../figures/01_dXdY_far_combined.png",
   },
@@ -343,9 +355,10 @@ const researchTimeline = {
   },
   current: {
     date: "Sep–Oct 2026",
-    title: "V24 observation → V25 airflow test",
-    text: "The 180° camera-rotation monitor motivated a direct spatial-thermal test. Two 30 mm fans are ordered and black TPU sealed mounts are in fabrication; fit, vibration and thermal/optical validation remain outstanding.",
-    image: "../assets/research/thermal-enclosure-interior.jpg",
+    title: "Turn the hypothesis into a falsifiable test",
+    text: "The V24 camera-rotation monitor motivated V25: a proposed low-power push–pull airflow experiment. The mounts are in fabrication, so fit, vibration, powered thermal behaviour and any optical improvement remain unvalidated.",
+    image:
+      "../../figures/v25_camera_thermal_homogenisation/v25_problem_to_design.svg",
   },
 };
 $$("[data-research-stage]").forEach((b) =>

@@ -10,7 +10,7 @@
     <meta name="theme-color" content="#f7fafc" />
     <title>EXOhSPEC · Precision spectroscopy programme</title>
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="assets/styles.css?v=20261008-1" />
+    <link rel="stylesheet" href="assets/styles.css?v=20261008-2" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -50,24 +50,40 @@
           <p class="eyebrow">
             UK–Thailand astronomical instrumentation programme
           </p>
-          <h1>Precision spectroscopy, made compact and actively stable.</h1>
+          <h1>
+            Compact high-resolution spectroscopy, from optical design to active
+            stability.
+          </h1>
           <p class="lede">
-            EXOhSPEC combines a folded optical architecture, fibre delivery,
-            active control and an accessible component strategy in a
-            high-resolution spectrograph platform for exoplanet and stellar
-            spectroscopy.
+            EXOhSPEC is a collaborative research and development programme
+            spanning fibre-fed echelle design, illumination, calibration,
+            telescope acquisition, laboratory stability measurements and active
+            control. It connects a University of Hertfordshire test bed with
+            partner development and telescope testing in Thailand.
+          </p>
+          <p class="context-label">
+            A programme of prototypes, instrument contexts and research
+            activities—not one interchangeable hardware configuration.
           </p>
           <div class="hero-actions">
             <a class="button primary" href="instrument.html"
-              >Explore the instrument</a
-            ><a class="button secondary" href="#timeline">Programme timeline</a>
+              >Explore the programme</a
+            ><a class="button secondary" href="institutions.html"
+              >Compare instrument contexts</a
+            >
           </div>
           <div class="hero-statbar">
             <div>
-              <b>&gt;70,000</b><span>prototype design resolving power</span>
+              <b>2017 →</b
+              ><span>published collaborative development record</span>
             </div>
-            <div><b>460–880 nm</b><span>prototype design band</span></div>
-            <div><b>2.4 m</b><span>Thai National Telescope</span></div>
+            <div>
+              <b>UH</b><span>laboratory test bed and control research</span>
+            </div>
+            <div>
+              <b>NARIT</b
+              ><span>Thailand development and telescope context</span>
+            </div>
           </div>
         </div>
         <figure class="hero-visual source-hero reveal">
@@ -107,9 +123,66 @@
           />
         </div>
       </aside>
+      <section class="section context-section" id="contexts">
+        <div class="section-head reveal">
+          <div class="section-no">01 / Instrument contexts</div>
+          <div>
+            <p class="eyebrow">Connected programme · distinct configurations</p>
+            <h2>Hertfordshire and Thailand must be read separately.</h2>
+            <p>
+              Published sources describe a working University of Hertfordshire
+              test bed and collaboratively developed instrumentation in
+              Thailand. Hardware, software and measurements from one context are
+              not automatically specifications of the other.
+            </p>
+          </div>
+        </div>
+        <div class="context-grid">
+          <article class="context-card uh reveal">
+            <span class="context-tag"
+              >University of Hertfordshire · Hatfield</span
+            >
+            <h3>Laboratory test bed and stability research</h3>
+            <p>
+              The Hertfordshire platform supports optical-path monitoring,
+              detector-image tracking, environmental sensing, thermal control
+              and bounded active-optics experiments. Every result is tied to a
+              dated laboratory configuration.
+            </p>
+            <dl>
+              <dt>Role</dt>
+              <dd>Experimental development platform</dd>
+              <dt>Current website record</dt>
+              <dd>CLFCD research through 2026</dd>
+            </dl>
+          </article>
+          <article class="context-card narit reveal">
+            <span class="context-tag">NARIT · Thailand</span>
+            <h3>Partner instrument development and telescope testing</h3>
+            <p>
+              NARIT describes an EXOhSPEC prototype installed and tested with
+              the 2.4 m Thai National Telescope, while another institutional
+              listing still says “under construction”. The commissioning status
+              therefore remains explicitly qualified here.
+            </p>
+            <dl>
+              <dt>Role</dt>
+              <dd>Partner development and deployment context</dd>
+              <dt>Status</dt>
+              <dd>Institutional descriptions to be reconciled</dd>
+            </dl>
+          </article>
+        </div>
+        <div class="source-note reveal">
+          <strong>Relationship:</strong> one collaborative programme, with
+          distinguishable UK laboratory and Thailand instrument/deployment
+          contexts.
+          <a href="institutions.html">Open the evidence-led comparison →</a>
+        </div>
+      </section>
       <section class="section">
         <div class="section-head reveal">
-          <div class="section-no">01 / Programme</div>
+          <div class="section-no">02 / Programme</div>
           <div>
             <p class="eyebrow">One platform, connected research</p>
             <h2>
@@ -166,7 +239,7 @@
         "
       >
         <div class="section-head reveal">
-          <div class="section-no">02 / Bench map</div>
+          <div class="section-no">03 / Bench map</div>
           <div>
             <p class="eyebrow">Explore the measured instrument</p>
             <h2>Components located on the modified EXOhSPEC bench.</h2>
@@ -184,6 +257,7 @@
               src="assets/research/exohspec-internal-annotated.jpg"
               alt="Annotated modified EXOhSPEC optical bench from MSc thesis Figure 2.1"
             /><button
+              type="button"
               class="hotspot"
               data-system="source"
               aria-pressed="true"
@@ -191,6 +265,7 @@
             >
               1</button
             ><button
+              type="button"
               class="hotspot"
               data-system="detector"
               aria-pressed="false"
@@ -198,6 +273,7 @@
             >
               2</button
             ><button
+              type="button"
               class="hotspot"
               data-system="collimator"
               aria-pressed="false"
@@ -205,6 +281,7 @@
             >
               3</button
             ><button
+              type="button"
               class="hotspot"
               data-system="disperser"
               aria-pressed="false"
@@ -212,6 +289,7 @@
             >
               4</button
             ><button
+              type="button"
               class="hotspot"
               data-system="metrology"
               aria-pressed="false"
@@ -257,17 +335,47 @@
             role="tablist"
             aria-label="EXOhSPEC milestones"
           >
-            <button role="tab" data-timeline-year="2019" aria-selected="true">
+            <button
+              type="button"
+              role="tab"
+              data-timeline-year="2019"
+              aria-selected="true"
+            >
               2019 · Design</button
-            ><button role="tab" data-timeline-year="2021" aria-selected="false">
+            ><button
+              type="button"
+              role="tab"
+              data-timeline-year="2021"
+              aria-selected="false"
+            >
               2021 · Prototype</button
-            ><button role="tab" data-timeline-year="2022" aria-selected="false">
+            ><button
+              type="button"
+              role="tab"
+              data-timeline-year="2022"
+              aria-selected="false"
+            >
               2022 · Fibres</button
-            ><button role="tab" data-timeline-year="2024" aria-selected="false">
+            ><button
+              type="button"
+              role="tab"
+              data-timeline-year="2024"
+              aria-selected="false"
+            >
               2024 · Deployment</button
-            ><button role="tab" data-timeline-year="2025" aria-selected="false">
+            ><button
+              type="button"
+              role="tab"
+              data-timeline-year="2025"
+              aria-selected="false"
+            >
               2025 · Calibration</button
-            ><button role="tab" data-timeline-year="2026" aria-selected="false">
+            ><button
+              type="button"
+              role="tab"
+              data-timeline-year="2026"
+              aria-selected="false"
+            >
               2026 · Control
             </button>
           </div>
@@ -324,9 +432,10 @@
             <h2>EXOhSPEC-CLFCD</h2>
             <p>
               Biswajit Jana’s closed-loop feedback research is presented as a
-              focused scientific microsite: V17–V18 measured performance, the
-              V19–V24 thermal-diagnostic chain, the V25 sealed TPU airflow
-              prototype and a searchable 61-report evidence archive. It remains
+              focused scientific microsite beginning with the 2023 project brief
+              and 2024 MSc measurement chain, continuing through 2025 software
+              and controller experiments, the 2026 Stage-2 campaign, V17–V18
+              results, V19–V24 diagnosis and the proposed V25 test. It remains
               one research strand within the wider programme.
             </p>
             <div class="subnav">
@@ -351,6 +460,7 @@
       <div>
         <h2>Explore</h2>
         <a href="instrument.html">Instrument</a
+        ><a href="institutions.html">Institutions</a
         ><a href="science.html">Science</a
         ><a href="publications.html">Publications</a>
       </div>
@@ -378,6 +488,6 @@
         <figcaption></figcaption>
       </figure>
     </dialog>
-    <script src="assets/app.js?v=20261008-1"></script>
+    <script src="assets/app.js?v=20261008-2"></script>
   </body>
 </html>

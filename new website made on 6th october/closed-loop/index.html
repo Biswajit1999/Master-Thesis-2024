@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta
       name="description"
-      content="EXOhSPEC-CLFCD: the closed-loop feedback control research programme from the 2024 MSc architecture through V25 hardware validation."
+      content="EXOhSPEC-CLFCD: Biswajit Jana's evidence-led closed-loop research journey from the 2023 project brief and 2024 MSc measurement chain through the 2026 Stage-2 and thermal-diagnostic experiments."
     />
     <meta name="theme-color" content="#f7fafc" />
     <title>EXOhSPEC-CLFCD · Research overview</title>
     <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="../assets/styles.css?v=20261008-1" />
+    <link rel="stylesheet" href="../assets/styles.css?v=20261008-2" />
   </head>
   <body class="research-body">
     <a class="skip-link" href="#main">Skip to content</a>
@@ -50,16 +50,17 @@
       <section class="research-hero">
         <div class="page-hero">
           <div class="hero-copy reveal">
-            <p class="eyebrow">EXOhSPEC-CLFCD · 2024–2026</p>
+            <p class="eyebrow">EXOhSPEC-CLFCD · 2023–2026</p>
             <h1>
               Measure the disturbance. Bound the correction. Test the physics.
             </h1>
             <p class="lede">
-              A traceable instrument-development programme connecting
-              environmental and optical-path metrology, detector-image motion,
-              thermal regulation and bounded active optics. The record now runs
-              from the original MSc architecture to the V25 camera-airflow
-              prototype.
+              Biswajit Jana’s supervised research journey began with learning
+              the optical and measurement chain, then progressed through
+              software-interface failures, environmental characterisation,
+              passive baselines, thermally delayed feedback, bounded active
+              optics, endurance tests and physical diagnosis of the remaining
+              drift.
             </p>
             <div class="hero-actions">
               <a class="button secondary" href="#research-map"
@@ -68,17 +69,24 @@
                 >See the current prototype</a
               >
             </div>
-            <div class="hero-statbar" aria-label="Current research highlights">
-              <div>
+            <div
+              class="hero-statbar"
+              role="list"
+              aria-label="Current research highlights"
+            >
+              <div role="listitem">
+                <b>2023 → 2026</b
+                ><span>project brief to physical diagnosis</span>
+              </div>
+              <div role="listitem">
                 <b>88.59 h</b><span>V17 settled feedback endurance</span>
               </div>
-              <div>
+              <div role="listitem">
                 <b class="dual-metric"
                   ><small>dX</small> 0.0373 <i>/</i> <small>dY</small> 0.0990
                   px</b
                 ><span>V18.2 detector-axis RMS over 3.98 h</span>
               </div>
-              <div><b>V25</b><span>sealed TPU mounts in fabrication</span></div>
             </div>
           </div>
           <figure class="hero-visual reveal">
@@ -89,8 +97,8 @@
               alt="EXOhSPEC multi-channel Stage-2 diagnostic plot"
             />
             <figcaption>
-              Experiment-derived multi-channel context · detector motion,
-              actuators, OPL and environment
+              V11 reported feedback interval · detector motion, TEC commands, AO
+              steps, OPL and environment; not a generic V17/V18 figure
             </figcaption>
           </figure>
         </div>
@@ -99,6 +107,7 @@
       <nav class="section-jump" aria-label="On this page">
         <a href="#research-map">Research map</a
         ><a href="#story">Programme timeline</a
+        ><a href="#contribution">Research contribution</a
         ><a href="#architecture">Control architecture</a
         ><a href="#now">Current position</a>
       </nav>
@@ -108,7 +117,7 @@
           <div class="section-no">01 / Research map</div>
           <div>
             <p class="eyebrow">A scientific microsite</p>
-            <h2>Four routes through one evidence chain.</h2>
+            <h2>Six routes through one evidence chain.</h2>
             <p>
               The overview stays readable while the detailed pages preserve the
               actual numbers, experiment conditions, method boundaries and
@@ -117,8 +126,19 @@
           </div>
         </div>
         <div class="research-map-grid">
-          <a class="research-map-card reveal" href="results.html"
+          <a class="research-map-card journey reveal" href="#story"
             ><span class="route-index">01</span
+            ><span class="status">2023–2026</span>
+            <h3>The full research journey</h3>
+            <p>
+              Start with the optical bench, measurement chain, software failures
+              and 2025 controller experiments before the headline endurance
+              runs.
+            </p>
+            <span class="route-link">Follow the chronology →</span></a
+          >
+          <a class="research-map-card reveal" href="results.html"
+            ><span class="route-index">02</span
             ><span class="status">Measured</span>
             <h3>Feedback results</h3>
             <p>
@@ -127,8 +147,18 @@
             </p>
             <span class="route-link">Open results →</span></a
           >
+          <a class="research-map-card reveal" href="results.html#stage2-lessons"
+            ><span class="route-index">03</span
+            ><span class="status">Negative evidence</span>
+            <h3>What failed runs taught</h3>
+            <p>
+              March–June 2026 runs exposed bias, breakaway, reference transport
+              and actuator-range limits rather than a simple tuning problem.
+            </p>
+            <span class="route-link">Read the Stage-2 lessons →</span></a
+          >
           <a class="research-map-card reveal" href="thermal-diagnostics.html"
-            ><span class="route-index">02</span
+            ><span class="route-index">04</span
             ><span class="status">Diagnostic chain</span>
             <h3>V19–V24 thermal investigation</h3>
             <p>
@@ -138,17 +168,18 @@
             <span class="route-link">Trace the chain →</span></a
           >
           <a class="research-map-card product reveal" href="v25-prototype.html"
-            ><span class="route-index">03</span
-            ><span class="status">In fabrication</span>
+            ><span class="route-index">05</span
+            ><span class="status">Proposed · not validated</span>
             <h3>V25 sealed airflow prototype</h3>
             <p>
               The current 30 mm fan, black TPU mount, airflow path, verified CAD
-              dimensions and physical validation sequence.
+              concept and physical validation sequence. No powered performance
+              result is claimed.
             </p>
             <span class="route-link">Inspect the prototype →</span></a
           >
           <a class="research-map-card reveal" href="evidence.html"
-            ><span class="route-index">04</span
+            ><span class="route-index">06</span
             ><span class="status">61 retained PDFs</span>
             <h3>Evidence library</h3>
             <p>
@@ -167,9 +198,10 @@
             <p class="eyebrow">2023–October 2026</p>
             <h2>Each experiment changes the next question.</h2>
             <p>
-              Select a stage to follow the progression from system
-              characterisation to long-duration feedback, measurement refinement
-              and a testable physical intervention.
+              Select a stage to follow the progression from system understanding
+              the bench and its data path to software debugging, long-duration
+              feedback, measurement refinement and a testable physical
+              intervention.
             </p>
           </div>
         </div>
@@ -180,41 +212,61 @@
             aria-label="Closed-loop research stages"
           >
             <button
+              type="button"
               role="tab"
-              data-research-stage="baseline"
+              data-research-stage="start"
               aria-selected="true"
             >
-              Baseline</button
+              2023 start</button
             ><button
+              type="button"
               role="tab"
-              data-research-stage="characterise"
+              data-research-stage="msc"
               aria-selected="false"
             >
-              Characterise</button
+              2024 MSc</button
             ><button
+              type="button"
               role="tab"
-              data-research-stage="hybrid"
+              data-research-stage="debug"
               aria-selected="false"
             >
-              V17 endurance</button
+              2025 debug</button
             ><button
+              type="button"
               role="tab"
-              data-research-stage="longrun"
+              data-research-stage="failures"
               aria-selected="false"
             >
-              V18 precision</button
+              Stage-2 lessons</button
             ><button
+              type="button"
+              role="tab"
+              data-research-stage="endurance"
+              aria-selected="false"
+            >
+              V11–V17</button
+            ><button
+              type="button"
+              role="tab"
+              data-research-stage="measurement"
+              aria-selected="false"
+            >
+              V18 measurement</button
+            ><button
+              type="button"
               role="tab"
               data-research-stage="diagnose"
               aria-selected="false"
             >
-              V19–V23</button
+              V19–V24</button
             ><button
+              type="button"
               role="tab"
               data-research-stage="current"
               aria-selected="false"
             >
-              V24 → V25
+              V25 next test
             </button>
           </div>
           <article
@@ -224,12 +276,13 @@
           >
             <div>
               <span class="year" data-date>2023–Apr 2024</span>
-              <h3 data-title>Baseline and MSc system study</h3>
+              <h3 data-title>Initial project brief and measurement question</h3>
               <p data-text>
-                Mapped the optical, thermal and software system; tested IDS3010,
-                environmental sensing, thermal control and early feedback. The
-                thesis established the disturbance-rejection problem and first
-                control architecture.
+                The October 2023 project plan framed closed-loop control around
+                the IDS displacement sensor, spectrograph output and
+                environmental variables. The first task was to understand what
+                each part of the inherited instrument measured before claiming a
+                correction.
               </p>
             </div>
             <img
@@ -239,6 +292,93 @@
               alt="Annotated internal EXOhSPEC layout"
             />
           </article>
+        </div>
+      </section>
+
+      <section class="section journey-section" id="contribution">
+        <div class="section-head reveal">
+          <div class="section-no">03 / Research contribution</div>
+          <div>
+            <p class="eyebrow">Nearly three years of learning and iteration</p>
+            <h2>The research did not begin at V17.</h2>
+            <p>
+              The public record separates work that pre-dated Biswajit Jana, the
+              systems he inherited and learned, the interfaces and experiments
+              he modified or integrated, and the later investigations reported
+              in his research archive.
+            </p>
+          </div>
+        </div>
+        <div class="journey-grid">
+          <article class="journey-card reveal">
+            <time>2023–2024</time><span class="status">Understand</span>
+            <h3>Learn the instrument and trust the measurement</h3>
+            <p>
+              ThAr fibre illumination, detector acquisition, IDS3010
+              optical-path measurement, environmental sensing, refractive-index
+              effects and the MSc control question.
+            </p>
+            <ul>
+              <li>Inherited the wider collaborative spectrograph programme</li>
+              <li>Mapped optical, thermal and software dependencies</li>
+              <li>
+                Separated OPL, detector motion and environmental observables
+              </li>
+            </ul>
+          </article>
+          <article class="journey-card reveal">
+            <time>2025</time><span class="status">Measure and debug</span>
+            <h3>Build a usable data and control path</h3>
+            <p>
+              MaxIm DL/Python acquisition, unstable COM interfaces, AO direction
+              and hysteresis tests, passive baselines, adaptive/fixed PID, 2 mK
+              steps and cooldown logic.
+            </p>
+            <ul>
+              <li>Software failures became experimental evidence</li>
+              <li>Thermal delay ruled out rapid repeated correction</li>
+              <li>Baseline and feedback windows needed explicit definitions</li>
+            </ul>
+          </article>
+          <article class="journey-card reveal">
+            <time>Early 2026</time
+            ><span class="status">Control and learn from failure</span>
+            <h3>Test model transport, bias and actuator limits</h3>
+            <p>
+              Long hybrid runs A–E, June V4 and component perturbations showed
+              that a controller could reduce RMS yet retain bias, break away or
+              exhaust bounded AO travel.
+            </p>
+            <ul>
+              <li>Negative runs remain visible</li>
+              <li>Reference selection became a first-class result</li>
+              <li>Local heating separated image and OPL sensitivities</li>
+            </ul>
+          </article>
+          <article class="journey-card reveal">
+            <time>Mid–Oct 2026</time
+            ><span class="status">Endure, refine, diagnose</span>
+            <h3>From V11 and V17 endurance to a physical hypothesis</h3>
+            <p>
+              V11–V17 established interval-specific containment, V18 improved
+              registration, and V19–V24 traced coupled room, chiller, camera and
+              optical behaviour before the proposed V25 airflow test.
+            </p>
+            <ul>
+              <li>
+                Long duration and short-window precision are not ranked as one
+                metric
+              </li>
+              <li>Thermal-only runs are labelled separately</li>
+              <li>V25 remains unvalidated until powered testing</li>
+            </ul>
+          </article>
+        </div>
+        <div class="source-note reveal">
+          <strong>Authorship boundary:</strong> this is a supervised research
+          strand within the wider EXOhSPEC programme. Original optical, fibre,
+          mechanical, guiding, software and partner-institution contributions
+          remain credited to their authors and teams.
         </div>
       </section>
 
@@ -252,7 +392,7 @@
         "
       >
         <div class="section-head reveal">
-          <div class="section-no">03 / Control architecture</div>
+          <div class="section-no">04 / Control architecture</div>
           <div>
             <p class="eyebrow">Two time scales, several observables</p>
             <h2>TEC-primary correction. AO fine trim.</h2>
@@ -266,6 +406,7 @@
         </div>
         <div
           class="architecture-strip reveal"
+          role="group"
           aria-label="Closed-loop measurement and actuation chain"
         >
           <div>
@@ -290,6 +431,7 @@
         </div>
         <div class="figure-wall reveal">
           <button
+            type="button"
             class="media contain"
             data-lightbox="../../figures/08_annotated_diagnostic.png"
             data-caption="Annotated detector residual and actuator diagnostic"
@@ -303,6 +445,7 @@
             /><span>Annotated feedback context</span>
           </button>
           <button
+            type="button"
             class="media contain"
             data-lightbox="../../figures/01d_dY_with_actuator_events.png"
             data-caption="Detector motion with TEC and AO actuator events"
@@ -320,7 +463,7 @@
 
       <section class="section" id="now">
         <div class="section-head reveal">
-          <div class="section-no">04 / Current position</div>
+          <div class="section-no">05 / Current position</div>
           <div>
             <p class="eyebrow">What is known—and what is not</p>
             <h2>
@@ -409,6 +552,6 @@
         <figcaption></figcaption>
       </figure>
     </dialog>
-    <script src="../assets/app.js?v=20261008-1"></script>
+    <script src="../assets/app.js?v=20261008-2"></script>
   </body>
 </html>
