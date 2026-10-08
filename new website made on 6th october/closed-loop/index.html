@@ -1,88 +1,414 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="EXOhSPEC-CLFCD: the closed-loop feedback control research programme from the 2024 MSc architecture through V25 hardware validation.">
-  <meta name="theme-color" content="#f7fafc">
-  <title>EXOhSPEC-CLFCD · Research overview</title>
-  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../assets/styles.css?v=20261006-4">
-</head>
-<body class="research-body">
-<a class="skip-link" href="#main">Skip to content</a>
-<div class="research-mast">Research track within the <a href="../index.html">EXOhSPEC programme</a> · Biswajit Jana · University of Hertfordshire · Updated through V25 fabrication</div>
-<div class="scroll-progress" aria-hidden="true"><span></span></div>
-<header class="site-header" data-header>
-  <a class="brand" href="../index.html"><img src="../assets/exohspec-logo.svg" alt="EXOhSPEC programme home"></a>
-  <button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open navigation"><span></span><span></span><span></span></button>
-  <nav id="primary-nav" class="primary-nav research-nav" aria-label="Closed-loop research navigation">
-    <a href="../index.html">Programme</a><a href="index.html" aria-current="page">Research home</a><a href="results.html">Results</a><a href="thermal-diagnostics.html">Thermal chain</a><a href="v25-prototype.html">V25 prototype</a><a href="evidence.html">Evidence</a>
-  </nav>
-</header>
-<main id="main">
-  <section class="research-hero">
-    <div class="page-hero">
-      <div class="hero-copy reveal">
-        <p class="eyebrow">EXOhSPEC-CLFCD · 2024–2026</p>
-        <h1>Measure the disturbance. Bound the correction. Test the physics.</h1>
-        <p class="lede">A traceable instrument-development programme connecting environmental and optical-path metrology, detector-image motion, thermal regulation and bounded active optics. The record now runs from the original MSc architecture to the V25 camera-airflow prototype.</p>
-        <div class="hero-actions"><a class="button secondary" href="#research-map">Explore the research map</a><a class="button secondary" href="v25-prototype.html">See the current prototype</a></div>
-        <div class="hero-statbar" aria-label="Current research highlights">
-          <div><b>88.59 h</b><span>V17 settled feedback endurance</span></div>
-          <div><b>0.0990 px</b><span>V18.2 dY RMS over 3.98 h</span></div>
-          <div><b>V25</b><span>sealed TPU mounts in fabrication</span></div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="EXOhSPEC-CLFCD: the closed-loop feedback control research programme from the 2024 MSc architecture through V25 hardware validation."
+    />
+    <meta name="theme-color" content="#f7fafc" />
+    <title>EXOhSPEC-CLFCD · Research overview</title>
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../assets/styles.css?v=20261008-1" />
+  </head>
+  <body class="research-body">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="research-mast">
+      Research track within the <a href="../index.html">EXOhSPEC programme</a> ·
+      Biswajit Jana · University of Hertfordshire · Updated through V25
+      fabrication
+    </div>
+    <div class="scroll-progress" aria-hidden="true"><span></span></div>
+    <header class="site-header" data-header>
+      <a class="brand" href="../index.html"
+        ><img src="../assets/exohspec-logo.svg" alt="EXOhSPEC programme home"
+      /></a>
+      <button
+        class="menu-button"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-nav"
+        aria-label="Open navigation"
+      >
+        <span></span><span></span><span></span>
+      </button>
+      <nav
+        id="primary-nav"
+        class="primary-nav research-nav"
+        aria-label="Closed-loop research navigation"
+      >
+        <a href="../index.html">Programme</a
+        ><a href="index.html" aria-current="page">Research home</a
+        ><a href="results.html">Results</a
+        ><a href="thermal-diagnostics.html">Thermal chain</a
+        ><a href="v25-prototype.html">V25 prototype</a
+        ><a href="evidence.html">Evidence</a>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="research-hero">
+        <div class="page-hero">
+          <div class="hero-copy reveal">
+            <p class="eyebrow">EXOhSPEC-CLFCD · 2024–2026</p>
+            <h1>
+              Measure the disturbance. Bound the correction. Test the physics.
+            </h1>
+            <p class="lede">
+              A traceable instrument-development programme connecting
+              environmental and optical-path metrology, detector-image motion,
+              thermal regulation and bounded active optics. The record now runs
+              from the original MSc architecture to the V25 camera-airflow
+              prototype.
+            </p>
+            <div class="hero-actions">
+              <a class="button secondary" href="#research-map"
+                >Explore the research map</a
+              ><a class="button secondary" href="v25-prototype.html"
+                >See the current prototype</a
+              >
+            </div>
+            <div class="hero-statbar" aria-label="Current research highlights">
+              <div>
+                <b>88.59 h</b><span>V17 settled feedback endurance</span>
+              </div>
+              <div>
+                <b class="dual-metric"
+                  ><small>dX</small> 0.0373 <i>/</i> <small>dY</small> 0.0990
+                  px</b
+                ><span>V18.2 detector-axis RMS over 3.98 h</span>
+              </div>
+              <div><b>V25</b><span>sealed TPU mounts in fabrication</span></div>
+            </div>
+          </div>
+          <figure class="hero-visual reveal">
+            <img
+              src="../../figures/06_nine_panel_stacked.png"
+              width="5686"
+              height="6998"
+              alt="EXOhSPEC multi-channel Stage-2 diagnostic plot"
+            />
+            <figcaption>
+              Experiment-derived multi-channel context · detector motion,
+              actuators, OPL and environment
+            </figcaption>
+          </figure>
         </div>
+      </section>
+
+      <nav class="section-jump" aria-label="On this page">
+        <a href="#research-map">Research map</a
+        ><a href="#story">Programme timeline</a
+        ><a href="#architecture">Control architecture</a
+        ><a href="#now">Current position</a>
+      </nav>
+
+      <section class="section" id="research-map">
+        <div class="section-head reveal">
+          <div class="section-no">01 / Research map</div>
+          <div>
+            <p class="eyebrow">A scientific microsite</p>
+            <h2>Four routes through one evidence chain.</h2>
+            <p>
+              The overview stays readable while the detailed pages preserve the
+              actual numbers, experiment conditions, method boundaries and
+              engineering files.
+            </p>
+          </div>
+        </div>
+        <div class="research-map-grid">
+          <a class="research-map-card reveal" href="results.html"
+            ><span class="route-index">01</span
+            ><span class="status">Measured</span>
+            <h3>Feedback results</h3>
+            <p>
+              V17 endurance and the V18.1/V18.2 phase-correlation progression,
+              with comparable metrics and explicit limits.
+            </p>
+            <span class="route-link">Open results →</span></a
+          >
+          <a class="research-map-card reveal" href="thermal-diagnostics.html"
+            ><span class="route-index">02</span
+            ><span class="status">Diagnostic chain</span>
+            <h3>V19–V24 thermal investigation</h3>
+            <p>
+              How periodicity, TEC interventions, chiller replacement, parameter
+              sweeps and camera rotation shaped the next experiment.
+            </p>
+            <span class="route-link">Trace the chain →</span></a
+          >
+          <a class="research-map-card product reveal" href="v25-prototype.html"
+            ><span class="route-index">03</span
+            ><span class="status">In fabrication</span>
+            <h3>V25 sealed airflow prototype</h3>
+            <p>
+              The current 30 mm fan, black TPU mount, airflow path, verified CAD
+              dimensions and physical validation sequence.
+            </p>
+            <span class="route-link">Inspect the prototype →</span></a
+          >
+          <a class="research-map-card reveal" href="evidence.html"
+            ><span class="route-index">04</span
+            ><span class="status">61 retained PDFs</span>
+            <h3>Evidence library</h3>
+            <p>
+              Search the chronological record of experiments, controller
+              development, thermal work, thesis material and review documents.
+            </p>
+            <span class="route-link">Search the archive →</span></a
+          >
+        </div>
+      </section>
+
+      <section class="section" id="story">
+        <div class="section-head reveal">
+          <div class="section-no">02 / Interactive storyline</div>
+          <div>
+            <p class="eyebrow">2023–October 2026</p>
+            <h2>Each experiment changes the next question.</h2>
+            <p>
+              Select a stage to follow the progression from system
+              characterisation to long-duration feedback, measurement refinement
+              and a testable physical intervention.
+            </p>
+          </div>
+        </div>
+        <div class="timeline-shell reveal">
+          <div
+            class="timeline-controls"
+            role="tablist"
+            aria-label="Closed-loop research stages"
+          >
+            <button
+              role="tab"
+              data-research-stage="baseline"
+              aria-selected="true"
+            >
+              Baseline</button
+            ><button
+              role="tab"
+              data-research-stage="characterise"
+              aria-selected="false"
+            >
+              Characterise</button
+            ><button
+              role="tab"
+              data-research-stage="hybrid"
+              aria-selected="false"
+            >
+              V17 endurance</button
+            ><button
+              role="tab"
+              data-research-stage="longrun"
+              aria-selected="false"
+            >
+              V18 precision</button
+            ><button
+              role="tab"
+              data-research-stage="diagnose"
+              aria-selected="false"
+            >
+              V19–V23</button
+            ><button
+              role="tab"
+              data-research-stage="current"
+              aria-selected="false"
+            >
+              V24 → V25
+            </button>
+          </div>
+          <article
+            class="timeline-detail"
+            data-research-detail
+            aria-live="polite"
+          >
+            <div>
+              <span class="year" data-date>2023–Apr 2024</span>
+              <h3 data-title>Baseline and MSc system study</h3>
+              <p data-text>
+                Mapped the optical, thermal and software system; tested IDS3010,
+                environmental sensing, thermal control and early feedback. The
+                thesis established the disturbance-rejection problem and first
+                control architecture.
+              </p>
+            </div>
+            <img
+              src="../assets/research/exohspec-internal-annotated.jpg"
+              width="991"
+              height="691"
+              alt="Annotated internal EXOhSPEC layout"
+            />
+          </article>
+        </div>
+      </section>
+
+      <section
+        class="section system-lab"
+        id="architecture"
+        style="
+          width: 100%;
+          max-width: none;
+          padding-inline: max(24px, calc((100vw - var(--max)) / 2));
+        "
+      >
+        <div class="section-head reveal">
+          <div class="section-no">03 / Control architecture</div>
+          <div>
+            <p class="eyebrow">Two time scales, several observables</p>
+            <h2>TEC-primary correction. AO fine trim.</h2>
+            <p>
+              The slow thermal loop carries persistent drift while the
+              active-optics stage handles bounded residual image motion.
+              Detector displacement, OPL and environmental telemetry remain
+              separate measurements—not interchangeable claims.
+            </p>
+          </div>
+        </div>
+        <div
+          class="architecture-strip reveal"
+          aria-label="Closed-loop measurement and actuation chain"
+        >
+          <div>
+            <span>Observe</span><strong>FITS + phase correlation</strong
+            ><small>dX, dY, radial error</small>
+          </div>
+          <i aria-hidden="true">→</i>
+          <div>
+            <span>Context</span><strong>IDS + PT104 + BME</strong
+            ><small>OPL and environment</small>
+          </div>
+          <i aria-hidden="true">→</i>
+          <div>
+            <span>Correct slowly</span><strong>TEC loop</strong
+            ><small>coarse persistent drift</small>
+          </div>
+          <i aria-hidden="true">→</i>
+          <div>
+            <span>Trim rapidly</span><strong>Active optics</strong
+            ><small>bounded residual motion</small>
+          </div>
+        </div>
+        <div class="figure-wall reveal">
+          <button
+            class="media contain"
+            data-lightbox="../../figures/08_annotated_diagnostic.png"
+            data-caption="Annotated detector residual and actuator diagnostic"
+          >
+            <img
+              loading="lazy"
+              src="../../figures/08_annotated_diagnostic.png"
+              width="6724"
+              height="1600"
+              alt="Annotated detector residual and actuator diagnostic plot"
+            /><span>Annotated feedback context</span>
+          </button>
+          <button
+            class="media contain"
+            data-lightbox="../../figures/01d_dY_with_actuator_events.png"
+            data-caption="Detector motion with TEC and AO actuator events"
+          >
+            <img
+              loading="lazy"
+              src="../../figures/01d_dY_with_actuator_events.png"
+              width="3080"
+              height="688"
+              alt="Measured detector motion with TEC and AO actuator events"
+            /><span>Detector motion + actuator events</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="section" id="now">
+        <div class="section-head reveal">
+          <div class="section-no">04 / Current position</div>
+          <div>
+            <p class="eyebrow">What is known—and what is not</p>
+            <h2>
+              The evidence supports a coupled thermal pathway, not a single
+              proven cause.
+            </h2>
+          </div>
+        </div>
+        <div class="claim-grid">
+          <article class="card claim reveal">
+            <span class="status">Demonstrated</span>
+            <h3>Sustained sub-pixel operation</h3>
+            <p>
+              V17 retained every settled measurement inside ±0.5 px across 88.59
+              h. V18.2 produced the strongest reported short-run dY RMS in this
+              sequence.
+            </p>
+          </article>
+          <article class="card claim reveal">
+            <span class="status">Interpreted</span>
+            <h3>Thermal and environmental coupling</h3>
+            <p>
+              V19–V24 narrowed the disturbance to a coupled camera, cooling and
+              environment problem. The runs do not isolate one component as the
+              sole cause.
+            </p>
+          </article>
+          <article class="card claim proposed reveal">
+            <span class="status">Proposed / in fabrication</span>
+            <h3>Camera-body homogenisation</h3>
+            <p>
+              V25 tests a low-power push–pull airflow path. No performance
+              improvement is claimed before fit, vibration and thermal/optical
+              validation.
+            </p>
+          </article>
+        </div>
+        <div class="evidence-callout reveal" style="margin-top: 40px">
+          <div>
+            <p class="eyebrow">Current synthesis · 6 October 2026</p>
+            <h2>One narrative from the MSc work to V25.</h2>
+            <p>
+              The continuation report preserves the examined 2024 thesis as
+              history while documenting what later experiments changed.
+            </p>
+          </div>
+          <a
+            class="button primary"
+            href="../../reports/EXOhSPEC_Master_Thesis_Research_Continuation_2026.md"
+            >Read the continuation</a
+          >
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div>
+        <img src="../assets/exohspec-logo.svg" alt="EXOhSPEC" />
+        <p>
+          <strong>EXOhSPEC-CLFCD</strong><br />Closed-Loop Feedback Control
+          Development · Biswajit Jana.
+        </p>
       </div>
-      <figure class="hero-visual reveal"><img src="../../figures/06_nine_panel_stacked.png" width="5686" height="6998" alt="EXOhSPEC multi-channel Stage-2 diagnostic plot"><figcaption>Experiment-derived multi-channel context · detector motion, actuators, OPL and environment</figcaption></figure>
-    </div>
-  </section>
-
-  <nav class="section-jump" aria-label="On this page"><a href="#research-map">Research map</a><a href="#story">Programme timeline</a><a href="#architecture">Control architecture</a><a href="#now">Current position</a></nav>
-
-  <section class="section" id="research-map">
-    <div class="section-head reveal"><div class="section-no">01 / Research map</div><div><p class="eyebrow">A scientific microsite</p><h2>Four routes through one evidence chain.</h2><p>The overview stays readable while the detailed pages preserve the actual numbers, experiment conditions, method boundaries and engineering files.</p></div></div>
-    <div class="research-map-grid">
-      <a class="research-map-card reveal" href="results.html"><span class="route-index">01</span><span class="status">Measured</span><h3>Feedback results</h3><p>V17 endurance and the V18.1/V18.2 phase-correlation progression, with comparable metrics and explicit limits.</p><span class="route-link">Open results →</span></a>
-      <a class="research-map-card reveal" href="thermal-diagnostics.html"><span class="route-index">02</span><span class="status">Diagnostic chain</span><h3>V19–V24 thermal investigation</h3><p>How periodicity, TEC interventions, chiller replacement, parameter sweeps and camera rotation shaped the next experiment.</p><span class="route-link">Trace the chain →</span></a>
-      <a class="research-map-card product reveal" href="v25-prototype.html"><span class="route-index">03</span><span class="status">In fabrication</span><h3>V25 sealed airflow prototype</h3><p>The current 30 mm fan, black TPU mount, airflow path, verified CAD dimensions and physical validation sequence.</p><span class="route-link">Inspect the prototype →</span></a>
-      <a class="research-map-card reveal" href="evidence.html"><span class="route-index">04</span><span class="status">61 retained PDFs</span><h3>Evidence library</h3><p>Search the chronological record of experiments, controller development, thermal work, thesis material and review documents.</p><span class="route-link">Search the archive →</span></a>
-    </div>
-  </section>
-
-  <section class="section" id="story">
-    <div class="section-head reveal"><div class="section-no">02 / Interactive storyline</div><div><p class="eyebrow">2023–October 2026</p><h2>Each experiment changes the next question.</h2><p>Select a stage to follow the progression from system characterisation to long-duration feedback, measurement refinement and a testable physical intervention.</p></div></div>
-    <div class="timeline-shell reveal">
-      <div class="timeline-controls" role="tablist" aria-label="Closed-loop research stages">
-        <button role="tab" data-research-stage="baseline" aria-selected="true">Baseline</button><button role="tab" data-research-stage="characterise" aria-selected="false">Characterise</button><button role="tab" data-research-stage="hybrid" aria-selected="false">V17 endurance</button><button role="tab" data-research-stage="longrun" aria-selected="false">V18 precision</button><button role="tab" data-research-stage="diagnose" aria-selected="false">V19–V23</button><button role="tab" data-research-stage="current" aria-selected="false">V24 → V25</button>
+      <div>
+        <h2>Research</h2>
+        <a href="results.html">Results</a
+        ><a href="thermal-diagnostics.html">Thermal chain</a
+        ><a href="v25-prototype.html">V25 prototype</a>
       </div>
-      <article class="timeline-detail" data-research-detail aria-live="polite"><div><span class="year" data-date>2023–Apr 2024</span><h3 data-title>Baseline and MSc system study</h3><p data-text>Mapped the optical, thermal and software system; tested IDS3010, environmental sensing, thermal control and early feedback. The thesis established the disturbance-rejection problem and first control architecture.</p></div><img src="../assets/research/exohspec-internal-annotated.jpg" width="991" height="691" alt="Annotated internal EXOhSPEC layout"></article>
-    </div>
-  </section>
-
-  <section class="section system-lab" id="architecture" style="width:100%;max-width:none;padding-inline:max(24px,calc((100vw - var(--max))/2))">
-    <div class="section-head reveal"><div class="section-no">03 / Control architecture</div><div><p class="eyebrow">Two time scales, several observables</p><h2>TEC-primary correction. AO fine trim.</h2><p>The slow thermal loop carries persistent drift while the active-optics stage handles bounded residual image motion. Detector displacement, OPL and environmental telemetry remain separate measurements—not interchangeable claims.</p></div></div>
-    <div class="architecture-strip reveal" aria-label="Closed-loop measurement and actuation chain">
-      <div><span>Observe</span><strong>FITS + phase correlation</strong><small>dX, dY, radial error</small></div><i aria-hidden="true">→</i><div><span>Context</span><strong>IDS + PT104 + BME</strong><small>OPL and environment</small></div><i aria-hidden="true">→</i><div><span>Correct slowly</span><strong>TEC loop</strong><small>coarse persistent drift</small></div><i aria-hidden="true">→</i><div><span>Trim rapidly</span><strong>Active optics</strong><small>bounded residual motion</small></div>
-    </div>
-    <div class="figure-wall reveal">
-      <button class="media contain" data-lightbox="../../figures/08_annotated_diagnostic.png" data-caption="Annotated detector residual and actuator diagnostic"><img loading="lazy" src="../../figures/08_annotated_diagnostic.png" width="6724" height="1600" alt="Annotated detector residual and actuator diagnostic plot"><span>Annotated feedback context</span></button>
-      <button class="media contain" data-lightbox="../../figures/01d_dY_with_actuator_events.png" data-caption="Detector motion with TEC and AO actuator events"><img loading="lazy" src="../../figures/01d_dY_with_actuator_events.png" width="3080" height="688" alt="Measured detector motion with TEC and AO actuator events"><span>Detector motion + actuator events</span></button>
-    </div>
-  </section>
-
-  <section class="section" id="now">
-    <div class="section-head reveal"><div class="section-no">04 / Current position</div><div><p class="eyebrow">What is known—and what is not</p><h2>The evidence supports a coupled thermal pathway, not a single proven cause.</h2></div></div>
-    <div class="claim-grid">
-      <article class="card claim reveal"><span class="status">Demonstrated</span><h3>Sustained sub-pixel operation</h3><p>V17 retained every settled measurement inside ±0.5 px across 88.59 h. V18.2 produced the strongest reported short-run dY RMS in this sequence.</p></article>
-      <article class="card claim reveal"><span class="status">Interpreted</span><h3>Thermal and environmental coupling</h3><p>V19–V24 narrowed the disturbance to a coupled camera, cooling and environment problem. The runs do not isolate one component as the sole cause.</p></article>
-      <article class="card claim proposed reveal"><span class="status">Proposed / in fabrication</span><h3>Camera-body homogenisation</h3><p>V25 tests a low-power push–pull airflow path. No performance improvement is claimed before fit, vibration and thermal/optical validation.</p></article>
-    </div>
-    <div class="evidence-callout reveal" style="margin-top:40px"><div><p class="eyebrow">Current synthesis · 6 October 2026</p><h2>One narrative from the MSc work to V25.</h2><p>The continuation report preserves the examined 2024 thesis as history while documenting what later experiments changed.</p></div><a class="button primary" href="../../reports/EXOhSPEC_Master_Thesis_Research_Continuation_2026.md">Read the continuation</a></div>
-  </section>
-</main>
-<footer class="site-footer"><div><img src="../assets/exohspec-logo.svg" alt="EXOhSPEC"><p><strong>EXOhSPEC-CLFCD</strong><br>Closed-Loop Feedback Control Development · Biswajit Jana.</p></div><div><h2>Research</h2><a href="results.html">Results</a><a href="thermal-diagnostics.html">Thermal chain</a><a href="v25-prototype.html">V25 prototype</a></div><div><h2>Evidence</h2><a href="evidence.html">PDF library</a><a href="../../methods/README.md">Methods index</a><a href="../index.html">Main programme</a></div></footer>
-<dialog class="lightbox" aria-label="Image viewer"><button class="lightbox-close" type="button" aria-label="Close image viewer">Close</button><figure><img alt=""><figcaption></figcaption></figure></dialog>
-<script src="../assets/app.js?v=20261006-4"></script>
-</body>
+      <div>
+        <h2>Evidence</h2>
+        <a href="evidence.html">PDF library</a
+        ><a href="../../methods/README.md">Methods index</a
+        ><a href="../index.html">Main programme</a>
+      </div>
+    </footer>
+    <dialog class="lightbox" aria-label="Image viewer">
+      <button
+        class="lightbox-close"
+        type="button"
+        aria-label="Close image viewer"
+      >
+        Close
+      </button>
+      <figure>
+        <img alt="" />
+        <figcaption></figcaption>
+      </figure>
+    </dialog>
+    <script src="../assets/app.js?v=20261008-1"></script>
+  </body>
 </html>

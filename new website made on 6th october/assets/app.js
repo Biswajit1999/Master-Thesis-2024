@@ -1,39 +1,541 @@
-const $=(s,p=document)=>p.querySelector(s), $$=(s,p=document)=>[...p.querySelectorAll(s)];
-const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
-const header=$('[data-header]'), progress=$('.scroll-progress span'), menu=$('.menu-button'), nav=$('.primary-nav');
-function onScroll(){header?.classList.toggle('scrolled',scrollY>24);if(progress){const m=document.documentElement.scrollHeight-innerHeight;progress.style.transform=`scaleX(${m>0?Math.min(1,scrollY/m):0})`}}addEventListener('scroll',onScroll,{passive:true});onScroll();
-menu?.addEventListener('click',()=>{const open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',String(open))});nav?.addEventListener('click',e=>{if(e.target.matches('a')){nav.classList.remove('open');menu.setAttribute('aria-expanded','false')}});
-$$('[role="tablist"]').forEach(list=>{const tabs=$$('[role="tab"]',list);tabs.forEach((tab,index)=>{tab.tabIndex=tab.getAttribute('aria-selected')==='true'?0:-1;tab.addEventListener('click',()=>tabs.forEach(item=>item.tabIndex=item===tab?0:-1));tab.addEventListener('keydown',event=>{if(!['ArrowRight','ArrowDown','ArrowLeft','ArrowUp','Home','End'].includes(event.key))return;event.preventDefault();let next=index;if(event.key==='Home')next=0;else if(event.key==='End')next=tabs.length-1;else if(event.key==='ArrowRight'||event.key==='ArrowDown')next=(index+1)%tabs.length;else next=(index-1+tabs.length)%tabs.length;tabs[next].focus();tabs[next].click()})})});
-const reveals=$$('.reveal');if(reduced)reveals.forEach(x=>x.classList.add('in-view'));else{const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in-view');io.unobserve(e.target)}}),{threshold:.12,rootMargin:'0px 0px -5%'});reveals.forEach(x=>io.observe(x))}
-const dialog=$('.lightbox');if(dialog){const image=$('img',dialog), caption=$('figcaption',dialog);$$('[data-lightbox]').forEach(b=>b.addEventListener('click',()=>{image.src=b.dataset.lightbox;image.alt=$('img',b)?.alt||'';caption.textContent=b.dataset.caption||'';dialog.showModal()}));$('.lightbox-close',dialog)?.addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()})}
+const $ = (s, p = document) => p.querySelector(s),
+  $$ = (s, p = document) => [...p.querySelectorAll(s)];
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const header = $("[data-header]"),
+  progress = $(".scroll-progress span"),
+  menu = $(".menu-button"),
+  nav = $(".primary-nav");
+function onScroll() {
+  header?.classList.toggle("scrolled", scrollY > 24);
+  if (progress) {
+    const m = document.documentElement.scrollHeight - innerHeight;
+    progress.style.transform = `scaleX(${m > 0 ? Math.min(1, scrollY / m) : 0})`;
+  }
+}
+addEventListener("scroll", onScroll, { passive: true });
+onScroll();
+menu?.addEventListener("click", () => {
+  const open = nav.classList.toggle("open");
+  menu.setAttribute("aria-expanded", String(open));
+});
+nav?.addEventListener("click", (e) => {
+  if (e.target.matches("a")) {
+    nav.classList.remove("open");
+    menu.setAttribute("aria-expanded", "false");
+  }
+});
+$$('[role="tablist"]').forEach((list) => {
+  const tabs = $$('[role="tab"]', list);
+  tabs.forEach((tab, index) => {
+    tab.tabIndex = tab.getAttribute("aria-selected") === "true" ? 0 : -1;
+    tab.addEventListener("click", () =>
+      tabs.forEach((item) => (item.tabIndex = item === tab ? 0 : -1)),
+    );
+    tab.addEventListener("keydown", (event) => {
+      if (
+        ![
+          "ArrowRight",
+          "ArrowDown",
+          "ArrowLeft",
+          "ArrowUp",
+          "Home",
+          "End",
+        ].includes(event.key)
+      )
+        return;
+      event.preventDefault();
+      let next = index;
+      if (event.key === "Home") next = 0;
+      else if (event.key === "End") next = tabs.length - 1;
+      else if (event.key === "ArrowRight" || event.key === "ArrowDown")
+        next = (index + 1) % tabs.length;
+      else next = (index - 1 + tabs.length) % tabs.length;
+      tabs[next].focus();
+      tabs[next].click();
+    });
+  });
+});
+const reveals = $$(".reveal");
+if (reduced) reveals.forEach((x) => x.classList.add("in-view"));
+else {
+  const io = new IntersectionObserver(
+    (es) =>
+      es.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add("in-view");
+          io.unobserve(e.target);
+        }
+      }),
+    { threshold: 0.12, rootMargin: "0px 0px -5%" },
+  );
+  reveals.forEach((x) => io.observe(x));
+}
+const dialog = $(".lightbox");
+if (dialog) {
+  const image = $("img", dialog),
+    caption = $("figcaption", dialog);
+  $$("[data-lightbox]").forEach((b) =>
+    b.addEventListener("click", () => {
+      image.src = b.dataset.lightbox;
+      image.alt = $("img", b)?.alt || "";
+      caption.textContent = b.dataset.caption || "";
+      dialog.showModal();
+    }),
+  );
+  $(".lightbox-close", dialog)?.addEventListener("click", () => dialog.close());
+  dialog.addEventListener("click", (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+}
 
-const canvas=$('.spectrum-canvas');if(canvas&&!reduced){const ctx=canvas.getContext('2d');let w,h,dpr,t=0,raf,visible=true;const colors=['31,121,168','81,171,200','181,111,19'];function size(){dpr=Math.min(devicePixelRatio||1,2);w=canvas.clientWidth;h=canvas.clientHeight;canvas.width=w*dpr;canvas.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)}function draw(){if(!visible)return;ctx.clearRect(0,0,w,h);ctx.globalCompositeOperation='source-over';colors.forEach((c,j)=>{for(let k=0;k<3;k++){ctx.beginPath();for(let x=-20;x<=w+20;x+=18){const base=h*(.22+j*.22+k*.028);const y=base+Math.sin(x*.008+t*.65+j+k)*26+Math.sin(x*.017-t*.35+k)*12;x===-20?ctx.moveTo(x,y):ctx.lineTo(x,y)}ctx.strokeStyle=`rgba(${c},${.18-k*.035})`;ctx.lineWidth=12-k*3;ctx.stroke()}});t+=.012;raf=requestAnimationFrame(draw)}size();new ResizeObserver(size).observe(canvas);new IntersectionObserver(([e])=>{visible=e.isIntersecting;if(visible&&!raf)draw();if(!visible){cancelAnimationFrame(raf);raf=null}},{rootMargin:'100px'}).observe(canvas);draw()}
+const canvas = $(".spectrum-canvas");
+if (canvas && !reduced) {
+  const ctx = canvas.getContext("2d");
+  let w,
+    h,
+    dpr,
+    raf,
+    visible = true,
+    started = performance.now();
+  const thoriumLines = [0.08, 0.16, 0.255, 0.36, 0.485, 0.61, 0.73, 0.84, 0.93];
+  const orderLevels = [0.2, 0.39, 0.58, 0.77];
 
-const systemData={source:{kicker:'01 / Calibration input',title:'ThAr light enters the bench',text:'The annotated thesis image identifies the calibration-lamp input at the upper-left of the modified bench. It supplies the line-rich spectrum used to monitor detector-plane motion.',metric:'MSc thesis Fig. 2.1',role:'Calibration source'},detector:{kicker:'02 / Detector',title:'The spectrum is recorded here',text:'The red detector assembly is identified directly in the thesis figure. Its measured image displacement provides one observable for the later closed-loop development.',metric:'Annotated bench record',role:'Image measurement'},collimator:{kicker:'03 / Collimator',title:'The shared optical path is folded',text:'The central collimator participates in the compact double-pass layout. The physical bench view and the Zemax design should be read together: one locates hardware, the other traces rays.',metric:'Thesis Fig. 2.1 + Zemax',role:'Beam collimation'},disperser:{kicker:'04 / Prisms and grating',title:'Cross-dispersion and echelle dispersion',text:'The two prisms and grating occupy the right-hand optical train in the annotated bench record. They separate the calibration spectrum into the detector format.',metric:'Annotated bench record',role:'Spectral dispersion'},metrology:{kicker:'05 / IDS metrology',title:'A separate optical-path measurement',text:'The IDS3010 path is marked across the lower part of the thesis image. It measures optical-path change for environmental analysis and control research; it is not the detector or reduction pipeline.',metric:'MSc thesis Fig. 2.1',role:'Displacement metrology'}};
-$$('[data-system]').forEach(b=>b.addEventListener('click',()=>{const d=systemData[b.dataset.system],p=$('[data-system-panel]');$$('[data-system]').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');if(p&&d){p.animate?.([{opacity:.25,transform:'translateY(8px)'},{opacity:1,transform:'none'}],{duration:260,easing:'ease-out'});$('[data-map-kicker]',p).textContent=d.kicker;$('[data-map-title]',p).textContent=d.title;$('[data-map-text]',p).textContent=d.text;$('[data-map-metric]',p).textContent=d.metric;$('[data-map-role]',p).textContent=d.role}}));
+  function size() {
+    dpr = Math.min(devicePixelRatio || 1, 2);
+    w = canvas.clientWidth;
+    h = canvas.clientHeight;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
 
-const timelineData={
-'2019':{title:'Compact architecture documented',text:'SPIE papers described the folded optical design, mechanical collimator development and a replicable off-the-shelf approach.',image:'assets/optical_design.png',alt:'EXOhSPEC Zemax optical design'},
-'2021':{title:'Actively controlled prototype',text:'The PASP instrument paper set out the small, fibre-fed, actively controlled spectrograph concept and its measured prototype performance.',image:'assets/current.png',alt:'EXOhSPEC optical bench'},
-'2022':{title:'Fibre behaviour quantified',text:'Tapered graded-index fibre research extended the programme’s work on transmission and modal noise.',image:'assets/comsol.png',alt:'COMSOL tapered fibre model'},
-'2024':{title:'Telescope, modal-noise and stability work',text:'The programme connected fibre agitation studies, Thai National Telescope deployment, and environmental-control experiments on the UH prototype.',image:'assets/wrapped_narit.png',alt:'EXOhSPEC at the Thai National Telescope'},
-'2025':{title:'Broad-band calibration development',text:'A low-cost fused-silica metalon study expanded the calibration strand of the programme.',image:'assets/thar-exposure-study.png',alt:'EXOhSPEC calibration study'},
-'2026':{title:'Control evidence leads to V25 hardware',text:'The CLFCD track now connects V17 endurance and V18 detector tracking to the V19–V24 thermal-diagnostic chain and the V25 sealed TPU camera-airflow prototype.',image:'assets/v25_problem_to_design.svg',alt:'EXOhSPEC V25 camera thermal-homogenisation concept'}};
-$$('[data-timeline-year]').forEach(b=>b.addEventListener('click',()=>{const d=timelineData[b.dataset.timelineYear],p=$('[data-timeline-detail]');$$('[data-timeline-year]').forEach(x=>x.setAttribute('aria-selected','false'));b.setAttribute('aria-selected','true');if(p&&d){$('[data-year]',p).textContent=b.dataset.timelineYear;$('[data-title]',p).textContent=d.title;$('[data-text]',p).textContent=d.text;const im=$('img',p);im.src=d.image;im.alt=d.alt}}));
+  function gaussian(x, centre, width) {
+    const z = (x - centre) / width;
+    return Math.exp(-0.5 * z * z);
+  }
 
-const researchTimeline={baseline:{date:'2023–Apr 2024',title:'Baseline and MSc system study',text:'Mapped the optical, thermal and software system; tested IDS3010, environmental sensing, thermal control and early feedback. The thesis established the disturbance-rejection problem and first control architecture.',image:'../assets/research/exohspec-internal-annotated.jpg'},characterise:{date:'2024–2025',title:'Characterisation before control',text:'Measured environmental and component response before assigning corrections. Temperature, pressure, local thermal response and actuator calibration were treated as configuration-specific measurements.',image:'../../figures/04_environment_temp_pressure.png'},hybrid:{date:'2025–Jul 2026',title:'Hybrid control and V17 endurance',text:'The controller evolved into TEC-primary correction with bounded AO fine trim. V17 sustained 88.59 h of settled feedback across 4,761 frames with 100% inside ±0.5 px.',image:'../../figures/06_nine_panel_stacked.png'},longrun:{date:'Aug 2026',title:'V18 multi-line detector tracking',text:'Phase correlation progressed to a multi-line ThAr ROI with synchronous PT104 telemetry. V18.2 reached dX RMS 0.0373 px and dY RMS 0.0990 px over 3.98 h feedback.',image:'../../figures/01_dXdY_far_combined.png'},diagnose:{date:'Aug–Sep 2026',title:'V19–V23 thermal diagnosis',text:'A repeating ~33.4 min thermal component motivated camera-TEC, replacement-LK220, controller-gain and coolant-flow experiments. Kp 2.5, PERIOD 2000 ms and pump 75% became the working thermal configuration.',image:'../../figures/v8_3_late_drift_forensic.png'},current:{date:'Sep–Oct 2026',title:'V24 observation → V25 airflow test',text:'The 180° camera-rotation monitor motivated a direct spatial-thermal test. Two 30 mm fans are ordered and black TPU sealed mounts are in fabrication; fit, vibration and thermal/optical validation remain outstanding.',image:'../assets/research/thermal-enclosure-interior.jpg'}};
-$$('[data-research-stage]').forEach(b=>b.addEventListener('click',()=>{const d=researchTimeline[b.dataset.researchStage],p=$('[data-research-detail]');$$('[data-research-stage]').forEach(x=>x.setAttribute('aria-selected','false'));b.setAttribute('aria-selected','true');if(p&&d){$('[data-date]',p).textContent=d.date;$('[data-title]',p).textContent=d.title;$('[data-text]',p).textContent=d.text;const im=$('img',p);im.src=d.image;im.alt=d.title}}));
+  function spectralOrder(level, order, shift, color, alpha, lineWidth) {
+    ctx.beginPath();
+    for (let x = -8; x <= w + 8; x += 4) {
+      const nx = x / w;
+      const curvature = (nx - 0.5) ** 2 * (18 + order * 3);
+      const blaze = 0.72 + 0.28 * Math.cos((nx - 0.5) * Math.PI);
+      let emission = 0;
+      thoriumLines.forEach((line, index) => {
+        const strength = 13 + ((index * 11 + order * 7) % 25);
+        emission +=
+          gaussian(nx, line + shift / w + order * 0.002, 0.0026) *
+          strength *
+          blaze;
+      });
+      const y = h * level + curvature - emission;
+      x === -8 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.strokeStyle = `rgba(${color},${alpha})`;
+    ctx.lineWidth = lineWidth;
+    ctx.stroke();
+  }
 
-const diagnosticData={
-v19:{status:'Passive monitor',question:'Where does the repeating structure appear?',title:'A common ~33.4 min component',text:'Across a five-hour passive run, a repeating component appeared in room/AC, LK220, camera, OPL and dY channels. With few cycles, it is a diagnostic signature rather than a unique transfer function.',metric:'dY RMS 0.5365 px · OPL p-p 0.335 µm',next:'Test the camera TEC as a heat-load intervention.',image:'../assets/research/v19-full-run-diagnostic.png',alt:'V19 five-hour full-run diagnostic plot showing PT104, LK220, camera, OPL and detector-shift channels',caption:'V19 Fig. V19.1 · full-run diagnostic from the archived V19–V21 report.'},
-v20:{status:'TEC intervention',question:'Is the detector TEC a substantial thermal load?',title:'External body cooling during TEC OFF',text:'With the old LK220, switching the camera TEC off allowed the detector to warm while the external body cooled. The phase included a large thermal transition, so it is not a stationary performance comparison.',metric:'Direction of heat-load response established',next:'Repeat the intervention with the replacement LK220.',image:'../assets/research/v20-cooling-chain.png',alt:'V20 cooling-chain plot with camera TEC on and oscillating LK220 current and coolant temperature',imageSecondary:'../assets/research/v21-cooling-chain.png',altSecondary:'V21 cooling-chain plot with camera TEC off while LK220 current and coolant temperature continue oscillating',caption:'V20 Fig. V20.2 and V21 Fig. V21.2 · matched cooling-chain evidence from the archived merged report.'},
-v22:{status:'Replacement LK220',question:'Does the replacement cooling configuration remain optically stable?',title:'Stable TEC-ON interval, disruptive OFF transition',text:'The TEC-ON phase retained every dY sample inside ±0.5 px. Turning the camera TEC off reduced LK220 load but drove a large thermo-optical transition. Operating conditions differed from the old-LK220 run.',metric:'dY RMS 0.2125 px · OPL p-p 0.254 µm',next:'Separate heat load from controller regulation under one 22 °C campaign.',image:'../assets/research/v22-detector-shift.png',alt:'V22 detector dX and dY plot across the camera TEC-off transition',caption:'V22 report §4A · detector shift; dashed line marks camera TEC OFF.'},
-v23:{status:'Thermal-only campaign',question:'Which completed LK220 settings regulate most tightly?',title:'Kp 2.5 and PERIOD 2000 ms selected',text:'V23 removed detector and IDS telemetry to study the thermal plant directly. Camera TEC OFF reduced coolant heat pickup, but outlet variability remained almost unchanged.',metric:'Best completed outlet σ: 0.0493 °C at Kp 2.5',next:'Test the coolant-flow trade-off while holding the selected control settings.',image:'../assets/research/v23-full-campaign.png',alt:'V23 full 18-hour thermal optimisation timeline showing experimental phases and LK220 and camera telemetry',caption:'V23 full 18 h thermal campaign · source plot 04b from the experiment record.'},
-v232:{status:'Flow trade-off',question:'How much flow is useful before chiller burden dominates?',title:'75% pump selected as the balanced default',text:'The 80% condition cooled the camera surfaces slightly more, but increased current, duty and heat-sink temperature. The 75% setting captured most of the cooling benefit with less burden.',metric:'~1.10 L min⁻¹ at 75% pump',next:'Reintroduce detector and OPL monitoring at the fixed operating point.',image:'../assets/research/v23-2-flow-75.png',alt:'V23.2 75 percent pump-flow experiment showing LK220 and camera thermal channels',caption:'V23.2 FLOW C · the selected 75% pump condition, not an unrelated metrology photograph.'},
-v24:{status:'Passive optical monitor',question:'What changes after the 180° camera reorientation?',title:'Spatial gradients remained while dY and OPL moved',text:'During the early ~28 min interval, dY reached about +0.64 px and OPL changed by about −0.32 µm. The detector and coolant stayed near their controlled values, but external camera regions were not isothermal.',metric:'~+0.64 px dY · ~−0.32 µm OPL',next:'Test camera-body homogenisation with removable side-vent airflow.',image:'../assets/research/v24-camera-rotation.jpg',alt:'EXOhSPEC camera and probe arrangement photographed for the V24 180-degree rotation setup',caption:'V24 setup record · camera region after the 180° reorientation, 21 September 2026.'}
+  function draw(now) {
+    if (!visible) return;
+    const t = (now - started) / 1000;
+    const measuredShift = Math.sin(t * 0.52) * 3.2;
+    const scanX = ((t * 0.055) % 1) * w;
+    ctx.clearRect(0, 0, w, h);
+    ctx.globalCompositeOperation = "source-over";
+
+    ctx.setLineDash([3, 9]);
+    ctx.strokeStyle = "rgba(31,121,168,.09)";
+    ctx.lineWidth = 1;
+    thoriumLines.forEach((line) => {
+      const x = line * w;
+      ctx.beginPath();
+      ctx.moveTo(x, h * 0.1);
+      ctx.lineTo(x, h * 0.88);
+      ctx.stroke();
+    });
+    ctx.setLineDash([]);
+
+    orderLevels.forEach((level, order) => {
+      spectralOrder(level, order, 0, "31,121,168", 0.18, 2.2);
+      spectralOrder(
+        level + 0.018,
+        order,
+        measuredShift,
+        "181,111,19",
+        0.12,
+        1.4,
+      );
+    });
+
+    const scan = ctx.createLinearGradient(scanX - 55, 0, scanX + 55, 0);
+    scan.addColorStop(0, "rgba(81,171,200,0)");
+    scan.addColorStop(0.5, "rgba(81,171,200,.08)");
+    scan.addColorStop(1, "rgba(81,171,200,0)");
+    ctx.fillStyle = scan;
+    ctx.fillRect(scanX - 55, h * 0.1, 110, h * 0.78);
+
+    raf = requestAnimationFrame(draw);
+  }
+  size();
+  new ResizeObserver(size).observe(canvas);
+  new IntersectionObserver(
+    ([e]) => {
+      visible = e.isIntersecting;
+      if (visible && !raf) raf = requestAnimationFrame(draw);
+      if (!visible) {
+        cancelAnimationFrame(raf);
+        raf = null;
+      }
+    },
+    { rootMargin: "100px" },
+  ).observe(canvas);
+  raf = requestAnimationFrame(draw);
+}
+
+const systemData = {
+  source: {
+    kicker: "01 / Calibration input",
+    title: "ThAr light enters the bench",
+    text: "The annotated thesis image identifies the calibration-lamp input at the upper-left of the modified bench. It supplies the line-rich spectrum used to monitor detector-plane motion.",
+    metric: "MSc thesis Fig. 2.1",
+    role: "Calibration source",
+  },
+  detector: {
+    kicker: "02 / Detector",
+    title: "The spectrum is recorded here",
+    text: "The red detector assembly is identified directly in the thesis figure. Its measured image displacement provides one observable for the later closed-loop development.",
+    metric: "Annotated bench record",
+    role: "Image measurement",
+  },
+  collimator: {
+    kicker: "03 / Collimator",
+    title: "The shared optical path is folded",
+    text: "The central collimator participates in the compact double-pass layout. The physical bench view and the Zemax design should be read together: one locates hardware, the other traces rays.",
+    metric: "Thesis Fig. 2.1 + Zemax",
+    role: "Beam collimation",
+  },
+  disperser: {
+    kicker: "04 / Prisms and grating",
+    title: "Cross-dispersion and echelle dispersion",
+    text: "The two prisms and grating occupy the right-hand optical train in the annotated bench record. They separate the calibration spectrum into the detector format.",
+    metric: "Annotated bench record",
+    role: "Spectral dispersion",
+  },
+  metrology: {
+    kicker: "05 / IDS metrology",
+    title: "A separate optical-path measurement",
+    text: "The IDS3010 path is marked across the lower part of the thesis image. It measures optical-path change for environmental analysis and control research; it is not the detector or reduction pipeline.",
+    metric: "MSc thesis Fig. 2.1",
+    role: "Displacement metrology",
+  },
 };
-$$('[data-diagnostic-stage]').forEach(button=>button.addEventListener('click',()=>{const d=diagnosticData[button.dataset.diagnosticStage],panel=$('[data-diagnostic-panel]');if(!d||!panel)return;$$('[data-diagnostic-stage]').forEach(item=>item.setAttribute('aria-selected','false'));button.setAttribute('aria-selected','true');$('[data-diagnostic-status]',panel).textContent=d.status;$('[data-diagnostic-question]',panel).textContent=d.question;$('[data-diagnostic-title]',panel).textContent=d.title;$('[data-diagnostic-text]',panel).textContent=d.text;$('[data-diagnostic-metric]',panel).textContent=d.metric;$('[data-diagnostic-next]',panel).textContent=d.next;$('[data-diagnostic-caption]',panel).textContent=d.caption;const image=$('[data-diagnostic-image]',panel),secondary=$('[data-diagnostic-image-secondary]',panel),media=$('.diagnostic-media',panel);image.src=d.image;image.alt=d.alt;if(secondary){if(d.imageSecondary){secondary.src=d.imageSecondary;secondary.alt=d.altSecondary||'';secondary.hidden=false;media?.classList.add('has-secondary')}else{secondary.hidden=true;secondary.removeAttribute('src');secondary.alt='';media?.classList.remove('has-secondary')}}}));
+$$("[data-system]").forEach((b) =>
+  b.addEventListener("click", () => {
+    const d = systemData[b.dataset.system],
+      p = $("[data-system-panel]");
+    $$("[data-system]").forEach((x) => x.setAttribute("aria-pressed", "false"));
+    b.setAttribute("aria-pressed", "true");
+    if (p && d) {
+      p.animate?.(
+        [
+          { opacity: 0.25, transform: "translateY(8px)" },
+          { opacity: 1, transform: "none" },
+        ],
+        { duration: 260, easing: "ease-out" },
+      );
+      $("[data-map-kicker]", p).textContent = d.kicker;
+      $("[data-map-title]", p).textContent = d.title;
+      $("[data-map-text]", p).textContent = d.text;
+      $("[data-map-metric]", p).textContent = d.metric;
+      $("[data-map-role]", p).textContent = d.role;
+    }
+  }),
+);
 
-const pubSearch=$('[data-publication-search]');pubSearch?.addEventListener('input',()=>{const q=pubSearch.value.toLowerCase().trim();$$('.publication-list li').forEach(li=>li.hidden=!li.textContent.toLowerCase().includes(q))});
+const timelineData = {
+  2019: {
+    title: "Compact architecture documented",
+    text: "SPIE papers described the folded optical design, mechanical collimator development and a replicable off-the-shelf approach.",
+    image: "assets/optical_design.png",
+    alt: "EXOhSPEC Zemax optical design",
+  },
+  2021: {
+    title: "Actively controlled prototype",
+    text: "The PASP instrument paper set out the small, fibre-fed, actively controlled spectrograph concept and its measured prototype performance.",
+    image: "assets/current.png",
+    alt: "EXOhSPEC optical bench",
+  },
+  2022: {
+    title: "Fibre behaviour quantified",
+    text: "Tapered graded-index fibre research extended the programme’s work on transmission and modal noise.",
+    image: "assets/comsol.png",
+    alt: "COMSOL tapered fibre model",
+  },
+  2024: {
+    title: "Telescope, modal-noise and stability work",
+    text: "The programme connected fibre agitation studies, Thai National Telescope deployment, and environmental-control experiments on the UH prototype.",
+    image: "assets/wrapped_narit.png",
+    alt: "EXOhSPEC at the Thai National Telescope",
+  },
+  2025: {
+    title: "Broad-band calibration development",
+    text: "A low-cost fused-silica metalon study expanded the calibration strand of the programme.",
+    image: "assets/thar-exposure-study.png",
+    alt: "EXOhSPEC calibration study",
+  },
+  2026: {
+    title: "Control evidence leads to V25 hardware",
+    text: "The CLFCD track now connects V17 endurance and V18 detector tracking to the V19–V24 thermal-diagnostic chain and the V25 sealed TPU camera-airflow prototype.",
+    image: "assets/v25_problem_to_design.svg",
+    alt: "EXOhSPEC V25 camera thermal-homogenisation concept",
+  },
+};
+$$("[data-timeline-year]").forEach((b) =>
+  b.addEventListener("click", () => {
+    const d = timelineData[b.dataset.timelineYear],
+      p = $("[data-timeline-detail]");
+    $$("[data-timeline-year]").forEach((x) =>
+      x.setAttribute("aria-selected", "false"),
+    );
+    b.setAttribute("aria-selected", "true");
+    if (p && d) {
+      $("[data-year]", p).textContent = b.dataset.timelineYear;
+      $("[data-title]", p).textContent = d.title;
+      $("[data-text]", p).textContent = d.text;
+      const im = $("img", p);
+      im.src = d.image;
+      im.alt = d.alt;
+    }
+  }),
+);
 
-const recordList=$('[data-record-list]');if(recordList){const base=recordList.dataset.base||'';let records=[],active='all';const render=()=>{const q=($('[data-record-search]')?.value||'').toLowerCase().trim();const shown=records.filter(r=>(active==='all'||r.classification===active)&&(!q||`${r.date} ${r.filename} ${r.classification} ${r.first_page_preview||''}`.toLowerCase().includes(q)));$('[data-record-count]').textContent=`${shown.length} of ${records.length} records`;recordList.innerHTML=shown.map(r=>`<article class="record"><time>${r.date||'undated'}</time><div><h3>${r.filename}</h3><p>${r.classification.replaceAll('-',' ')} · ${r.pages} page${r.pages===1?'':'s'}${r.duplicate_count>1?` · ${r.duplicate_count} identical copies`:''}</p></div><a href="${base}${encodeURI(r.relative_path)}" target="_blank" rel="noopener">Open PDF</a></article>`).join('')||'<p>No matching records.</p>'};fetch(`${base}research-record/pdf-inventory.json`).then(r=>r.json()).then(d=>{records=d.records.sort((a,b)=>(b.date||'').localeCompare(a.date||''));render()}).catch(()=>{recordList.innerHTML='<p>The PDF index could not be loaded. Open this page through the website server rather than directly from disk.</p>'});$('[data-record-search]')?.addEventListener('input',render);$$('[data-record-filter]').forEach(b=>b.addEventListener('click',()=>{active=b.dataset.recordFilter;$$('[data-record-filter]').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');render()}))}
+const researchTimeline = {
+  baseline: {
+    date: "2023–Apr 2024",
+    title: "Baseline and MSc system study",
+    text: "Mapped the optical, thermal and software system; tested IDS3010, environmental sensing, thermal control and early feedback. The thesis established the disturbance-rejection problem and first control architecture.",
+    image: "../assets/research/exohspec-internal-annotated.jpg",
+  },
+  characterise: {
+    date: "2024–2025",
+    title: "Characterisation before control",
+    text: "Measured environmental and component response before assigning corrections. Temperature, pressure, local thermal response and actuator calibration were treated as configuration-specific measurements.",
+    image: "../../figures/04_environment_temp_pressure.png",
+  },
+  hybrid: {
+    date: "2025–Jul 2026",
+    title: "Hybrid control and V17 endurance",
+    text: "The controller evolved into TEC-primary correction with bounded AO fine trim. V17 sustained 88.59 h of settled feedback across 4,761 frames with 100% inside ±0.5 px.",
+    image: "../../figures/06_nine_panel_stacked.png",
+  },
+  longrun: {
+    date: "Aug 2026",
+    title: "V18 multi-line detector tracking",
+    text: "Phase correlation progressed to a multi-line ThAr ROI with synchronous PT104 telemetry. V18.2 reached dX RMS 0.0373 px and dY RMS 0.0990 px over 3.98 h feedback.",
+    image: "../../figures/01_dXdY_far_combined.png",
+  },
+  diagnose: {
+    date: "Aug–Sep 2026",
+    title: "V19–V23 thermal diagnosis",
+    text: "A repeating ~33.4 min thermal component motivated camera-TEC, replacement-LK220, controller-gain and coolant-flow experiments. Kp 2.5, PERIOD 2000 ms and pump 75% became the working thermal configuration.",
+    image: "../../figures/v8_3_late_drift_forensic.png",
+  },
+  current: {
+    date: "Sep–Oct 2026",
+    title: "V24 observation → V25 airflow test",
+    text: "The 180° camera-rotation monitor motivated a direct spatial-thermal test. Two 30 mm fans are ordered and black TPU sealed mounts are in fabrication; fit, vibration and thermal/optical validation remain outstanding.",
+    image: "../assets/research/thermal-enclosure-interior.jpg",
+  },
+};
+$$("[data-research-stage]").forEach((b) =>
+  b.addEventListener("click", () => {
+    const d = researchTimeline[b.dataset.researchStage],
+      p = $("[data-research-detail]");
+    $$("[data-research-stage]").forEach((x) =>
+      x.setAttribute("aria-selected", "false"),
+    );
+    b.setAttribute("aria-selected", "true");
+    if (p && d) {
+      $("[data-date]", p).textContent = d.date;
+      $("[data-title]", p).textContent = d.title;
+      $("[data-text]", p).textContent = d.text;
+      const im = $("img", p);
+      im.src = d.image;
+      im.alt = d.title;
+    }
+  }),
+);
+
+const diagnosticData = {
+  v19: {
+    status: "Passive monitor",
+    question: "Where does the repeating structure appear?",
+    title: "A common ~33.4 min component",
+    text: "Across a five-hour passive run, a repeating component appeared in room/AC, LK220, camera, OPL and dY channels. With few cycles, it is a diagnostic signature rather than a unique transfer function.",
+    metric: "dY RMS 0.5365 px · OPL p-p 0.335 µm",
+    next: "Test the camera TEC as a heat-load intervention.",
+    image: "../assets/research/v19-full-run-diagnostic.png",
+    alt: "V19 five-hour full-run diagnostic plot showing PT104, LK220, camera, OPL and detector-shift channels",
+    caption:
+      "V19 Fig. V19.1 · full-run diagnostic from the archived V19–V21 report.",
+  },
+  v20: {
+    status: "TEC intervention",
+    question: "Is the detector TEC a substantial thermal load?",
+    title: "External body cooling during TEC OFF",
+    text: "With the old LK220, switching the camera TEC off allowed the detector to warm while the external body cooled. The phase included a large thermal transition, so it is not a stationary performance comparison.",
+    metric: "Direction of heat-load response established",
+    next: "Repeat the intervention with the replacement LK220.",
+    image: "../assets/research/v20-cooling-chain.png",
+    alt: "V20 cooling-chain plot with camera TEC on and oscillating LK220 current and coolant temperature",
+    imageSecondary: "../assets/research/v21-cooling-chain.png",
+    altSecondary:
+      "V21 cooling-chain plot with camera TEC off while LK220 current and coolant temperature continue oscillating",
+    caption:
+      "V20 Fig. V20.2 and V21 Fig. V21.2 · matched cooling-chain evidence from the archived merged report.",
+  },
+  v22: {
+    status: "Replacement LK220",
+    question:
+      "Does the replacement cooling configuration remain optically stable?",
+    title: "Stable TEC-ON interval, disruptive OFF transition",
+    text: "The TEC-ON phase retained every dY sample inside ±0.5 px. Turning the camera TEC off reduced LK220 load but drove a large thermo-optical transition. Operating conditions differed from the old-LK220 run.",
+    metric: "dY RMS 0.2125 px · OPL p-p 0.254 µm",
+    next: "Separate heat load from controller regulation under one 22 °C campaign.",
+    image: "../assets/research/v22-detector-shift.png",
+    alt: "V22 detector dX and dY plot across the camera TEC-off transition",
+    caption:
+      "V22 report §4A · detector shift; dashed line marks camera TEC OFF.",
+  },
+  v23: {
+    status: "Thermal-only campaign",
+    question: "Which completed LK220 settings regulate most tightly?",
+    title: "Kp 2.5 and PERIOD 2000 ms selected",
+    text: "V23 removed detector and IDS telemetry to study the thermal plant directly. Camera TEC OFF reduced coolant heat pickup, but outlet variability remained almost unchanged.",
+    metric: "Best completed outlet σ: 0.0493 °C at Kp 2.5",
+    next: "Test the coolant-flow trade-off while holding the selected control settings.",
+    image: "../assets/research/v23-full-campaign.png",
+    alt: "V23 full 18-hour thermal optimisation timeline showing experimental phases and LK220 and camera telemetry",
+    caption:
+      "V23 full 18 h thermal campaign · source plot 04b from the experiment record.",
+  },
+  v232: {
+    status: "Flow trade-off",
+    question: "How much flow is useful before chiller burden dominates?",
+    title: "75% pump selected as the balanced default",
+    text: "The 80% condition cooled the camera surfaces slightly more, but increased current, duty and heat-sink temperature. The 75% setting captured most of the cooling benefit with less burden.",
+    metric: "~1.10 L min⁻¹ at 75% pump",
+    next: "Reintroduce detector and OPL monitoring at the fixed operating point.",
+    image: "../assets/research/v23-2-flow-75.png",
+    alt: "V23.2 75 percent pump-flow experiment showing LK220 and camera thermal channels",
+    caption:
+      "V23.2 FLOW C · the selected 75% pump condition, not an unrelated metrology photograph.",
+  },
+  v24: {
+    status: "Passive optical monitor",
+    question: "What changes after the 180° camera reorientation?",
+    title: "Spatial gradients remained while dY and OPL moved",
+    text: "During the early ~28 min interval, dY reached about +0.64 px and OPL changed by about −0.32 µm. The detector and coolant stayed near their controlled values, but external camera regions were not isothermal.",
+    metric: "~+0.64 px dY · ~−0.32 µm OPL",
+    next: "Test camera-body homogenisation with removable side-vent airflow.",
+    image: "../assets/research/v24-camera-rotation.jpg",
+    alt: "EXOhSPEC camera and probe arrangement photographed for the V24 180-degree rotation setup",
+    caption:
+      "V24 setup record · camera region after the 180° reorientation, 21 September 2026.",
+  },
+};
+$$("[data-diagnostic-stage]").forEach((button) =>
+  button.addEventListener("click", () => {
+    const d = diagnosticData[button.dataset.diagnosticStage],
+      panel = $("[data-diagnostic-panel]");
+    if (!d || !panel) return;
+    $$("[data-diagnostic-stage]").forEach((item) =>
+      item.setAttribute("aria-selected", "false"),
+    );
+    button.setAttribute("aria-selected", "true");
+    $("[data-diagnostic-status]", panel).textContent = d.status;
+    $("[data-diagnostic-question]", panel).textContent = d.question;
+    $("[data-diagnostic-title]", panel).textContent = d.title;
+    $("[data-diagnostic-text]", panel).textContent = d.text;
+    $("[data-diagnostic-metric]", panel).textContent = d.metric;
+    $("[data-diagnostic-next]", panel).textContent = d.next;
+    $("[data-diagnostic-caption]", panel).textContent = d.caption;
+    const image = $("[data-diagnostic-image]", panel),
+      secondary = $("[data-diagnostic-image-secondary]", panel),
+      media = $(".diagnostic-media", panel);
+    image.src = d.image;
+    image.alt = d.alt;
+    if (secondary) {
+      if (d.imageSecondary) {
+        secondary.src = d.imageSecondary;
+        secondary.alt = d.altSecondary || "";
+        secondary.hidden = false;
+        media?.classList.add("has-secondary");
+      } else {
+        secondary.hidden = true;
+        secondary.removeAttribute("src");
+        secondary.alt = "";
+        media?.classList.remove("has-secondary");
+      }
+    }
+  }),
+);
+
+const pubSearch = $("[data-publication-search]");
+pubSearch?.addEventListener("input", () => {
+  const q = pubSearch.value.toLowerCase().trim();
+  $$(".publication-list li").forEach(
+    (li) => (li.hidden = !li.textContent.toLowerCase().includes(q)),
+  );
+});
+
+const recordList = $("[data-record-list]");
+if (recordList) {
+  const base = recordList.dataset.base || "";
+  let records = [],
+    active = "all";
+  const render = () => {
+    const q = ($("[data-record-search]")?.value || "").toLowerCase().trim();
+    const shown = records.filter(
+      (r) =>
+        (active === "all" || r.classification === active) &&
+        (!q ||
+          `${r.date} ${r.filename} ${r.classification} ${r.first_page_preview || ""}`
+            .toLowerCase()
+            .includes(q)),
+    );
+    $("[data-record-count]").textContent =
+      `${shown.length} of ${records.length} records`;
+    recordList.innerHTML =
+      shown
+        .map(
+          (r) =>
+            `<article class="record"><time>${r.date || "undated"}</time><div><h3>${r.filename}</h3><p>${r.classification.replaceAll("-", " ")} · ${r.pages} page${r.pages === 1 ? "" : "s"}${r.duplicate_count > 1 ? ` · ${r.duplicate_count} identical copies` : ""}</p></div><a href="${base}${encodeURI(r.relative_path)}" target="_blank" rel="noopener">Open PDF</a></article>`,
+        )
+        .join("") || "<p>No matching records.</p>";
+  };
+  fetch(`${base}research-record/pdf-inventory.json`)
+    .then((r) => r.json())
+    .then((d) => {
+      records = d.records.sort((a, b) =>
+        (b.date || "").localeCompare(a.date || ""),
+      );
+      render();
+    })
+    .catch(() => {
+      recordList.innerHTML =
+        "<p>The PDF index could not be loaded. Open this page through the website server rather than directly from disk.</p>";
+    });
+  $("[data-record-search]")?.addEventListener("input", render);
+  $$("[data-record-filter]").forEach((b) =>
+    b.addEventListener("click", () => {
+      active = b.dataset.recordFilter;
+      $$("[data-record-filter]").forEach((x) =>
+        x.setAttribute("aria-pressed", "false"),
+      );
+      b.setAttribute("aria-pressed", "true");
+      render();
+    }),
+  );
+}
