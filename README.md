@@ -5,11 +5,11 @@
 **Supervisors:** Prof Hugh R. A. Jones and Prof William E. Martin  
 **University of Hertfordshire**
 
-## [Open the EXOhSPEC scientific website →](https://biswajit1999.github.io/Master-Thesis-2024/new%20website%20made%20on%206th%20october/)
+## [Open the public EXOhSPEC programme website →](https://biswajit1999.github.io/EXOhSPEC-website/)
 
-The GitHub Pages root for this repository also redirects to the programme website.
+This repository contains the working research record and is intended for approved collaborators. Public programme information is maintained in the separate website repository; experimental reports and run-level results are not published there.
 
-[Audit the report-derived runtime ledger →](https://biswajit1999.github.io/Master-Thesis-2024/new%20website%20made%20on%206th%20october/closed-loop/experiment-ledger.html) — each included interval retains its duration basis and source; unresolved candidates remain excluded pending raw-log reconciliation.
+[Open the member-access page →](https://biswajit1999.github.io/EXOhSPEC-website/members.html)
 
 This repository follows one experimental question from the original MSc project into the current Stage-2 programme:
 
