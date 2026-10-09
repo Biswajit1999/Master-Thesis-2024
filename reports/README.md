@@ -4,7 +4,7 @@ This directory connects the original 2024 MSc work to the continuing Stage-2 ins
 
 ## Current synthesis
 
-**[EXOhSPEC Master-Thesis Research Continuation — 2026](EXOhSPEC_Master_Thesis_Research_Continuation_2026.md)** is the current narrative report. It follows the research from the original environmental/feedback problem through:
+**[EXOhSPEC Master-Thesis Research Continuation — 2026](research-continuation.html)** is the formatted reader version. The [Markdown source](EXOhSPEC_Master_Thesis_Research_Continuation_2026.md) remains available for revision and provenance. The report follows the research from the original environmental/feedback problem through:
 
 - long-duration hybrid validation;
 - V17 endurance;
