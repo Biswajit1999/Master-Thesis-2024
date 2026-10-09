@@ -9,6 +9,8 @@
 
 The GitHub Pages root for this repository also redirects to the programme website.
 
+[Audit the report-derived runtime ledger →](https://biswajit1999.github.io/Master-Thesis-2024/new%20website%20made%20on%206th%20october/closed-loop/experiment-ledger.html) — each included interval retains its duration basis and source; unresolved candidates remain excluded pending raw-log reconciliation.
+
 This repository follows one experimental question from the original MSc project into the current Stage-2 programme:
 
 > How do environmental and thermal disturbances propagate into optical-path and detector-plane motion in EXOhSPEC, and how far can thermal control plus bounded active optics suppress that motion?

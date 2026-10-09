@@ -10,7 +10,7 @@
     <meta name="theme-color" content="#f7fafc" />
     <title>EXOhSPEC-CLFCD · Research overview</title>
     <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="../assets/styles.css?v=20261008-2" />
+    <link rel="stylesheet" href="../assets/styles.css?v=20261009-1" />
   </head>
   <body class="research-body">
     <a class="skip-link" href="#main">Skip to content</a>
@@ -43,6 +43,7 @@
         ><a href="results.html">Results</a
         ><a href="thermal-diagnostics.html">Thermal chain</a
         ><a href="v25-prototype.html">V25 prototype</a
+        ><a href="experiment-ledger.html">Runtime ledger</a
         ><a href="evidence.html">Evidence</a>
       </nav>
     </header>
@@ -104,6 +105,53 @@
         </div>
       </section>
 
+      <section
+        class="runtime-overview"
+        data-runtime-summary
+        aria-labelledby="runtime-title"
+        aria-busy="true"
+      >
+        <div class="runtime-overview-copy reveal">
+          <p class="eyebrow">Campaign at a glance · provisional audit</p>
+          <h2 id="runtime-title">
+            Nearly 400 hours represented—carefully qualified.
+          </h2>
+          <p>
+            The report-derived subtotal combines full logged runs, analysis
+            windows, feedback phases, settled intervals and passive monitoring.
+            It is not uninterrupted stability, total instrument uptime or the
+            researcher’s personal working time.
+          </p>
+          <p class="runtime-snapshot">
+            Ledger snapshot: <time data-runtime-snapshot>loading</time>
+          </p>
+          <a class="button secondary" href="experiment-ledger.html"
+            >Inspect how the hours are counted</a
+          >
+        </div>
+        <div
+          class="runtime-cards reveal"
+          role="list"
+          aria-label="Runtime audit summary"
+        >
+          <article role="listitem">
+            <span>Selected intervals</span>
+            <strong><b data-runtime-hours>—</b> h</strong>
+            <p>Provisional report-derived subtotal.</p>
+          </article>
+          <article role="listitem">
+            <span>Equivalent time</span>
+            <strong><b data-runtime-days>—</b> days</strong>
+            <p>Cumulative interval time, not a continuous run.</p>
+          </article>
+          <article role="listitem">
+            <span>Records counted</span>
+            <strong><b data-runtime-count>—</b> intervals</strong>
+            <p>Not the total number of experiments or versions.</p>
+          </article>
+        </div>
+      </section>
+
       <nav class="section-jump" aria-label="On this page">
         <a href="#research-map">Research map</a
         ><a href="#story">Programme timeline</a
@@ -117,7 +165,7 @@
           <div class="section-no">01 / Research map</div>
           <div>
             <p class="eyebrow">A scientific microsite</p>
-            <h2>Six routes through one evidence chain.</h2>
+            <h2>Seven routes through one evidence chain.</h2>
             <p>
               The overview stays readable while the detailed pages preserve the
               actual numbers, experiment conditions, method boundaries and
@@ -178,8 +226,19 @@
             </p>
             <span class="route-link">Inspect the prototype →</span></a
           >
-          <a class="research-map-card reveal" href="evidence.html"
+          <a class="research-map-card reveal" href="experiment-ledger.html"
             ><span class="route-index">06</span
+            ><span class="status">Provisional audit</span>
+            <h3>Runtime ledger</h3>
+            <p>
+              Inspect every interval in the report-derived subtotal, its
+              duration basis and source, plus the candidates still awaiting
+              raw-log validation.
+            </p>
+            <span class="route-link">Audit the runtime →</span></a
+          >
+          <a class="research-map-card reveal" href="evidence.html"
+            ><span class="route-index">07</span
             ><span class="status">61 retained PDFs</span>
             <h3>Evidence library</h3>
             <p>
@@ -535,6 +594,7 @@
       <div>
         <h2>Evidence</h2>
         <a href="evidence.html">PDF library</a
+        ><a href="experiment-ledger.html">Runtime ledger</a
         ><a href="../../methods/README.md">Methods index</a
         ><a href="../index.html">Main programme</a>
       </div>
@@ -552,6 +612,7 @@
         <figcaption></figcaption>
       </figure>
     </dialog>
-    <script src="../assets/app.js?v=20261008-2"></script>
+    <script src="../assets/app.js?v=20261009-1"></script>
+    <script src="../assets/runtime-ledger.js?v=20261009-1"></script>
   </body>
 </html>
