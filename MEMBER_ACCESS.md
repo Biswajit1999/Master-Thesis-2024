@@ -12,7 +12,7 @@ The public repository contains programme information, published sources and the 
 
 The member package includes:
 
-- the closed-loop research website and runtime-audit data;
+- the closed-loop research website, system dashboard and runtime-audit data;
 - experiment result reports and analysis notebooks;
 - methods and controller documentation;
 - figures used in the working research record;
@@ -20,6 +20,8 @@ The member package includes:
 
 ## Access control
 
-Google Drive is the read-only distribution route. A prospective member opens the restricted folder, requests access using their Google account and is approved by the owner as a **Viewer**. Repository access is reserved for maintainers because collaborators on a personal GitHub repository may receive write permission.
+Google Drive is the read-only distribution route. The owner opens the folder with the Google account that owns it. An approved member signs in with the exact Google or institutional Google Workspace address that was granted access; an unapproved visitor can use Drive's request-access flow and is approved by the owner as a **Viewer**. The public website never collects passwords, one-time codes or identity documents. Repository access is reserved for maintainers because collaborators on a personal GitHub repository may receive write permission.
+
+The restricted technical entry point is `new website made on 6th october/closed-loop/dashboard.html`. It is an archive interface for report-derived measurements, not a live instrument-control surface.
 
 Do not copy unpublished material into the public website repository.

@@ -1,14 +1,208 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Searchable EXOhSPEC-CLFCD evidence library with 61 retained PDF reports and a current curated research index."><meta name="theme-color" content="#f7fafc"><title>Evidence library · EXOhSPEC-CLFCD</title><link rel="icon" href="../assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../assets/styles.css?v=20261008-1"></head>
-<body class="research-body">
-<a class="skip-link" href="#main">Skip to content</a><div class="research-mast"><a href="index.html">EXOhSPEC-CLFCD</a> / Evidence and provenance · 61 retained PDFs</div><div class="scroll-progress" aria-hidden="true"><span></span></div>
-<header class="site-header" data-header><a class="brand" href="../index.html"><img src="../assets/exohspec-logo.svg" alt="EXOhSPEC programme home"></a><button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open navigation"><span></span><span></span><span></span></button><nav id="primary-nav" class="primary-nav research-nav" aria-label="Closed-loop research navigation"><a href="../index.html">Programme</a><a href="index.html">Research home</a><a href="results.html">Results</a><a href="thermal-diagnostics.html">Thermal chain</a><a href="v25-prototype.html">V25 prototype</a><a href="evidence.html" aria-current="page">Evidence</a></nav></header>
-<main id="main">
-  <section class="page-hero short research-page-hero"><div class="hero-copy reveal"><p class="eyebrow">A–Z research provenance</p><h1>Evidence library.</h1><p class="lede">The curated pages explain the present interpretation; this archive preserves the chronological source record. Search by filename, date, subject or extracted first-page content, and read later calibration or diagnostic work before treating an earlier explanation as current.</p><div class="hero-actions"><a class="button primary" href="#archive">Search the archive</a><a class="button secondary" href="../../reports/README.md">Current report index</a></div></div><figure class="hero-visual reveal"><img src="../assets/research/thar-orders.jpg" width="793" height="510" alt="Thorium-argon echelle orders recorded in the EXOhSPEC thesis"><figcaption>ThAr spectral orders · thesis source, 2024</figcaption></figure></section>
-  <section class="section compact evidence-orientation"><div class="section-head reveal"><div class="section-no">01 / Start with the synthesis</div><div><p class="eyebrow">Current interpretation</p><h2>Three reviewed entry points before the archive.</h2></div></div><div class="claim-grid"><article class="card claim reveal"><span class="status">2024 → 2026</span><h3>Research continuation</h3><p>The single current narrative from the original MSc architecture through V25 fabrication.</p><a class="text-link" href="../../reports/EXOhSPEC_Master_Thesis_Research_Continuation_2026.md">Read synthesis</a></article><article class="card claim reveal"><span class="status">V17–V18</span><h3>Precision progression</h3><p>Endurance, phase correlation, multi-line tracking and the limits of cross-run comparison.</p><a class="text-link" href="results.html">Open measured results</a></article><article class="card claim reveal"><span class="status">V19–V25</span><h3>Thermal investigation</h3><p>The diagnostic chain and the current physical camera-airflow hypothesis.</p><a class="text-link" href="thermal-diagnostics.html">Trace the chain</a></article></div></section>
-  <section class="section compact" id="archive"><div class="section-head reveal"><div class="section-no">02 / Source archive</div><div><p class="eyebrow">Searchable PDF record</p><h2>Reports, sent evidence and quality reviews.</h2><p>Duplicate copies are identified by SHA-256 content identity. Classification is for navigation; scientific claims should be checked against the report’s stated interval and conditions.</p></div></div><div class="record-tools"><label for="record-search">Search the report archive</label><input id="record-search" class="search-input" data-record-search type="search" placeholder="Try V19, active optics, thermal, 2026…" autocomplete="off"><span class="record-count" data-record-count aria-live="polite">Loading index…</span><div class="filter-row" aria-label="Report categories"><button data-record-filter="all" aria-pressed="true">All</button><button data-record-filter="experimental-record" aria-pressed="false">Experiments</button><button data-record-filter="active-optics-and-centroiding" aria-pressed="false">Active optics</button><button data-record-filter="stage-2-hybrid-control" aria-pressed="false">Hybrid control</button><button data-record-filter="controller-lineage-v17-v21" aria-pressed="false">Controller lineage</button><button data-record-filter="camera-thermal-management" aria-pressed="false">Thermal</button><button data-record-filter="review-and-quality-assurance" aria-pressed="false">Review</button></div></div><div class="record-list" data-record-list data-base="../"><p>Loading report index…</p></div></section>
-</main>
-<footer class="site-footer"><div><img src="../assets/exohspec-logo.svg" alt="EXOhSPEC"><p>Archive index generated 6 October 2026. Duplicate counts use SHA-256 content identity.</p></div><div><h2>Research</h2><a href="index.html">Overview</a><a href="results.html">Results</a><a href="v25-prototype.html">V25 prototype</a></div><div><h2>Provenance</h2><a href="../research-record/A-Z-RESEARCH-STORY.md">A–Z narrative</a><a href="../research-record/README.md">Archive method</a></div></footer>
-<script src="../assets/app.js?v=20261008-1"></script>
-</body></html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Searchable EXOhSPEC-CLFCD evidence library with 61 retained PDF reports and a current curated research index."
+    />
+    <meta name="theme-color" content="#f7fafc" />
+    <title>Evidence library · EXOhSPEC-CLFCD</title>
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../assets/styles.css?v=20261008-1" />
+  </head>
+  <body class="research-body">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="research-mast">
+      <a href="index.html">EXOhSPEC-CLFCD</a> / Evidence and provenance · 61
+      retained PDFs
+    </div>
+    <div class="scroll-progress" aria-hidden="true"><span></span></div>
+    <header class="site-header" data-header>
+      <a class="brand" href="../index.html"
+        ><img
+          src="../assets/exohspec-logo.svg"
+          alt="EXOhSPEC programme home" /></a
+      ><button
+        class="menu-button"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-nav"
+        aria-label="Open navigation"
+      >
+        <span></span><span></span><span></span>
+      </button>
+      <nav
+        id="primary-nav"
+        class="primary-nav research-nav"
+        aria-label="Closed-loop research navigation"
+      >
+        <a href="../index.html">Programme</a
+        ><a href="index.html">Research home</a
+        ><a href="dashboard.html">Dashboard</a><a href="results.html">Results</a
+        ><a href="thermal-diagnostics.html">Thermal chain</a
+        ><a href="v25-prototype.html">V25 prototype</a
+        ><a href="evidence.html" aria-current="page">Evidence</a>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="page-hero short research-page-hero">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">A–Z research provenance</p>
+          <h1>Evidence library.</h1>
+          <p class="lede">
+            The curated pages explain the present interpretation; this archive
+            preserves the chronological source record. Search by filename, date,
+            subject or extracted first-page content, and read later calibration
+            or diagnostic work before treating an earlier explanation as
+            current.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#archive">Search the archive</a
+            ><a class="button secondary" href="../../reports/README.md"
+              >Current report index</a
+            >
+          </div>
+        </div>
+        <figure class="hero-visual reveal">
+          <img
+            src="../assets/research/thar-orders.jpg"
+            width="793"
+            height="510"
+            alt="Thorium-argon echelle orders recorded in the EXOhSPEC thesis"
+          />
+          <figcaption>ThAr spectral orders · thesis source, 2024</figcaption>
+        </figure>
+      </section>
+      <section class="section compact evidence-orientation">
+        <div class="section-head reveal">
+          <div class="section-no">01 / Start with the synthesis</div>
+          <div>
+            <p class="eyebrow">Current interpretation</p>
+            <h2>Three reviewed entry points before the archive.</h2>
+          </div>
+        </div>
+        <div class="claim-grid">
+          <article class="card claim reveal">
+            <span class="status">2024 → 2026</span>
+            <h3>Research continuation</h3>
+            <p>
+              The single current narrative from the original MSc architecture
+              through V25 fabrication.
+            </p>
+            <a
+              class="text-link"
+              href="../../reports/EXOhSPEC_Master_Thesis_Research_Continuation_2026.md"
+              >Read synthesis</a
+            >
+          </article>
+          <article class="card claim reveal">
+            <span class="status">V17–V18</span>
+            <h3>Precision progression</h3>
+            <p>
+              Endurance, phase correlation, multi-line tracking and the limits
+              of cross-run comparison.
+            </p>
+            <a class="text-link" href="results.html">Open measured results</a>
+          </article>
+          <article class="card claim reveal">
+            <span class="status">V19–V25</span>
+            <h3>Thermal investigation</h3>
+            <p>
+              The diagnostic chain and the current physical camera-airflow
+              hypothesis.
+            </p>
+            <a class="text-link" href="thermal-diagnostics.html"
+              >Trace the chain</a
+            >
+          </article>
+        </div>
+      </section>
+      <section class="section compact" id="archive">
+        <div class="section-head reveal">
+          <div class="section-no">02 / Source archive</div>
+          <div>
+            <p class="eyebrow">Searchable PDF record</p>
+            <h2>Reports, sent evidence and quality reviews.</h2>
+            <p>
+              Duplicate copies are identified by SHA-256 content identity.
+              Classification is for navigation; scientific claims should be
+              checked against the report’s stated interval and conditions.
+            </p>
+          </div>
+        </div>
+        <div class="record-tools">
+          <label for="record-search">Search the report archive</label
+          ><input
+            id="record-search"
+            class="search-input"
+            data-record-search
+            type="search"
+            placeholder="Try V19, active optics, thermal, 2026…"
+            autocomplete="off"
+          /><span class="record-count" data-record-count aria-live="polite"
+            >Loading index…</span
+          >
+          <div class="filter-row" aria-label="Report categories">
+            <button data-record-filter="all" aria-pressed="true">All</button
+            ><button
+              data-record-filter="experimental-record"
+              aria-pressed="false"
+            >
+              Experiments</button
+            ><button
+              data-record-filter="active-optics-and-centroiding"
+              aria-pressed="false"
+            >
+              Active optics</button
+            ><button
+              data-record-filter="stage-2-hybrid-control"
+              aria-pressed="false"
+            >
+              Hybrid control</button
+            ><button
+              data-record-filter="controller-lineage-v17-v21"
+              aria-pressed="false"
+            >
+              Controller lineage</button
+            ><button
+              data-record-filter="camera-thermal-management"
+              aria-pressed="false"
+            >
+              Thermal</button
+            ><button
+              data-record-filter="review-and-quality-assurance"
+              aria-pressed="false"
+            >
+              Review
+            </button>
+          </div>
+        </div>
+        <div class="record-list" data-record-list data-base="../">
+          <p>Loading report index…</p>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div>
+        <img src="../assets/exohspec-logo.svg" alt="EXOhSPEC" />
+        <p>
+          Archive index generated 6 October 2026. Duplicate counts use SHA-256
+          content identity.
+        </p>
+      </div>
+      <div>
+        <h2>Research</h2>
+        <a href="index.html">Overview</a><a href="results.html">Results</a
+        ><a href="v25-prototype.html">V25 prototype</a>
+      </div>
+      <div>
+        <h2>Provenance</h2>
+        <a href="../research-record/A-Z-RESEARCH-STORY.md">A–Z narrative</a
+        ><a href="../research-record/README.md">Archive method</a>
+      </div>
+    </footer>
+    <script src="../assets/app.js?v=20261008-1"></script>
+  </body>
+</html>
